@@ -1,0 +1,34 @@
+{
+  "name": "@vpple/sp-pro-display",
+  "version": "1.0.0",
+  "description": "100% metric-identical, clean-room reverse-engineered open-source clone of Apple SF Pro Display",
+  "main": "css/sp-pro-display.css",
+  "style": "css/sp-pro-display.css",
+  "files": [
+    "dist/ttf",
+    "dist/woff2",
+    "css",
+    "OFL.txt",
+    "README.md"
+  ],
+  "keywords": [
+    "vpple",
+    "apple-clone",
+    "font",
+    "sf-pro",
+    "sf-pro-display",
+    "san-francisco",
+    "typeface",
+    "typography",
+    "metric-compatible",
+    "open-source"
+  ],
+  "author": "Vpple Open Source Initiative",
+  "license": "OFL-1.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jabirking-ux/Vpple.git",
+    "directory": "packages/sp-pro-display"
+  },
+  "homepage": "https://github.com/jabirking-ux/Vpple#readme"
+}

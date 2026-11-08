@@ -1,0 +1,173 @@
+/**
+ * Vpple: SP Pro Display / San Pransisco Pro Display
+ * Unified @font-face Definitions
+ */
+
+/* 100 - Thin / Ultralight */
+@font-face {
+  font-family: 'SP Pro Display';
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url('dist/woff2/SPProDisplay-Thin.woff2') format('woff2'),
+       url('dist/ttf/SPProDisplay-Thin.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'San Pransisco Pro Display';
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url('dist/woff2/SPProDisplay-Thin.woff2') format('woff2');
+}
+
+/* 200 - Ultralight */
+@font-face {
+  font-family: 'SP Pro Display';
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url('dist/woff2/SPProDisplay-Ultralight.woff2') format('woff2'),
+       url('dist/ttf/SPProDisplay-Ultralight.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'San Pransisco Pro Display';
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url('dist/woff2/SPProDisplay-Ultralight.woff2') format('woff2');
+}
+
+/* 300 - Light */
+@font-face {
+  font-family: 'SP Pro Display';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('dist/woff2/SPProDisplay-Light.woff2') format('woff2'),
+       url('dist/ttf/SPProDisplay-Light.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'San Pransisco Pro Display';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('dist/woff2/SPProDisplay-Light.woff2') format('woff2');
+}
+
+/* 400 - Regular */
+@font-face {
+  font-family: 'SP Pro Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('dist/woff2/SPProDisplay-Regular.woff2') format('woff2'),
+       url('dist/ttf/SPProDisplay-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'San Pransisco Pro Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('dist/woff2/SPProDisplay-Regular.woff2') format('woff2');
+}
+
+/* 500 - Medium */
+@font-face {
+  font-family: 'SP Pro Display';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('dist/woff2/SPProDisplay-Medium.woff2') format('woff2'),
+       url('dist/ttf/SPProDisplay-Medium.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'San Pransisco Pro Display';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('dist/woff2/SPProDisplay-Medium.woff2') format('woff2');
+}
+
+/* 600 - Semibold */
+@font-face {
+  font-family: 'SP Pro Display';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('dist/woff2/SPProDisplay-Semibold.woff2') format('woff2'),
+       url('dist/ttf/SPProDisplay-Semibold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'San Pransisco Pro Display';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('dist/woff2/SPProDisplay-Semibold.woff2') format('woff2');
+}
+
+/* 700 - Bold */
+@font-face {
+  font-family: 'SP Pro Display';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('dist/woff2/SPProDisplay-Bold.woff2') format('woff2'),
+       url('dist/ttf/SPProDisplay-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'San Pransisco Pro Display';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('dist/woff2/SPProDisplay-Bold.woff2') format('woff2');
+}
+
+/* 800 - Heavy */
+@font-face {
+  font-family: 'SP Pro Display';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('dist/woff2/SPProDisplay-Heavy.woff2') format('woff2'),
+       url('dist/ttf/SPProDisplay-Heavy.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'San Pransisco Pro Display';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('dist/woff2/SPProDisplay-Heavy.woff2') format('woff2');
+}
+
+/* 900 - Black */
+@font-face {
+  font-family: 'SP Pro Display';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('dist/woff2/SPProDisplay-Black.woff2') format('woff2'),
+       url('dist/ttf/SPProDisplay-Black.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'San Pransisco Pro Display';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('dist/woff2/SPProDisplay-Black.woff2') format('woff2');
+}
+
+/* Matching Italics */
+@font-face {
+  font-family: 'SP Pro Display';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('dist/woff2/SPProDisplay-RegularItalic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'San Pransisco Pro Display';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('dist/woff2/SPProDisplay-RegularItalic.woff2') format('woff2');
+}

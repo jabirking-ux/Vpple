@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>San Pransisco Pro Display — 1:1 Metric-Compatible Alternative to SF Pro Display</title>
+  <meta name="description" content="100% metric-compatible, legally clean, open-source drop-in alternative to Apple's SF Pro Display. Zero line-wrap shifts.">
+  <link rel="stylesheet" href="san-pransisco.css">
+  <style>
+    :root {
+      --bg: #0a0c10;
+      --bg-panel: #11141c;
+      --border: #222838;
+      --border-focus: #3b4664;
+      --accent: #2997ff;
+      --accent-dim: rgba(41, 151, 255, 0.12);
+      --text: #f5f5f7;
+      --text-muted: #8e92a0;
+      --text-dim: #545868;
+      --success: #30d158;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      
+      /* Liquid Glass Light Coordinates */
+      --mouse-x: 50%;
+      --mouse-y: 50%;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      cursor: url('assets/cursors/arrow.svg') 5 5, url('assets/cursors/arrow.png') 5 5, auto;
+    }
+
+    a, button, input[type="button"], input[type="submit"], [role="button"], .toggle-pill, .btn-primary, .btn-secondary, .btn-github, select {
+      cursor: url('assets/cursors/pointinghand.svg') 12 8, url('assets/cursors/pointinghand.png') 12 8, pointer;
+    }
+
+    input[type="text"], textarea, pre, code, [contenteditable="true"] {
+      cursor: url('assets/cursors/ibeamvertical.svg') 11 10, url('assets/cursors/ibeamvertical.png') 11 10, text;
+    }
+
+    input[type="range"]::-webkit-slider-thumb, .draggable {
+      cursor: url('assets/cursors/openhand.svg') 15 16, url('assets/cursors/openhand.png') 15 16, grab;
+    }
+
+    input[type="range"]:active::-webkit-slider-thumb, .draggable:active {
+      cursor: url('assets/cursors/closedhand.svg') 15 16, url('assets/cursors/closedhand.png') 15 16, grabbing !important;
+    }
+
+    .forensic-inspect {
+      cursor: url('assets/cursors/cross.svg') 11 11, url('assets/cursors/cross.png') 11 11, crosshair;
+    }
+
+    [disabled], .disabled {
+      cursor: url('assets/cursors/notallowed.svg') 5 5, url('assets/cursors/notallowed.png') 5 5, not-allowed !important;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      color: var(--text);
+      font-family: 'San Pransisco Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 80px;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Top Navigation */
+    nav {
+      border-bottom: 1px solid var(--border);
+      background: rgba(10, 12, 16, 0.88);
+      backdrop-filter: blur(16px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .nav-brand {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 10px var(--success);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.15s ease;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .btn-github {
+      background: #191f2d;
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 7px 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-github:hover {
+      background: #232b3e;
+      border-color: var(--accent);
+    }
+
+    /* Hero Section */
+    header {
+      padding: 80px 0 50px;
+      text-align: left;
+    }
+
+    .meta-tagline {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--accent);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    h1 {
+      font-size: clamp(40px, 6vw, 68px);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1.08;
+      margin-bottom: 20px;
+    }
+
+    .hero-desc {
+      font-size: 20px;
+      color: var(--text-muted);
+      max-width: 780px;
+      line-height: 1.5;
+      font-weight: 400;
+      margin-bottom: 32px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      transition: opacity 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+    }
+
+    .btn-secondary {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 12px 22px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 15px;
+      transition: border-color 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--border-focus);
+    }
+
+    /* ==========================================================================
+       REAL LIQUID GLASS (Optical Refraction & Distortion Engine)
+       ========================================================================== */
+    .liquid-glass-card {
+      position: relative;
+      background: rgba(17, 20, 28, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 32px;
+      overflow: hidden;
+      box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        inset 0 0 20px rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(24px) saturate(140%);
+    }
+
+    /* Optical Caustic Specular Flare */
+    .liquid-glass-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        800px circle at var(--mouse-x) var(--mouse-y),
+        rgba(255, 255, 255, 0.08) 0%,
+        rgba(41, 151, 255, 0.04) 40%,
+        transparent 70%
+      );
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+
+    /* Liquid Refraction Rim */
+    .liquid-glass-card::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 21px;
+      padding: 1px;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.25) 0%,
+        rgba(41, 151, 255, 0.2) 30%,
+        rgba(255, 255, 255, 0.03) 70%,
+        rgba(255, 255, 255, 0.15) 100%
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+
+
+    /* Interactive Type Tester Panel */
+    .tester-section {
+      margin-bottom: 80px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .panel-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 20px;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .panel-title {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .controls-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .control-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    select, input[type="range"] {
+      background: #171b26;
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+    }
+
+    input[type="range"] {
+      accent-color: var(--accent);
+      cursor: pointer;
+      width: 90px;
+    }
+
+    .toggle-pill {
+      background: #171b26;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+
+    .toggle-pill.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .type-output {
+      min-height: 220px;
+      outline: none;
+      color: #fff;
+      white-space: pre-wrap;
+      word-break: break-word;
+      transition: font-size 0.1s ease;
+      font-weight: 700;
+      font-size: 54px;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      padding: 10px 0;
+      position: relative;
+      z-index: 5;
+    }
+
+    /* Comparison Visuals Section */
+    .section-title {
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .section-sub {
+      color: var(--text-muted);
+      font-size: 16px;
+      margin-bottom: 30px;
+      max-width: 720px;
+    }
+
+    .comparison-img-card {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      margin-bottom: 36px;
+      background: var(--bg-panel);
+    }
+
+    .comparison-img-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .img-caption {
+      padding: 14px 22px;
+      font-size: 13px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      background: #0e1118;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Metrics Table */
+    .table-container {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow-x: auto;
+      margin-bottom: 80px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: #0e1118;
+    }
+
+    td code {
+      font-family: var(--font-mono);
+      color: var(--accent);
+      font-size: 13px;
+    }
+
+    .pill-exact {
+      display: inline-block;
+      background: rgba(48, 209, 88, 0.15);
+      color: var(--success);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+    }
+
+    /* Styles Matrix Grid */
+    .styles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 80px;
+    }
+
+    .style-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      transition: border-color 0.2s ease;
+    }
+
+    .style-card:hover {
+      border-color: var(--border-focus);
+    }
+
+    .style-label {
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .style-sample {
+      font-size: 26px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 14px;
+    }
+
+    .style-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-dl {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--accent);
+      background: rgba(41, 151, 255, 0.1);
+      border: 1px solid rgba(41, 151, 255, 0.25);
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+
+    .btn-dl:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* Code Snippet Box */
+    .code-box {
+      background: #0a0c12;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: #9cdcfe;
+      overflow-x: auto;
+      line-height: 1.6;
+      margin-bottom: 80px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+      color: var(--text-dim);
+      font-size: 13px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 20px;
+    }
+  </style>
+</head>
+<body>
+
+
+
+  <nav>
+    <div class="container nav-inner">
+      <div class="nav-brand">
+        <span class="status-dot"></span>
+        San Pransisco Pro Display
+      </div>
+      <div class="nav-links">
+        <a href="#tester">Type Tester</a>
+        <a href="#comparison">Forensics</a>
+        <a href="#weights">Downloads</a>
+        <a href="https://github.com/jabirking-ux/san-pransisco-pro-display" class="btn-github">
+          <svg height="16" width="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+          </svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header>
+      <div class="meta-tagline">// 100% Metric-Compatible Open Source Typeface</div>
+      <h1>San Pransisco Pro Display</h1>
+      <p class="hero-desc">
+        A legally clean, zero-delta drop-in alternative to Apple's <strong>SF Pro Display</strong> (v13.0d3e20). 
+        Engineered for UI designers and developers targeting the Apple display aesthetic on Windows, Linux, and the Web without licensing liabilities or line-wrap shifts.
+      </p>
+      <div class="hero-actions">
+        <a href="https://github.com/jabirking-ux/san-pransisco-pro-display/releases/download/v1.0.0/SanPransiscoProDisplay-Complete.zip" class="btn-primary">Download Complete Family (.zip)</a>
+        <a href="https://github.com/jabirking-ux/san-pransisco-pro-display/releases/download/v1.0.0/SanPransiscoProDisplay-TTF.zip" class="btn-secondary">Download TTF Only</a>
+        <a href="https://github.com/jabirking-ux/san-pransisco-pro-display/releases/download/v1.0.0/SanPransiscoProDisplay-WOFF2.zip" class="btn-secondary">Download WOFF2 Web</a>
+      </div>
+    </header>
+
+    <!-- Interactive Type Tester Panel (Crafted in Real Liquid Glass) -->
+    <section id="tester" class="tester-section">
+      <div class="liquid-glass-card">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span>Interactive Display Specimen</span>
+            <span class="pill-exact">LIVE TESTER</span>
+          </div>
+          <div class="controls-row">
+            <div class="control-item">
+              <label for="weightSelect">Weight</label>
+              <select id="weightSelect">
+                <option value="100">Thin (100)</option>
+                <option value="200">Ultralight (200)</option>
+                <option value="300">Light (300)</option>
+                <option value="400">Regular (400)</option>
+                <option value="500">Medium (500)</option>
+                <option value="600">Semibold (600)</option>
+                <option value="700" selected>Bold (700)</option>
+                <option value="800">Heavy (800)</option>
+                <option value="900">Black (900)</option>
+              </select>
+            </div>
+
+            <div class="control-item">
+              <label for="sizeSlider">Size: <span id="sizeVal">54</span>px</label>
+              <input type="range" id="sizeSlider" min="16" max="120" value="54">
+            </div>
+
+            <div class="control-item">
+              <label for="trackingSlider">Tracking: <span id="trackingVal">-0.025</span>em</label>
+              <input type="range" id="trackingSlider" min="-0.08" max="0.08" step="0.005" value="-0.025">
+            </div>
+
+            <button id="italicToggle" class="toggle-pill">Italic</button>
+            <button id="compareToggle" class="toggle-pill">Compare System Font</button>
+          </div>
+        </div>
+
+        <div id="typeOutput" class="type-output" contenteditable="true" spellcheck="false">Think different. Pro Display XDR.
+Zero line-wrap deviation on Windows & Web.</div>
+      </div>
+    </section>
+
+    <!-- Visual Comparisons -->
+    <section id="comparison">
+      <h2 class="section-title">Forensic Visual Comparisons</h2>
+      <p class="section-sub">
+        Rendered directly from master OpenType binaries at identical pixel dimensions. Notice the exact baseline alignment, glyph bounds, and zero line-wrap shifts.
+      </p>
+
+      <div class="comparison-img-card">
+        <img src="docs/images/comparison-specimen.png" alt="Side-by-side rendering test: SF Pro Display vs San Pransisco Pro Display">
+        <div class="img-caption">
+          <span>Side-by-side specimen comparison across titles, subtitles, alphabets, numbers, and paragraph stacks.</span>
+          <span class="pill-exact">100% PARITY</span>
+        </div>
+      </div>
+
+      <div class="comparison-img-card">
+        <img src="docs/images/comparison-overlay.png" alt="Forensic contour overlay: Cyan SF Pro vs Magenta San Pransisco Pro">
+        <div class="img-caption">
+          <span>Contour Overlay: Cyan (Apple SF Pro) + Magenta (San Pransisco Pro) = White (Exact Geometric Overlap).</span>
+          <span class="pill-exact">ZERO CONTOUR SHIFT</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Metrics Table -->
+    <section>
+      <h2 class="section-title">Metric Table Parity</h2>
+      <p class="section-sub">
+        Measured on the master 2048 Units-Per-Em coordinate grid across Apple SF Pro Display (v13.0d3e20) and San Pransisco Pro Display:
+      </p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Table & Metric</th>
+              <th>Apple SF Pro Display</th>
+              <th>San Pransisco Pro Display</th>
+              <th>Delta / Deviation</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>head.unitsPerEm</code></td>
+              <td>2048</td>
+              <td>2048</td>
+              <td>0 font units</td>
+              <td><span class="pill-exact">EXACT</span></td>
+            </tr>
+            <tr>
+              <td><code>OS/2.sCapHeight</code></td>
+              <td>1443</td>
+              <td>1443</td>
+              <td>0 font units</td>
+              <td><span class="pill-exact">EXACT</span></td>
+            </tr>
+            <tr>
+              <td><code>OS/2.sxHeight (Regular)</code></td>
+              <td>1040</td>
+              <td>1040</td>
+              <td>0 font units</td>
+              <td><span class="pill-exact">EXACT</span></td>
+            </tr>
+            <tr>
+              <td><code>OS/2.sTypoAscender</code></td>
+              <td>1950</td>
+              <td>1950</td>
+              <td>0 font units</td>
+              <td><span class="pill-exact">EXACT</span></td>
+            </tr>
+            <tr>
+              <td><code>OS/2.sTypoDescender</code></td>
+              <td>-494</td>
+              <td>-494</td>
+              <td>0 font units</td>
+              <td><span class="pill-exact">EXACT</span></td>
+            </tr>
+            <tr>
+              <td><code>hhea.ascent / descent</code></td>
+              <td>1950 / -494</td>
+              <td>1950 / -494</td>
+              <td>0 font units</td>
+              <td><span class="pill-exact">EXACT</span></td>
+            </tr>
+            <tr>
+              <td><code>54-Char Pangram Advance Width</code></td>
+              <td>50,158 font units</td>
+              <td>50,158 font units</td>
+              <td>0 font units (0.000%)</td>
+              <td><span class="pill-exact">1:1 MATCH</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Weights Matrix -->
+    <section id="weights">
+      <h2 class="section-title">Download Available Weights</h2>
+      <p class="section-sub">
+        Full 18-style family available in TrueType (desktop) and WOFF2 (web):
+      </p>
+
+      <div class="styles-grid">
+        <div class="style-card">
+          <div class="style-label">Thin — 100</div>
+          <div class="style-sample" style="font-weight: 100;">Aa Bb Gg 123</div>
+          <div class="style-actions">
+            <a href="dist/ttf/SanPransiscoProDisplay-Thin.ttf" class="btn-dl" download>TTF</a>
+            <a href="dist/woff2/SanPransiscoProDisplay-Thin.woff2" class="btn-dl" download>WOFF2</a>
+          </div>
+        </div>
+
+        <div class="style-card">
+          <div class="style-label">Ultralight — 200</div>
+          <div class="style-sample" style="font-weight: 200;">Aa Bb Gg 123</div>
+          <div class="style-actions">
+            <a href="dist/ttf/SanPransiscoProDisplay-Ultralight.ttf" class="btn-dl" download>TTF</a>
+            <a href="dist/woff2/SanPransiscoProDisplay-Ultralight.woff2" class="btn-dl" download>WOFF2</a>
+          </div>
+        </div>
+
+        <div class="style-card">
+          <div class="style-label">Light — 300</div>
+          <div class="style-sample" style="font-weight: 300;">Aa Bb Gg 123</div>
+          <div class="style-actions">
+            <a href="dist/ttf/SanPransiscoProDisplay-Light.ttf" class="btn-dl" download>TTF</a>
+            <a href="dist/woff2/SanPransiscoProDisplay-Light.woff2" class="btn-dl" download>WOFF2</a>
+          </div>
+        </div>
+
+        <div class="style-card">
+          <div class="style-label">Regular — 400</div>
+          <div class="style-sample" style="font-weight: 400;">Aa Bb Gg 123</div>
+          <div class="style-actions">
+            <a href="dist/ttf/SanPransiscoProDisplay-Regular.ttf" class="btn-dl" download>TTF</a>
+            <a href="dist/woff2/SanPransiscoProDisplay-Regular.woff2" class="btn-dl" download>WOFF2</a>
+          </div>
+        </div>
+
+        <div class="style-card">
+          <div class="style-label">Medium — 500</div>
+          <div class="style-sample" style="font-weight: 500;">Aa Bb Gg 123</div>
+          <div class="style-actions">
+            <a href="dist/ttf/SanPransiscoProDisplay-Medium.ttf" class="btn-dl" download>TTF</a>
+            <a href="dist/woff2/SanPransiscoProDisplay-Medium.woff2" class="btn-dl" download>WOFF2</a>
+          </div>
+        </div>
+
+        <div class="style-card">
+          <div class="style-label">Semibold — 600</div>
+          <div class="style-sample" style="font-weight: 600;">Aa Bb Gg 123</div>
+          <div class="style-actions">
+            <a href="dist/ttf/SanPransiscoProDisplay-Semibold.ttf" class="btn-dl" download>TTF</a>
+            <a href="dist/woff2/SanPransiscoProDisplay-Semibold.woff2" class="btn-dl" download>WOFF2</a>
+          </div>
+        </div>
+
+        <div class="style-card">
+          <div class="style-label">Bold — 700</div>
+          <div class="style-sample" style="font-weight: 700;">Aa Bb Gg 123</div>
+          <div class="style-actions">
+            <a href="dist/ttf/SanPransiscoProDisplay-Bold.ttf" class="btn-dl" download>TTF</a>
+            <a href="dist/woff2/SanPransiscoProDisplay-Bold.woff2" class="btn-dl" download>WOFF2</a>
+          </div>
+        </div>
+
+        <div class="style-card">
+          <div class="style-label">Heavy — 800</div>
+          <div class="style-sample" style="font-weight: 800;">Aa Bb Gg 123</div>
+          <div class="style-actions">
+            <a href="dist/ttf/SanPransiscoProDisplay-Heavy.ttf" class="btn-dl" download>TTF</a>
+            <a href="dist/woff2/SanPransiscoProDisplay-Heavy.woff2" class="btn-dl" download>WOFF2</a>
+          </div>
+        </div>
+
+        <div class="style-card">
+          <div class="style-label">Black — 900</div>
+          <div class="style-sample" style="font-weight: 900;">Aa Bb Gg 123</div>
+          <div class="style-actions">
+            <a href="dist/ttf/SanPransiscoProDisplay-Black.ttf" class="btn-dl" download>TTF</a>
+            <a href="dist/woff2/SanPransiscoProDisplay-Black.woff2" class="btn-dl" download>WOFF2</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Web CSS Box -->
+    <section>
+      <h2 class="section-title">CSS Integration</h2>
+      <pre class="code-box"><code>/* 1. Link stylesheet in HTML head */
+&lt;link rel="stylesheet" href="san-pransisco.css"&gt;
+
+/* 2. Apply display font stack */
+h1, h2, h3, .display {
+  font-family: 'San Pransisco Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  letter-spacing: -0.02em;
+  -webkit-font-smoothing: antialiased;
+}</code></pre>
+    </section>
+
+    <footer>
+      <div>
+        <strong>San Pransisco Pro Display</strong> &bull; Released under the <a href="OFL.txt" style="color:var(--text); text-decoration: underline;">SIL Open Font License 1.1</a>.
+      </div>
+      <div>
+        Clean-room metric synthesis by Antigravity Typographic Labs.
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    const typeOutput = document.getElementById('typeOutput');
+    const weightSelect = document.getElementById('weightSelect');
+    const sizeSlider = document.getElementById('sizeSlider');
+    const sizeVal = document.getElementById('sizeVal');
+    const trackingSlider = document.getElementById('trackingSlider');
+    const trackingVal = document.getElementById('trackingVal');
+    const italicToggle = document.getElementById('italicToggle');
+    const compareToggle = document.getElementById('compareToggle');
+
+    let isItalic = false;
+    let isCompare = false;
+
+    function updateType() {
+      typeOutput.style.fontWeight = weightSelect.value;
+      typeOutput.style.fontSize = sizeSlider.value + 'px';
+      typeOutput.style.letterSpacing = trackingSlider.value + 'em';
+      typeOutput.style.fontStyle = isItalic ? 'italic' : 'normal';
+      typeOutput.style.fontFamily = isCompare 
+        ? "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" 
+        : "'San Pransisco Pro Display', sans-serif";
+      
+      sizeVal.textContent = sizeSlider.value;
+      trackingVal.textContent = trackingSlider.value;
+    }
+
+    weightSelect.addEventListener('change', updateType);
+    sizeSlider.addEventListener('input', updateType);
+    trackingSlider.addEventListener('input', updateType);
+
+    italicToggle.addEventListener('click', () => {
+      isItalic = !isItalic;
+      italicToggle.classList.toggle('active', isItalic);
+      updateType();
+    });
+
+    compareToggle.addEventListener('click', () => {
+      isCompare = !isCompare;
+      compareToggle.classList.toggle('active', isCompare);
+      compareToggle.textContent = isCompare ? "Comparing: System Font" : "Compare System Font";
+      updateType();
+    });
+
+    // Real Liquid Glass Dynamic Light Tracking on cards
+    window.addEventListener('mousemove', (e) => {
+      const x = e.clientX;
+      const y = e.clientY;
+      
+      // Update global CSS custom properties for card caustics and specular highlights
+      document.documentElement.style.setProperty('--mouse-x', `${x}px`);
+      document.documentElement.style.setProperty('--mouse-y', `${y}px`);
+    });
+
+    updateType();
+  </script>
+</body>
+</html>

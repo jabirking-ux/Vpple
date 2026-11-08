@@ -1,0 +1,26 @@
+{
+  "name": "vpple",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Vpple — Open Source Apple Clones & Clean-Room Systems Replica",
+  "workspaces": [
+    "packages/*"
+  ],
+  "keywords": [
+    "vpple",
+    "apple",
+    "clones",
+    "sf-pro",
+    "sp-pro-display",
+    "typography",
+    "ui-kit",
+    "open-source"
+  ],
+  "author": "Vpple Open Source Initiative",
+  "license": "OFL-1.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jabirking-ux/Vpple.git"
+  },
+  "homepage": "https://github.com/jabirking-ux/Vpple#readme"
+}

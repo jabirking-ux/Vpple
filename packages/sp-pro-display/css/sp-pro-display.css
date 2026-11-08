@@ -1,0 +1,201 @@
+/**
+ * Vpple — SP Pro Display
+ * Clean-room 1:1 metric-identical open-source alternative to Apple SF Pro Display.
+ * Licensed under SIL Open Font License 1.1 (OFL-1.1).
+ * https://github.com/jabirking-ux/Vpple
+ */
+
+/* --------------------------------------------------------------------------
+   Roman / Upright Styles (9 weights)
+   -------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "SP Pro Display";
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url("../dist/woff2/SPProDisplay-Thin.woff2") format("woff2"),
+       url("../dist/ttf/SPProDisplay-Thin.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SP Pro Display";
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url("../dist/woff2/SPProDisplay-Ultralight.woff2") format("woff2"),
+       url("../dist/ttf/SPProDisplay-Ultralight.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SP Pro Display";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("../dist/woff2/SPProDisplay-Light.woff2") format("woff2"),
+       url("../dist/ttf/SPProDisplay-Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SP Pro Display";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../dist/woff2/SPProDisplay-Regular.woff2") format("woff2"),
+       url("../dist/ttf/SPProDisplay-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SP Pro Display";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../dist/woff2/SPProDisplay-Medium.woff2") format("woff2"),
+       url("../dist/ttf/SPProDisplay-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SP Pro Display";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../dist/woff2/SPProDisplay-Semibold.woff2") format("woff2"),
+       url("../dist/ttf/SPProDisplay-Semibold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SP Pro Display";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../dist/woff2/SPProDisplay-Bold.woff2") format("woff2"),
+       url("../dist/ttf/SPProDisplay-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SP Pro Display";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("../dist/woff2/SPProDisplay-Heavy.woff2") format("woff2"),
+       url("../dist/ttf/SPProDisplay-Heavy.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SP Pro Display";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("../dist/woff2/SPProDisplay-Black.woff2") format("woff2"),
+       url("../dist/ttf/SPProDisplay-Black.ttf") format("truetype");
+}
+
+/* --------------------------------------------------------------------------
+   Italic Styles (9 weights)
+   -------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "SP Pro Display";
+  font-style: italic;
+  font-weight: 100;
+  font-display: swap;
+  src: url("../dist/woff2/SPProDisplay-UltralightItalic.woff2") format("woff2"),
+       url("../dist/ttf/SPProDisplay-UltralightItalic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SP Pro Display";
+  font-style: italic;
+  font-weight: 200;
+  font-display: swap;
+  src: url("../dist/woff2/SPProDisplay-ThinItalic.woff2") format("woff2"),
+       url("../dist/ttf/SPProDisplay-ThinItalic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SP Pro Display";
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url("../dist/woff2/SPProDisplay-LightItalic.woff2") format("woff2"),
+       url("../dist/ttf/SPProDisplay-LightItalic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SP Pro Display";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../dist/woff2/SPProDisplay-RegularItalic.woff2") format("woff2"),
+       url("../dist/ttf/SPProDisplay-RegularItalic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SP Pro Display";
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../dist/woff2/SPProDisplay-MediumItalic.woff2") format("woff2"),
+       url("../dist/ttf/SPProDisplay-MediumItalic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SP Pro Display";
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../dist/woff2/SPProDisplay-SemiboldItalic.woff2") format("woff2"),
+       url("../dist/ttf/SPProDisplay-SemiboldItalic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SP Pro Display";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../dist/woff2/SPProDisplay-BoldItalic.woff2") format("woff2"),
+       url("../dist/ttf/SPProDisplay-BoldItalic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SP Pro Display";
+  font-style: italic;
+  font-weight: 800;
+  font-display: swap;
+  src: url("../dist/woff2/SPProDisplay-HeavyItalic.woff2") format("woff2"),
+       url("../dist/ttf/SPProDisplay-HeavyItalic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SP Pro Display";
+  font-style: italic;
+  font-weight: 900;
+  font-display: swap;
+  src: url("../dist/woff2/SPProDisplay-BlackItalic.woff2") format("woff2"),
+       url("../dist/ttf/SPProDisplay-BlackItalic.ttf") format("truetype");
+}
+
+/* --------------------------------------------------------------------------
+   Backward-Compatible Alias: 'San Pransisco Pro Display'
+   -------------------------------------------------------------------------- */
+@font-face {
+  font-family: "San Pransisco Pro Display";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../dist/woff2/SPProDisplay-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "San Pransisco Pro Display";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../dist/woff2/SPProDisplay-Medium.woff2") format("woff2");
+}
+@font-face {
+  font-family: "San Pransisco Pro Display";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../dist/woff2/SPProDisplay-Bold.woff2") format("woff2");
+}
