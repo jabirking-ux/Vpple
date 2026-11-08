@@ -16,12 +16,12 @@ Apple builds industry-defining design systems, system fonts, and interaction par
 
 | Project | Status | Description | License |
 | :--- | :--- | :--- | :--- |
-| **SP Pro Display** | 🟢 **Released (v1.0.0)** | 1:1 metric-identical clone of Apple SF Pro Display. Zero line-wrap delta across all 18 weights. | SIL OFL 1.1 |
-| **SP Pro Text** | 🟡 *In Development* | Optical size variant engineered specifically for small body text (< 20pt) with wider counters. | SIL OFL 1.1 |
-| **SP Mono** | 🟡 *In Development* | Monospaced developer typeface matching Apple SF Mono character geometry and glyph slots. | SIL OFL 1.1 |
-| **SP Compact** | ⚪ *Planned* | High-density variant clone of Apple SF Compact for smartwatch and embedded displays. | SIL OFL 1.1 |
-| **Vpple UI Kit** | ⚪ *Planned* | Web component and CSS library cloning macOS Tahoe & iOS 18 glassmorphism design tokens. | MIT |
-| **Vpple Symbols** | ⚪ *Planned* | Open vector icon repository mapping standard Apple SF Symbols nomenclature. | MIT |
+| **SP Pro Display** |  **Released (v1.0.0)** | 1:1 metric-identical clone of Apple SF Pro Display. Zero line-wrap delta across all 18 weights. | SIL OFL 1.1 |
+| **SP Pro Text** |  *In Development* | Optical size variant engineered specifically for small body text (< 20pt) with wider counters. | SIL OFL 1.1 |
+| **SP Mono** |  *In Development* | Monospaced developer typeface matching Apple SF Mono character geometry and glyph slots. | SIL OFL 1.1 |
+| **SP Compact** |  *Planned* | High-density variant clone of Apple SF Compact for smartwatch and embedded displays. | SIL OFL 1.1 |
+| **Vpple UI Kit** |  *Planned* | Web component and CSS library cloning macOS Tahoe & iOS 18 glassmorphism design tokens. | MIT |
+| **Vpple Symbols** |  *Planned* | Open vector icon repository mapping standard Apple SF Symbols nomenclature. | MIT |
 
 ---
 
