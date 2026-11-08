@@ -3,28 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vpple — Open Source Apple Clones &amp; SP Pro Display (1:1 SF Pro Replacement)</title>
-  <meta name="description" content="Vpple: Open-source Apple clones hub. Flagship: SP Pro Display — 100% metric-identical, clean-room alternative to Apple SF Pro Display with 0px line-wrap shifts.">
+  <title>Vpple — Open Source Apple Clones &amp; Clean-Room Systems Hub</title>
+  <meta name="description" content="Vpple is an open-source engineering initiative reverse-engineering and cloning Apple ecosystem software, system typefaces, and design frameworks under clean-room legal standards.">
+  
   <link rel="stylesheet" href="css/sp-pro-display.css">
   <link rel="stylesheet" href="css/apple-typography.css">
-  <link rel="stylesheet" href="san-pransisco.css">
+  
   <style>
     :root {
-      --bg: #0a0c10;
-      --bg-panel: #11141c;
-      --border: #222838;
-      --border-focus: #3b4664;
+      --bg: #06080d;
+      --bg-panel: #0d1017;
+      --bg-glass: rgba(17, 22, 34, 0.65);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(41, 151, 255, 0.4);
       --accent: #2997ff;
+      --accent-purple: #a259ff;
       --accent-dim: rgba(41, 151, 255, 0.12);
       --text: #f5f5f7;
       --text-muted: #8e92a0;
       --text-dim: #545868;
       --success: #30d158;
+      --warning: #ffd60a;
+      --font-display: "SP Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       
-      /* Liquid Glass Light Coordinates */
-      --mouse-x: 50%;
-      --mouse-y: 50%;
+      --mouse-x: 50vw;
+      --mouse-y: 50vh;
     }
 
     * {
@@ -33,62 +37,51 @@
       padding: 0;
     }
 
-    html, body {
-      cursor: url('assets/cursors/arrow.svg') 5 5, url('assets/cursors/arrow.png') 5 5, auto;
-    }
-
-    a, button, input[type="button"], input[type="submit"], [role="button"], .toggle-pill, .btn-primary, .btn-secondary, .btn-github, select {
-      cursor: url('assets/cursors/pointinghand.svg') 12 8, url('assets/cursors/pointinghand.png') 12 8, pointer;
-    }
-
-    input[type="text"], textarea, pre, code, [contenteditable="true"] {
-      cursor: url('assets/cursors/ibeamvertical.svg') 11 10, url('assets/cursors/ibeamvertical.png') 11 10, text;
-    }
-
-    input[type="range"]::-webkit-slider-thumb, .draggable {
-      cursor: url('assets/cursors/openhand.svg') 15 16, url('assets/cursors/openhand.png') 15 16, grab;
-    }
-
-    input[type="range"]:active::-webkit-slider-thumb, .draggable:active {
-      cursor: url('assets/cursors/closedhand.svg') 15 16, url('assets/cursors/closedhand.png') 15 16, grabbing !important;
-    }
-
-    .forensic-inspect {
-      cursor: url('assets/cursors/cross.svg') 11 11, url('assets/cursors/cross.png') 11 11, crosshair;
-    }
-
-    [disabled], .disabled {
-      cursor: url('assets/cursors/notallowed.svg') 5 5, url('assets/cursors/notallowed.png') 5 5, not-allowed !important;
-    }
-
     body {
       background-color: var(--bg);
-      background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-      background-size: 40px 40px;
       color: var(--text);
-      font-family: 'San Pransisco Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: var(--font-display);
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
-      padding-bottom: 80px;
+      -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Ambient Background Glow */
+    .ambient-glow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      background: 
+        radial-gradient(circle 600px at 15% 15%, rgba(41, 151, 255, 0.08), transparent 80%),
+        radial-gradient(circle 500px at 85% 25%, rgba(162, 89, 255, 0.07), transparent 75%),
+        radial-gradient(circle 400px at 50% 85%, rgba(48, 209, 88, 0.04), transparent 70%);
     }
 
     .container {
-      max-width: 1200px;
+      max-width: 1140px;
       margin: 0 auto;
       padding: 0 24px;
+      position: relative;
+      z-index: 1;
     }
 
-    /* Top Navigation */
+    /* Navigation */
     nav {
-      border-bottom: 1px solid var(--border);
-      background: rgba(10, 12, 16, 0.88);
-      backdrop-filter: blur(16px);
       position: sticky;
       top: 0;
       z-index: 100;
+      background: rgba(6, 8, 13, 0.78);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border-bottom: 1px solid var(--border);
     }
 
     .nav-inner {
@@ -99,26 +92,46 @@
     }
 
     .nav-brand {
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: -0.01em;
       display: flex;
       align-items: center;
       gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.015em;
     }
 
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--success);
-      box-shadow: 0 0 10px var(--success);
+    .brand-logo-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #2997ff, #a259ff);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 800;
+      box-shadow: 0 0 16px rgba(41, 151, 255, 0.4);
+    }
+
+    .hub-badge {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 8px;
+      background: rgba(41, 151, 255, 0.12);
+      border: 1px solid rgba(41, 151, 255, 0.3);
+      border-radius: 999px;
+      color: var(--accent);
     }
 
     .nav-links {
       display: flex;
-      gap: 20px;
       align-items: center;
+      gap: 24px;
     }
 
     .nav-links a {
@@ -130,440 +143,487 @@
     }
 
     .nav-links a:hover {
-      color: #fff;
+      color: var(--text);
     }
 
     .btn-github {
-      background: #191f2d;
-      border: 1px solid var(--border);
-      color: #fff;
-      padding: 7px 14px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 600;
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      color: var(--text) !important;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
       transition: all 0.2s ease;
     }
 
     .btn-github:hover {
-      background: #232b3e;
-      border-color: var(--accent);
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.2);
     }
 
     /* Hero Section */
-    header {
-      padding: 80px 0 50px;
-      text-align: left;
+    .hero {
+      padding: 90px 0 60px;
+      text-align: center;
     }
 
-    .meta-tagline {
-      font-family: var(--font-mono);
-      font-size: 13px;
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(41, 151, 255, 0.08);
+      border: 1px solid rgba(41, 151, 255, 0.25);
       color: var(--accent);
-      margin-bottom: 16px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 24px;
     }
 
-    h1 {
-      font-size: clamp(40px, 6vw, 68px);
-      font-weight: 700;
+    .hero-eyebrow .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 8px var(--success);
+    }
+
+    .hero-title {
+      font-size: clamp(48px, 7vw, 76px);
+      font-weight: 800;
       letter-spacing: -0.035em;
-      line-height: 1.08;
+      line-height: 1.06;
       margin-bottom: 20px;
+      background: linear-gradient(180deg, #ffffff 40%, rgba(255, 255, 255, 0.65) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    .hero-desc {
-      font-size: 20px;
+    .hero-subtitle {
+      font-size: clamp(18px, 2.5vw, 22px);
       color: var(--text-muted);
-      max-width: 780px;
-      line-height: 1.5;
-      font-weight: 400;
-      margin-bottom: 32px;
+      max-width: 760px;
+      margin: 0 auto 36px;
+      line-height: 1.45;
+      letter-spacing: -0.012em;
     }
 
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 14px;
       align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 50px;
     }
 
     .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 999px;
       background: var(--accent);
       color: #fff;
-      padding: 12px 24px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 600;
       font-size: 15px;
-      transition: opacity 0.2s ease;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(41, 151, 255, 0.35);
+      transition: all 0.2s ease;
     }
 
     .btn-primary:hover {
-      opacity: 0.9;
+      background: #1a88f5;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(41, 151, 255, 0.45);
     }
 
     .btn-secondary {
-      background: var(--bg-panel);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--border);
       color: var(--text);
-      padding: 12px 22px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 500;
       font-size: 15px;
-      transition: border-color 0.2s ease;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
     }
 
     .btn-secondary:hover {
-      border-color: var(--border-focus);
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
     }
 
-    /* ==========================================================================
-       REAL LIQUID GLASS (Optical Refraction & Distortion Engine)
-       ========================================================================== */
-    .liquid-glass-card {
-      position: relative;
-      background: rgba(17, 20, 28, 0.75);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 20px;
-      padding: 32px;
-      overflow: hidden;
-      box-shadow: 
-        0 30px 60px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.12),
-        inset 0 0 20px rgba(255, 255, 255, 0.02);
-      backdrop-filter: blur(24px) saturate(140%);
-    }
-
-    /* Optical Caustic Specular Flare */
-    .liquid-glass-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(
-        800px circle at var(--mouse-x) var(--mouse-y),
-        rgba(255, 255, 255, 0.08) 0%,
-        rgba(41, 151, 255, 0.04) 40%,
-        transparent 70%
-      );
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      z-index: 1;
-    }
-
-    /* Liquid Refraction Rim */
-    .liquid-glass-card::after {
-      content: '';
-      position: absolute;
-      inset: -1px;
-      border-radius: 21px;
-      padding: 1px;
-      background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.25) 0%,
-        rgba(41, 151, 255, 0.2) 30%,
-        rgba(255, 255, 255, 0.03) 70%,
-        rgba(255, 255, 255, 0.15) 100%
-      );
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
-      z-index: 2;
-    }
-
-
-
-    /* Interactive Type Tester Panel */
-    .tester-section {
-      margin-bottom: 80px;
-      position: relative;
-      z-index: 10;
-    }
-
-    .panel-header {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
+    /* Key Metrics Banner */
+    .metrics-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 16px;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 20px;
-      margin-bottom: 24px;
-      position: relative;
-      z-index: 5;
+      margin-bottom: 70px;
     }
 
-    .panel-title {
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .controls-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .control-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    select, input[type="range"] {
-      background: #171b26;
-      border: 1px solid var(--border);
-      color: #fff;
-      padding: 6px 10px;
-      border-radius: 6px;
-      font-family: inherit;
-      font-size: 13px;
-      outline: none;
-    }
-
-    input[type="range"] {
-      accent-color: var(--accent);
-      cursor: pointer;
-      width: 90px;
-    }
-
-    .toggle-pill {
-      background: #171b26;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      padding: 6px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: 600;
-      transition: all 0.15s ease;
-    }
-
-    .toggle-pill.active {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
-    }
-
-    .type-output {
-      min-height: 220px;
-      outline: none;
-      color: #fff;
-      white-space: pre-wrap;
-      word-break: break-word;
-      transition: font-size 0.1s ease;
-      font-weight: 700;
-      font-size: 54px;
-      line-height: 1.15;
-      letter-spacing: -0.025em;
-      padding: 10px 0;
-      position: relative;
-      z-index: 5;
-    }
-
-    /* Comparison Visuals Section */
-    .section-title {
-      font-size: 30px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 12px;
-    }
-
-    .section-sub {
-      color: var(--text-muted);
-      font-size: 16px;
-      margin-bottom: 30px;
-      max-width: 720px;
-    }
-
-    .comparison-img-card {
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      overflow: hidden;
-      margin-bottom: 36px;
-      background: var(--bg-panel);
-    }
-
-    .comparison-img-card img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .img-caption {
-      padding: 14px 22px;
-      font-size: 13px;
-      color: var(--text-muted);
-      border-top: 1px solid var(--border);
-      background: #0e1118;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    /* Metrics Table */
-    .table-container {
-      background: var(--bg-panel);
+    .metric-card {
+      background: var(--bg-glass);
+      backdrop-filter: blur(20px);
       border: 1px solid var(--border);
       border-radius: 16px;
-      overflow-x: auto;
-      margin-bottom: 80px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
+      padding: 22px;
       text-align: left;
     }
 
-    th, td {
-      padding: 14px 20px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    th {
-      font-size: 12px;
-      font-family: var(--font-mono);
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      background: #0e1118;
-    }
-
-    td code {
-      font-family: var(--font-mono);
-      color: var(--accent);
-      font-size: 13px;
-    }
-
-    .pill-exact {
-      display: inline-block;
-      background: rgba(48, 209, 88, 0.15);
-      color: var(--success);
-      font-size: 11px;
+    .metric-value {
+      font-size: 28px;
       font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-family: var(--font-mono);
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 4px;
     }
 
-    /* Styles Matrix Grid */
-    .styles-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 16px;
-      margin-bottom: 80px;
-    }
-
-    .style-card {
-      background: var(--bg-panel);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      transition: border-color 0.2s ease;
-    }
-
-    .style-card:hover {
-      border-color: var(--border-focus);
-    }
-
-    .style-label {
-      font-size: 12px;
-      font-family: var(--font-mono);
+    .metric-label {
+      font-size: 13px;
       color: var(--text-muted);
-      margin-bottom: 6px;
+      line-height: 1.3;
     }
 
-    .style-sample {
-      font-size: 26px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    /* Section Headers */
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .section-tag {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
       margin-bottom: 14px;
     }
 
-    .style-actions {
-      display: flex;
-      gap: 8px;
+    .section-sub {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 640px;
+      margin: 0 auto;
     }
 
-    .btn-dl {
-      font-size: 11px;
-      font-family: var(--font-mono);
-      color: var(--accent);
-      background: rgba(41, 151, 255, 0.1);
-      border: 1px solid rgba(41, 151, 255, 0.25);
-      padding: 4px 10px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.15s ease;
-    }
-
-    .btn-dl:hover {
-      background: var(--accent);
-      color: #fff;
-    }
-
-    /* Code Snippet Box */
-    .code-box {
-      background: #0a0c12;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      font-family: var(--font-mono);
-      font-size: 13px;
-      color: #9cdcfe;
-      overflow-x: auto;
-      line-height: 1.6;
+    /* Clones Catalog Grid */
+    .clones-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
       margin-bottom: 80px;
     }
 
+    .clone-card {
+      position: relative;
+      background: var(--bg-glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+      overflow: hidden;
+    }
+
+    .clone-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(41, 151, 255, 0.4), transparent);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .clone-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+    }
+
+    .clone-card:hover::before {
+      opacity: 1;
+    }
+
+    .clone-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .clone-status-badge {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .badge-released {
+      background: rgba(48, 209, 88, 0.14);
+      color: var(--success);
+      border: 1px solid rgba(48, 209, 88, 0.3);
+    }
+
+    .badge-dev {
+      background: rgba(255, 214, 10, 0.12);
+      color: var(--warning);
+      border: 1px solid rgba(255, 214, 10, 0.25);
+    }
+
+    .badge-planned {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+    }
+
+    .clone-category {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .clone-name {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      margin-bottom: 8px;
+    }
+
+    .clone-headline {
+      font-size: 14px;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 14px;
+      line-height: 1.35;
+    }
+
+    .clone-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 20px;
+    }
+
+    .clone-spec-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 24px;
+    }
+
+    .spec-tag {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      padding: 3px 8px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-muted);
+    }
+
+    .clone-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .btn-card-primary {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.15s ease;
+    }
+
+    .btn-card-primary:hover {
+      background: #1a88f5;
+    }
+
+    .btn-card-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .btn-card-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Manifesto / Clean Room Card */
+    .manifesto-card {
+      background: linear-gradient(135deg, rgba(13, 16, 23, 0.85), rgba(20, 26, 40, 0.85));
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 40px;
+      margin-bottom: 80px;
+      position: relative;
+    }
+
+    .manifesto-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      margin-top: 24px;
+    }
+
+    .manifesto-col h4 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .manifesto-col p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Quick Install Section */
+    .install-box {
+      background: #090c12;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 80px;
+    }
+
+    .install-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .code-terminal {
+      background: #040609;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      padding: 16px 20px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: #79c0ff;
+      overflow-x: auto;
+      line-height: 1.6;
+    }
+
+    .code-terminal code {
+      font-family: inherit;
+    }
+
+    /* Footer */
     footer {
       border-top: 1px solid var(--border);
       padding: 40px 0;
-      color: var(--text-dim);
+      margin-top: auto;
+      background: rgba(6, 8, 13, 0.95);
       font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    .footer-inner {
       display: flex;
       flex-wrap: wrap;
+      align-items: center;
       justify-content: space-between;
       gap: 20px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 42px;
+      }
+      .manifesto-card {
+        padding: 24px;
+      }
+      .clones-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Vpple Ecosystem Announcement Banner -->
-  <div style="background: linear-gradient(90deg, rgba(41, 151, 255, 0.18), rgba(162, 89, 255, 0.18)); border-bottom: 1px solid rgba(41, 151, 255, 0.35); padding: 10px 16px; text-align: center; font-size: 13px; color: #f5f5f7; display: flex; align-items: center; justify-content: center; gap: 8px;">
-    <span>🍎 <strong>The Vpple Initiative:</strong> SP Pro Display is the flagship release of <strong>Vpple</strong> — an open-source hub of Apple clones and clean-room systems.</span>
-    <a href="https://github.com/jabirking-ux/Vpple" target="_blank" rel="noopener noreferrer" style="color: #2997ff; font-weight: 600; text-decoration: underline;">Explore Vpple on GitHub &rarr;</a>
-  </div>
+  <div class="ambient-glow"></div>
 
-<nav>
+  <!-- Navigation -->
+  <nav>
     <div class="container nav-inner">
-      <div class="nav-brand">
-        <span class="status-dot"></span>
-        <strong>Vpple</strong> <span style="font-size: 11px; margin-left: 6px; padding: 2px 7px; background: rgba(41, 151, 255, 0.15); border: 1px solid rgba(41, 151, 255, 0.3); border-radius: 999px; color: #2997ff;">Apple Clones Hub</span>
-      </div>
+      <a href="./" class="nav-brand">
+        <span class="brand-logo-badge">&#63743;</span>
+        <strong>Vpple</strong>
+        <span class="hub-badge">Apple Clones Hub</span>
+      </a>
       <div class="nav-links">
-        <a href="#tester">Type Tester</a>
-        <a href="#comparison">Forensics</a>
-        <a href="#weights">Downloads</a>
-        <a href="https://github.com/jabirking-ux/Vpple" class="btn-github">
-          <svg height="16" width="16" viewBox="0 0 16 16" fill="currentColor">
+        <a href="#clones">Clones Catalog</a>
+        <a href="./sp-pro-display/" style="color: var(--accent); font-weight: 600;">SP Pro Display &rarr;</a>
+        <a href="#principles">Clean-Room</a>
+        <a href="#integration">Integration</a>
+        <a href="https://github.com/jabirking-ux/Vpple" class="btn-github" target="_blank" rel="noopener noreferrer">
+          <svg height="15" width="15" viewBox="0 0 16 16" fill="currentColor">
             <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
           </svg>
           GitHub
@@ -573,330 +633,295 @@
   </nav>
 
   <main class="container">
-    <header>
-      <div class="meta-tagline">// Vpple Open Source Initiative &bull; Flagship Release</div>
-      <h1>Vpple: SP Pro Display</h1>
-      <p class="hero-desc">
-        A 1:1 metric-identical, clean-room reverse-engineered open-source clone of Apple's <strong>SF Pro Display</strong>. 
-        Engineered for UI designers and cross-platform developers building for Windows, Linux, Android, and the Web with <strong>0-pixel line-wrap deviation</strong> and SIL Open Font License freedom.
+    <!-- Hero Header -->
+    <header class="hero">
+      <div class="hero-eyebrow">
+        <span class="pulse-dot"></span>
+        <span>Open Source Apple Clones Initiative</span>
+      </div>
+      <h1 class="hero-title">Vpple</h1>
+      <p class="hero-subtitle">
+        An independent engineering lab reverse-engineering and cloning Apple ecosystem software, system typefaces, and interaction frameworks under clean-room legal standards and permissive licenses.
       </p>
       <div class="hero-actions">
-        <a href="https://github.com/jabirking-ux/Vpple/releases/download/v1.0.0/SanPransiscoProDisplay-Complete.zip" class="btn-primary">Download Complete Family (.zip)</a>
-        <a href="https://github.com/jabirking-ux/Vpple/releases/download/v1.0.0/SanPransiscoProDisplay-TTF.zip" class="btn-secondary">Download TTF Only</a>
-        <a href="https://github.com/jabirking-ux/Vpple/releases/download/v1.0.0/SanPransiscoProDisplay-WOFF2.zip" class="btn-secondary">Download WOFF2 Web</a>
+        <a href="./sp-pro-display/" class="btn-primary">
+          <span>Launch SP Pro Display Specimen</span>
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </a>
+        <a href="https://github.com/jabirking-ux/Vpple" class="btn-secondary" target="_blank" rel="noopener noreferrer">
+          <span>Explore Repository</span>
+        </a>
       </div>
     </header>
 
-    <!-- Interactive Type Tester Panel (Crafted in Real Liquid Glass) -->
-    <section id="tester" class="tester-section">
-      <div class="liquid-glass-card">
-        <div class="panel-header">
-          <div class="panel-title">
-            <span>Interactive Display Specimen</span>
-            <span class="pill-exact">LIVE TESTER</span>
-          </div>
-          <div class="controls-row">
-            <div class="control-item">
-              <label for="weightSelect">Weight</label>
-              <select id="weightSelect">
-                <option value="100">Thin (100)</option>
-                <option value="200">Ultralight (200)</option>
-                <option value="300">Light (300)</option>
-                <option value="400">Regular (400)</option>
-                <option value="500">Medium (500)</option>
-                <option value="600">Semibold (600)</option>
-                <option value="700" selected>Bold (700)</option>
-                <option value="800">Heavy (800)</option>
-                <option value="900">Black (900)</option>
-              </select>
-            </div>
-
-            <div class="control-item">
-              <label for="sizeSlider">Size: <span id="sizeVal">54</span>px</label>
-              <input type="range" id="sizeSlider" min="16" max="120" value="54">
-            </div>
-
-            <div class="control-item">
-              <label for="trackingSlider">Tracking: <span id="trackingVal">-0.025</span>em</label>
-              <input type="range" id="trackingSlider" min="-0.08" max="0.08" step="0.005" value="-0.025">
-            </div>
-
-            <button id="italicToggle" class="toggle-pill">Italic</button>
-            <button id="compareToggle" class="toggle-pill">Compare System Font</button>
-          </div>
-        </div>
-
-        <div id="typeOutput" class="type-output" contenteditable="true" spellcheck="false">Think different. Pro Display XDR.
-Zero line-wrap deviation on Windows & Web.</div>
+    <!-- Key Metrics Telemetry -->
+    <section class="metrics-bar">
+      <div class="metric-card">
+        <div class="metric-value">0.00px</div>
+        <div class="metric-label">Line-wrap displacement delta vs Apple master binaries.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">18 Styles</div>
+        <div class="metric-label">Full typographic matrix (Ultralight to Black + Italics).</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">100%</div>
+        <div class="metric-label">Clean-room synthesized curves under SIL OFL 1.1.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">Universal</div>
+        <div class="metric-label">Native deployment across Windows, Linux, Android &amp; Web.</div>
       </div>
     </section>
 
-    <!-- Visual Comparisons -->
-    <section id="comparison">
-      <h2 class="section-title">Forensic Visual Comparisons</h2>
-      <p class="section-sub">
-        Rendered directly from master OpenType binaries at identical pixel dimensions. Notice the exact baseline alignment, glyph bounds, and zero line-wrap shifts.
+    <!-- Clones Catalog Grid -->
+    <section id="clones" style="margin-bottom: 90px;">
+      <div class="section-header">
+        <div class="section-tag">Clones Catalog</div>
+        <h2 class="section-title">Active &amp; Upcoming Clones</h2>
+        <p class="section-sub">
+          Every Vpple clone is clean-room engineered from mathematical specifications, delivering exact 1:1 behavioral and visual equivalence.
+        </p>
+      </div>
+
+      <div class="clones-grid">
+        <!-- 1. SP Pro Display -->
+        <article class="clone-card" style="border-color: rgba(41, 151, 255, 0.35);">
+          <div>
+            <div class="clone-card-header">
+              <span class="clone-status-badge badge-released">🟢 Released (v1.0.0)</span>
+              <span class="clone-category">Typography / Display</span>
+            </div>
+            <h3 class="clone-name">SP Pro Display</h3>
+            <div class="clone-headline">1:1 Metric-Compatible Drop-In for Apple SF Pro Display</div>
+            <p class="clone-desc">
+              Full 18-weight typographic system. Normalized to 2048 UPM with exact cap height (1443), typo ascender (1950), and descender (-494). Features footless digit 1, authentic rounded punctuation, and scaled GPOS pair kerning.
+            </p>
+            <div class="clone-spec-tags">
+              <span class="spec-tag">18 Weights</span>
+              <span class="spec-tag">0px Delta</span>
+              <span class="spec-tag">WOFF2 / TTF</span>
+              <span class="spec-tag">SIL OFL 1.1</span>
+            </div>
+          </div>
+          <div class="clone-actions">
+            <a href="./sp-pro-display/" class="btn-card-primary">
+              <span>Interactive Type Tester</span>
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            </a>
+            <a href="https://github.com/jabirking-ux/Vpple/archive/refs/heads/main.zip" class="btn-card-secondary" title="Download ZIP">.ZIP</a>
+          </div>
+        </article>
+
+        <!-- 2. SP Pro Text -->
+        <article class="clone-card">
+          <div>
+            <div class="clone-card-header">
+              <span class="clone-status-badge badge-dev">🟡 In Development</span>
+              <span class="clone-category">Typography / Body Text</span>
+            </div>
+            <h3 class="clone-name">SP Pro Text</h3>
+            <div class="clone-headline">Optical Sizing Variant for Small Body Copy (&lt;20pt)</div>
+            <p class="clone-desc">
+              Engineered with wider character counters, increased aperture breathing room, and looser natural tracking curve for legibility in dense paragraphs, UI data grids, and small caption overlays.
+            </p>
+            <div class="clone-spec-tags">
+              <span class="spec-tag">Optical Master</span>
+              <span class="spec-tag">Sub-20pt Tuned</span>
+              <span class="spec-tag">SIL OFL 1.1</span>
+            </div>
+          </div>
+          <div class="clone-actions">
+            <span class="btn-card-secondary" style="flex: 1; opacity: 0.6; cursor: default;">Targeting Q1 2027</span>
+          </div>
+        </article>
+
+        <!-- 3. SP Mono -->
+        <article class="clone-card">
+          <div>
+            <div class="clone-card-header">
+              <span class="clone-status-badge badge-dev">🟡 In Development</span>
+              <span class="clone-category">Code / Monospace</span>
+            </div>
+            <h3 class="clone-name">SP Mono</h3>
+            <div class="clone-headline">Developer Typeface Clone of Apple SF Mono</div>
+            <p class="clone-desc">
+              Fixed-width monospace typography matching Apple SF Mono character geometry. Designed specifically for IDE editors, terminal emulators, and code diffing with high-contrast punctuation.
+            </p>
+            <div class="clone-spec-tags">
+              <span class="spec-tag">Fixed Advance</span>
+              <span class="spec-tag">Terminal Stack</span>
+              <span class="spec-tag">SIL OFL 1.1</span>
+            </div>
+          </div>
+          <div class="clone-actions">
+            <span class="btn-card-secondary" style="flex: 1; opacity: 0.6; cursor: default;">Targeting Q2 2027</span>
+          </div>
+        </article>
+
+        <!-- 4. SP Compact -->
+        <article class="clone-card">
+          <div>
+            <div class="clone-card-header">
+              <span class="clone-status-badge badge-planned">⚪ Planned</span>
+              <span class="clone-category">Embedded / Smartwatch</span>
+            </div>
+            <h3 class="clone-name">SP Compact</h3>
+            <div class="clone-headline">High-Density Clone of Apple SF Compact</div>
+            <p class="clone-desc">
+              Flat-sided round glyph curves designed to maximize horizontal packing and line density on small wearable screens, smart home dashboards, and micro-display panels.
+            </p>
+            <div class="clone-spec-tags">
+              <span class="spec-tag">High Density</span>
+              <span class="spec-tag">Wearable UI</span>
+              <span class="spec-tag">SIL OFL 1.1</span>
+            </div>
+          </div>
+          <div class="clone-actions">
+            <span class="btn-card-secondary" style="flex: 1; opacity: 0.6; cursor: default;">Planned 2027</span>
+          </div>
+        </article>
+
+        <!-- 5. Vpple UI Kit -->
+        <article class="clone-card">
+          <div>
+            <div class="clone-card-header">
+              <span class="clone-status-badge badge-planned">⚪ Planned</span>
+              <span class="clone-category">Web Components / CSS</span>
+            </div>
+            <h3 class="clone-name">Vpple UI Kit</h3>
+            <div class="clone-headline">macOS Tahoe &amp; iOS 18 Glassmorphism Design Tokens</div>
+            <p class="clone-desc">
+              Cross-platform UI component library replicating Apple's multi-layered backdrop caustics, specular edge highlights, dynamic cursor physics, and native window chrome across modern browsers.
+            </p>
+            <div class="clone-spec-tags">
+              <span class="spec-tag">Web Components</span>
+              <span class="spec-tag">Liquid Glass</span>
+              <span class="spec-tag">MIT License</span>
+            </div>
+          </div>
+          <div class="clone-actions">
+            <span class="btn-card-secondary" style="flex: 1; opacity: 0.6; cursor: default;">Design Phase</span>
+          </div>
+        </article>
+
+        <!-- 6. Vpple Symbols -->
+        <article class="clone-card">
+          <div>
+            <div class="clone-card-header">
+              <span class="clone-status-badge badge-planned">⚪ Planned</span>
+              <span class="clone-category">Vector Iconography</span>
+            </div>
+            <h3 class="clone-name">Vpple Symbols</h3>
+            <div class="clone-headline">Permissive Vector Icon Set with SF Symbols Semantics</div>
+            <p class="clone-desc">
+              Open-source vector iconography matching Apple SF Symbols naming conventions and weight optical scaling. Allows web apps and multi-platform apps to use standard Apple symbol names without legal risk.
+            </p>
+            <div class="clone-spec-tags">
+              <span class="spec-tag">SVG / Variable Font</span>
+              <span class="spec-tag">SF Nomenclature</span>
+              <span class="spec-tag">MIT License</span>
+            </div>
+          </div>
+          <div class="clone-actions">
+            <span class="btn-card-secondary" style="flex: 1; opacity: 0.6; cursor: default;">Planning</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Manifesto / Clean-Room Principles -->
+    <section id="principles" class="manifesto-card">
+      <div class="section-tag">// Engineering Manifesto</div>
+      <h3 style="font-size: 26px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px;">
+        Clean-Room Legal &amp; Architectural Standards
+      </h3>
+      <p style="color: var(--text-muted); font-size: 15px; line-height: 1.6; max-width: 820px;">
+        Vpple operates under strict clean-room reverse-engineering methodologies. We do not extract, decompile, or redistribute proprietary Apple Inc. binaries. Every glyph curve, tracking constant, and layout metric is independently measured and rebuilt on permissively licensed open foundations.
       </p>
 
-      <div class="comparison-img-card">
-        <img src="docs/images/comparison-specimen.png" alt="Side-by-side rendering test: SF Pro Display vs San Pransisco Pro Display">
-        <div class="img-caption">
-          <span>Side-by-side specimen comparison across titles, subtitles, alphabets, numbers, and paragraph stacks.</span>
-          <span class="pill-exact">100% PARITY</span>
-        </div>
-      </div>
-
-      <div class="comparison-img-card">
-        <img src="docs/images/comparison-overlay.png" alt="Forensic contour overlay: Cyan SF Pro vs Magenta Vpple SP Pro">
-        <div class="img-caption">
-          <span>Contour Overlay: Cyan (Apple SF Pro) + Magenta (Vpple SP Pro) = White (Exact Geometric Overlap).</span>
-          <span class="pill-exact">ZERO CONTOUR SHIFT</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Technical Metrics Table -->
-    <section>
-      <h2 class="section-title">Metric Table Parity</h2>
-      <p class="section-sub">
-        Measured on the master 2048 Units-Per-Em coordinate grid across Apple SF Pro Display (v13.0d3e20) and Vpple SP Pro Display:
-      </p>
-
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th>Table & Metric</th>
-              <th>Apple SF Pro Display</th>
-              <th>Vpple SP Pro Display</th>
-              <th>Delta / Deviation</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>head.unitsPerEm</code></td>
-              <td>2048</td>
-              <td>2048</td>
-              <td>0 font units</td>
-              <td><span class="pill-exact">EXACT</span></td>
-            </tr>
-            <tr>
-              <td><code>OS/2.sCapHeight</code></td>
-              <td>1443</td>
-              <td>1443</td>
-              <td>0 font units</td>
-              <td><span class="pill-exact">EXACT</span></td>
-            </tr>
-            <tr>
-              <td><code>OS/2.sxHeight (Regular)</code></td>
-              <td>1040</td>
-              <td>1040</td>
-              <td>0 font units</td>
-              <td><span class="pill-exact">EXACT</span></td>
-            </tr>
-            <tr>
-              <td><code>OS/2.sTypoAscender</code></td>
-              <td>1950</td>
-              <td>1950</td>
-              <td>0 font units</td>
-              <td><span class="pill-exact">EXACT</span></td>
-            </tr>
-            <tr>
-              <td><code>OS/2.sTypoDescender</code></td>
-              <td>-494</td>
-              <td>-494</td>
-              <td>0 font units</td>
-              <td><span class="pill-exact">EXACT</span></td>
-            </tr>
-            <tr>
-              <td><code>hhea.ascent / descent</code></td>
-              <td>1950 / -494</td>
-              <td>1950 / -494</td>
-              <td>0 font units</td>
-              <td><span class="pill-exact">EXACT</span></td>
-            </tr>
-            <tr>
-              <td><code>54-Char Pangram Advance Width</code></td>
-              <td>50,158 font units</td>
-              <td>50,158 font units</td>
-              <td>0 font units (0.000%)</td>
-              <td><span class="pill-exact">1:1 MATCH</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Weights Matrix -->
-    <section id="weights">
-      <h2 class="section-title">Download Available Weights</h2>
-      <p class="section-sub">
-        Full 18-style family available in TrueType (desktop) and WOFF2 (web):
-      </p>
-
-      <div class="styles-grid">
-        <div class="style-card">
-          <div class="style-label">Thin — 100</div>
-          <div class="style-sample" style="font-weight: 100;">Aa Bb Gg 123</div>
-          <div class="style-actions">
-            <a href="dist/ttf/SPProDisplay-Thin.ttf" class="btn-dl" download>TTF</a>
-            <a href="dist/woff2/SPProDisplay-Thin.woff2" class="btn-dl" download>WOFF2</a>
-          </div>
+      <div class="manifesto-grid">
+        <div class="manifesto-col">
+          <h4>
+            <svg width="18" height="18" fill="none" stroke="#2997ff" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Zero Binary Extraction
+          </h4>
+          <p>
+            Source outline curves originate from permissively licensed open typefaces (Inter Display by Rasmus Andersson, SIL OFL 1.1). No proprietary glyph outlines or Apple TrueType instructions are bundled.
+          </p>
         </div>
 
-        <div class="style-card">
-          <div class="style-label">Ultralight — 200</div>
-          <div class="style-sample" style="font-weight: 200;">Aa Bb Gg 123</div>
-          <div class="style-actions">
-            <a href="dist/ttf/SPProDisplay-Ultralight.ttf" class="btn-dl" download>TTF</a>
-            <a href="dist/woff2/SPProDisplay-Ultralight.woff2" class="btn-dl" download>WOFF2</a>
-          </div>
+        <div class="manifesto-col">
+          <h4>
+            <svg width="18" height="18" fill="none" stroke="#2997ff" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            Zero Line-Wrap Delta
+          </h4>
+          <p>
+            Mathematical normalization aligns every advance width and vertical metric to the 2048 UPM master grid. Swapping SF Pro for SP Pro Display yields 0.00px line displacement across any layout container.
+          </p>
         </div>
 
-        <div class="style-card">
-          <div class="style-label">Light — 300</div>
-          <div class="style-sample" style="font-weight: 300;">Aa Bb Gg 123</div>
-          <div class="style-actions">
-            <a href="dist/ttf/SPProDisplay-Light.ttf" class="btn-dl" download>TTF</a>
-            <a href="dist/woff2/SPProDisplay-Light.woff2" class="btn-dl" download>WOFF2</a>
-          </div>
-        </div>
-
-        <div class="style-card">
-          <div class="style-label">Regular — 400</div>
-          <div class="style-sample" style="font-weight: 400;">Aa Bb Gg 123</div>
-          <div class="style-actions">
-            <a href="dist/ttf/SPProDisplay-Regular.ttf" class="btn-dl" download>TTF</a>
-            <a href="dist/woff2/SPProDisplay-Regular.woff2" class="btn-dl" download>WOFF2</a>
-          </div>
-        </div>
-
-        <div class="style-card">
-          <div class="style-label">Medium — 500</div>
-          <div class="style-sample" style="font-weight: 500;">Aa Bb Gg 123</div>
-          <div class="style-actions">
-            <a href="dist/ttf/SPProDisplay-Medium.ttf" class="btn-dl" download>TTF</a>
-            <a href="dist/woff2/SPProDisplay-Medium.woff2" class="btn-dl" download>WOFF2</a>
-          </div>
-        </div>
-
-        <div class="style-card">
-          <div class="style-label">Semibold — 600</div>
-          <div class="style-sample" style="font-weight: 600;">Aa Bb Gg 123</div>
-          <div class="style-actions">
-            <a href="dist/ttf/SPProDisplay-Semibold.ttf" class="btn-dl" download>TTF</a>
-            <a href="dist/woff2/SPProDisplay-Semibold.woff2" class="btn-dl" download>WOFF2</a>
-          </div>
-        </div>
-
-        <div class="style-card">
-          <div class="style-label">Bold — 700</div>
-          <div class="style-sample" style="font-weight: 700;">Aa Bb Gg 123</div>
-          <div class="style-actions">
-            <a href="dist/ttf/SPProDisplay-Bold.ttf" class="btn-dl" download>TTF</a>
-            <a href="dist/woff2/SPProDisplay-Bold.woff2" class="btn-dl" download>WOFF2</a>
-          </div>
-        </div>
-
-        <div class="style-card">
-          <div class="style-label">Heavy — 800</div>
-          <div class="style-sample" style="font-weight: 800;">Aa Bb Gg 123</div>
-          <div class="style-actions">
-            <a href="dist/ttf/SPProDisplay-Heavy.ttf" class="btn-dl" download>TTF</a>
-            <a href="dist/woff2/SPProDisplay-Heavy.woff2" class="btn-dl" download>WOFF2</a>
-          </div>
-        </div>
-
-        <div class="style-card">
-          <div class="style-label">Black — 900</div>
-          <div class="style-sample" style="font-weight: 900;">Aa Bb Gg 123</div>
-          <div class="style-actions">
-            <a href="dist/ttf/SPProDisplay-Black.ttf" class="btn-dl" download>TTF</a>
-            <a href="dist/woff2/SPProDisplay-Black.woff2" class="btn-dl" download>WOFF2</a>
-          </div>
+        <div class="manifesto-col">
+          <h4>
+            <svg width="18" height="18" fill="none" stroke="#2997ff" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            Royalty-Free Freedom
+          </h4>
+          <p>
+            Typefaces are released under the SIL Open Font License 1.1; software and UI tokens are licensed under MIT. You are free to bundle, embed, modify, and distribute in commercial software without royalties.
+          </p>
         </div>
       </div>
     </section>
 
-    <!-- Quick Web CSS Box -->
-    <section>
-      <h2 class="section-title">CSS Integration</h2>
-      <pre class="code-box"><code>/* 1. Link stylesheet in HTML head */
-&lt;link rel="stylesheet" href="san-pransisco.css"&gt;
+    <!-- Quick Integration & NPM -->
+    <section id="integration" class="install-box">
+      <div class="install-header">
+        <div>
+          <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">Quick Integration</h3>
+          <p style="font-size: 13px; color: var(--text-muted);">Install SP Pro Display into your web, desktop, or mobile project in seconds.</p>
+        </div>
+        <a href="./sp-pro-display/" style="color: var(--accent); font-size: 13px; font-weight: 600; text-decoration: none;">Launch Font Tester &rarr;</a>
+      </div>
 
-/* 2. Apply display font stack */
-h1, h2, h3, .display {
-  font-family: 'San Pransisco Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-  letter-spacing: -0.02em;
+      <div class="code-terminal">
+<code><span style="color: #8b949e;"># 1. Install via NPM</span>
+npm install @vpple/sp-pro-display
+
+<span style="color: #8b949e;"># 2. Or import via CSS CDN in your stylesheet</span>
+@import "https://cdn.jsdelivr.net/gh/jabirking-ux/Vpple@main/css/sp-pro-display.css";
+@import "https://cdn.jsdelivr.net/gh/jabirking-ux/Vpple@main/css/apple-typography.css";
+
+<span style="color: #8b949e;"># 3. Apply Apple Display Typography</span>
+body {
+  font-family: "SP Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
-}</code></pre>
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}</code>
+      </div>
     </section>
-
-    <footer>
-      <div>
-        <strong>Vpple: SP Pro Display</strong> &bull; Released under the <a href="OFL.txt" style="color:var(--text); text-decoration: underline;">SIL Open Font License 1.1</a> &bull; Part of the <a href="https://github.com/jabirking-ux/Vpple" style="color:#2997ff; text-decoration: underline;">Vpple Apple Clones Initiative</a>.
-      </div>
-      <div>
-        Clean-room metric synthesis and engineering by Vpple Open Source Initiative.
-      </div>
-    </footer>
   </main>
 
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <strong>Vpple</strong> &bull; Open Source Apple Clones &amp; System Replicas &bull; <a href="LICENSE" style="color: var(--text); text-decoration: underline;">SIL OFL 1.1 / MIT</a>
+      </div>
+      <div class="footer-links">
+        <a href="./sp-pro-display/">SP Pro Display</a>
+        <a href="https://github.com/jabirking-ux/Vpple" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://jabirking-ux.github.io" target="_blank" rel="noopener noreferrer">Jabir King Portfolio</a>
+      </div>
+    </div>
+  </footer>
+
   <script>
-    const typeOutput = document.getElementById('typeOutput');
-    const weightSelect = document.getElementById('weightSelect');
-    const sizeSlider = document.getElementById('sizeSlider');
-    const sizeVal = document.getElementById('sizeVal');
-    const trackingSlider = document.getElementById('trackingSlider');
-    const trackingVal = document.getElementById('trackingVal');
-    const italicToggle = document.getElementById('italicToggle');
-    const compareToggle = document.getElementById('compareToggle');
-
-    let isItalic = false;
-    let isCompare = false;
-
-    function updateType() {
-      typeOutput.style.fontWeight = weightSelect.value;
-      typeOutput.style.fontSize = sizeSlider.value + 'px';
-      typeOutput.style.letterSpacing = trackingSlider.value + 'em';
-      typeOutput.style.fontStyle = isItalic ? 'italic' : 'normal';
-      typeOutput.style.fontFamily = isCompare 
-        ? "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" 
-        : "'SP Pro Display', 'San Pransisco Pro Display', sans-serif";
-      
-      sizeVal.textContent = sizeSlider.value;
-      trackingVal.textContent = trackingSlider.value;
-    }
-
-    weightSelect.addEventListener('change', updateType);
-    sizeSlider.addEventListener('input', updateType);
-    trackingSlider.addEventListener('input', updateType);
-
-    italicToggle.addEventListener('click', () => {
-      isItalic = !isItalic;
-      italicToggle.classList.toggle('active', isItalic);
-      updateType();
-    });
-
-    compareToggle.addEventListener('click', () => {
-      isCompare = !isCompare;
-      compareToggle.classList.toggle('active', isCompare);
-      compareToggle.textContent = isCompare ? "Comparing: System Font" : "Compare System Font";
-      updateType();
-    });
-
-    // Real Liquid Glass Dynamic Light Tracking on cards
+    // Smooth dynamic caustics and light tracking
     window.addEventListener('mousemove', (e) => {
-      const x = e.clientX;
-      const y = e.clientY;
-      
-      // Update global CSS custom properties for card caustics and specular highlights
-      document.documentElement.style.setProperty('--mouse-x', `${x}px`);
-      document.documentElement.style.setProperty('--mouse-y', `${y}px`);
+      document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
+      document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
     });
-
-    updateType();
   </script>
 </body>
 </html>
