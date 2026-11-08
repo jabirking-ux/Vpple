@@ -620,6 +620,7 @@
       <div class="nav-links">
         <a href="#clones">Clones Catalog</a>
         <a href="./sp-pro-display/" style="color: var(--accent); font-weight: 600;">SP Pro Display &rarr;</a>
+        <a href="./ui-kit/" style="color: #a259ff; font-weight: 600;">UI Kit &rarr;</a>
         <a href="#principles">Clean-Room</a>
         <a href="#integration">Integration</a>
         <a href="https://github.com/jabirking-ux/Vpple" class="btn-github" target="_blank" rel="noopener noreferrer">
@@ -783,25 +784,30 @@
         </article>
 
         <!-- 5. Vpple UI Kit -->
-        <article class="clone-card">
+        <article class="clone-card" style="border-color: rgba(162, 89, 255, 0.35);">
           <div>
             <div class="clone-card-header">
-              <span class="clone-status-badge badge-planned">⚪ Planned</span>
+              <span class="clone-status-badge badge-released">🟢 Released (v1.0.0)</span>
               <span class="clone-category">Web Components / CSS</span>
             </div>
             <h3 class="clone-name">Vpple UI Kit</h3>
-            <div class="clone-headline">macOS Tahoe &amp; iOS 18 Glassmorphism Design Tokens</div>
+            <div class="clone-headline">macOS Tahoe &amp; iOS 26 Volumetric Liquid Glass Design System</div>
             <p class="clone-desc">
-              Cross-platform UI component library replicating Apple's multi-layered backdrop caustics, specular edge highlights, dynamic cursor physics, and native window chrome across modern browsers.
+              1:1 clean-room reverse-engineered clone of Apple's macOS Tahoe and iOS 26 design systems. Features real volumetric liquid glass with dynamic pointer Fresnel caustics, chromatic prism dispersion, iOS 26 Liquid Dynamic Island, and native window chrome.
             </p>
             <div class="clone-spec-tags">
-              <span class="spec-tag">Web Components</span>
-              <span class="spec-tag">Liquid Glass</span>
+              <span class="spec-tag">macOS Tahoe</span>
+              <span class="spec-tag">iOS 26</span>
+              <span class="spec-tag">Real Liquid Glass</span>
               <span class="spec-tag">MIT License</span>
             </div>
           </div>
           <div class="clone-actions">
-            <span class="btn-card-secondary" style="flex: 1; opacity: 0.6; cursor: default;">Design Phase</span>
+            <a href="./ui-kit/" class="btn-card-primary" style="background: linear-gradient(135deg, #a259ff, #007aff);">
+              <span>Interactive UI Kit Playground</span>
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            </a>
+            <a href="packages/ui-kit/" class="btn-card-secondary" title="View Package">NPM</a>
           </div>
         </article>
 
@@ -884,19 +890,18 @@
       </div>
 
       <div class="code-terminal">
-<code><span style="color: #8b949e;"># 1. Install via NPM</span>
-npm install @vpple/sp-pro-display
+<code><span style="color: #8b949e;"># 1. Install via NPM (Font + Liquid Glass UI Kit)</span>
+npm install @vpple/sp-pro-display @vpple/ui-kit
 
 <span style="color: #8b949e;"># 2. Or import via CSS CDN in your stylesheet</span>
-@import "https://cdn.jsdelivr.net/gh/jabirking-ux/Vpple@main/css/sp-pro-display.css";
-@import "https://cdn.jsdelivr.net/gh/jabirking-ux/Vpple@main/css/apple-typography.css";
+@import "https://jabirking-ux.github.io/Vpple/css/sp-pro-display.css";
+@import "https://jabirking-ux.github.io/Vpple/css/vpple-ui.css";
 
-<span style="color: #8b949e;"># 3. Apply Apple Display Typography</span>
+<span style="color: #8b949e;"># 3. Apply Apple Display Typography &amp; Liquid Glass</span>
 body {
   font-family: "SP Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
 }</code>
       </div>
     </section>
@@ -910,6 +915,7 @@ body {
       </div>
       <div class="footer-links">
         <a href="./sp-pro-display/">SP Pro Display</a>
+        <a href="./ui-kit/">UI Kit</a>
         <a href="https://github.com/jabirking-ux/Vpple" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://jabirking-ux.github.io" target="_blank" rel="noopener noreferrer">Jabir King Portfolio</a>
       </div>

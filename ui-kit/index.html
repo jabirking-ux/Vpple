@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vpple UI Kit - 1:1 Apple macOS Tahoe &amp; iOS 26 Design System</title>
+  <meta name="description" content="1:1 clean-room reverse-engineered clone of Apple's macOS Tahoe and iOS 26 design systems. Volumetric liquid glass materials, authentic traffic lights, parabolic dock, iOS 26 Dynamic Island, and SP Pro Display typography in pure CSS & JS.">
+
+  <!-- Vpple SP Pro Display Font -->
+  <link rel="stylesheet" href="../css/sp-pro-display.css">
+  <link rel="stylesheet" href="../css/apple-typography.css">
+
+  <!-- Vpple UI Kit CSS -->
+  <link rel="stylesheet" href="../css/vpple-ui.css">
+
+  <style>
+    :root {
+      --desktop-wallpaper: radial-gradient(circle at 10% 15%, rgba(0, 122, 255, 0.22) 0%, transparent 50%),
+                           radial-gradient(circle at 85% 20%, rgba(175, 82, 222, 0.20) 0%, transparent 45%),
+                           radial-gradient(circle at 50% 80%, rgba(255, 45, 85, 0.12) 0%, transparent 60%),
+                           radial-gradient(circle at 80% 85%, rgba(52, 199, 89, 0.10) 0%, transparent 50%),
+                           #07090e;
+    }
+
+    [data-theme="light"] {
+      --desktop-wallpaper: radial-gradient(circle at 10% 15%, rgba(0, 122, 255, 0.16) 0%, transparent 50%),
+                           radial-gradient(circle at 85% 20%, rgba(175, 82, 222, 0.14) 0%, transparent 45%),
+                           radial-gradient(circle at 50% 80%, rgba(255, 45, 85, 0.08) 0%, transparent 60%),
+                           #eef1f6;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--vui-bg);
+      color: var(--vui-text-primary);
+      font-family: var(--vui-font);
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Hub Banner */
+    .hub-banner {
+      background: linear-gradient(90deg, rgba(0, 122, 255, 0.18), rgba(175, 82, 222, 0.18));
+      border-bottom: 1px solid rgba(0, 122, 255, 0.35);
+      padding: 8px 16px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      user-select: none;
+    }
+
+    .hub-banner a {
+      color: var(--vui-blue);
+      text-decoration: underline;
+      font-weight: 600;
+    }
+
+    /* Desktop Simulation Container */
+    .desktop-stage {
+      position: relative;
+      height: 640px;
+      background: var(--desktop-wallpaper);
+      border-bottom: 1px solid var(--vui-border);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .desktop-workspace {
+      flex: 1;
+      position: relative;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Embedded Simulated macOS Window */
+    .simulated-window {
+      width: 760px;
+      height: 480px;
+      z-index: 100;
+      position: relative;
+    }
+
+    /* Documentation Showcase Layout */
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+
+    .section-header {
+      margin-bottom: 36px;
+    }
+
+    .section-tag {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--vui-accent);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 8px;
+    }
+
+    .section-desc {
+      font-size: 16px;
+      color: var(--vui-text-secondary);
+      max-width: 720px;
+      line-height: 1.5;
+    }
+
+    /* Component Grid & Cards */
+    .comp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+
+    .comp-card {
+      background: var(--vui-surface-base);
+      border: 1px solid var(--vui-border);
+      border-radius: var(--vui-radius-lg);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: var(--vui-shadow-sm);
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .comp-card:hover {
+      border-color: var(--vui-accent-border);
+      transform: translateY(-2px);
+    }
+
+    .comp-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .comp-card-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .comp-card-preview {
+      background: var(--vui-material-thin);
+      border: 1px solid var(--vui-border-subtle);
+      border-radius: var(--vui-radius-md);
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      min-height: 90px;
+    }
+
+    .comp-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 10px;
+      border-top: 1px solid var(--vui-border-subtle);
+      font-size: 12px;
+    }
+
+    .btn-copy {
+      background: var(--vui-material-thin);
+      border: 1px solid var(--vui-border);
+      color: var(--vui-text-secondary);
+      border-radius: var(--vui-radius-sm);
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-copy:hover {
+      color: var(--vui-text-primary);
+      border-color: var(--vui-border-strong);
+    }
+
+    /* Code Blocks */
+    .code-block {
+      background: #06080d;
+      border: 1px solid var(--vui-border);
+      border-radius: var(--vui-radius-md);
+      padding: 16px;
+      font-family: var(--vui-font-mono);
+      font-size: 13px;
+      color: #79c0ff;
+      overflow-x: auto;
+      margin: 12px 0 0;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--vui-border);
+      padding: 40px 0;
+      background: rgba(8, 10, 16, 0.95);
+      font-size: 13px;
+      color: var(--vui-text-tertiary);
+    }
+
+    .footer-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      color: var(--vui-text-secondary);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--vui-text-primary);
+    }
+  </style>
+</head>
+<body class="vui-root vui-macos">
+
+  <!-- SVG Optical Refraction & Dispersion Shaders for Real Liquid Glass -->
+  <svg style="position: absolute; width: 0; height: 0; pointer-events: none;" aria-hidden="true">
+    <defs>
+      <filter id="vui-liquid-filter" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- Top Announcement Banner -->
+  <aside class="hub-banner">
+    <span>🍎 <strong>Vpple UI Kit</strong> &bull; 1:1 Clean-Room Clone of Apple macOS Tahoe &amp; iOS 26 Design System.</span>
+    <a href="../">&larr; Back to Vpple Hub</a>
+    <span style="opacity: 0.4;">|</span>
+    <a href="../sp-pro-display/">SP Pro Display Font &rarr;</a>
+    <span style="opacity: 0.4;">|</span>
+    <a href="https://github.com/jabirking-ux/Vpple" target="_blank" rel="noopener noreferrer">GitHub Repo &rarr;</a>
+  </aside>
+
+  <!-- ======================================================================
+       INTERACTIVE MACOS DESKTOP SIMULATOR
+       ====================================================================== -->
+  <section class="desktop-stage" aria-label="macOS Desktop Simulation">
+
+    <!-- 1. Authentic macOS Menubar -->
+    <header class="vui-menubar">
+      <div class="vui-menubar-left">
+        <!-- Apple Logo with Dropdown -->
+        <div class="vui-menu-item apple-logo" tabindex="0">
+          <span></span>
+          <div class="vui-dropdown">
+            <div class="vui-dropdown-item"><strong>About This Mac (macOS Tahoe 16.0)</strong></div>
+            <div class="vui-dropdown-sep"></div>
+            <div class="vui-dropdown-item">System Settings... <span class="vui-dropdown-shortcut">⌘,</span></div>
+            <div class="vui-dropdown-item">App Store...</div>
+            <div class="vui-dropdown-sep"></div>
+            <div class="vui-dropdown-item">Recent Items &rsaquo;</div>
+            <div class="vui-dropdown-sep"></div>
+            <div class="vui-dropdown-item">Force Quit... <span class="vui-dropdown-shortcut">⌥⌘⎋</span></div>
+            <div class="vui-dropdown-sep"></div>
+            <div class="vui-dropdown-item">Sleep</div>
+            <div class="vui-dropdown-item">Restart...</div>
+            <div class="vui-dropdown-item">Shut Down...</div>
+            <div class="vui-dropdown-sep"></div>
+            <div class="vui-dropdown-item">Lock Screen <span class="vui-dropdown-shortcut">⌃⌘Q</span></div>
+            <div class="vui-dropdown-item">Log Out User... <span class="vui-dropdown-shortcut">⇧⌘Q</span></div>
+          </div>
+        </div>
+
+        <!-- Active Application Name -->
+        <div class="vui-menu-item app-name" tabindex="0">
+          <span>Tahoe</span>
+          <div class="vui-dropdown">
+            <div class="vui-dropdown-item">About macOS Tahoe UI Kit</div>
+            <div class="vui-dropdown-sep"></div>
+            <div class="vui-dropdown-item">Preferences... <span class="vui-dropdown-shortcut">⌘,</span></div>
+            <div class="vui-dropdown-sep"></div>
+            <div class="vui-dropdown-item">Hide Vpple <span class="vui-dropdown-shortcut">⌘H</span></div>
+            <div class="vui-dropdown-item">Hide Others <span class="vui-dropdown-shortcut">⌥⌘H</span></div>
+            <div class="vui-dropdown-item">Show All</div>
+            <div class="vui-dropdown-sep"></div>
+            <div class="vui-dropdown-item">Quit Vpple <span class="vui-dropdown-shortcut">⌘Q</span></div>
+          </div>
+        </div>
+
+        <div class="vui-menu-item">File</div>
+        <div class="vui-menu-item">Edit</div>
+        <div class="vui-menu-item">View</div>
+        <div class="vui-menu-item">Window</div>
+        <div class="vui-menu-item">Help</div>
+      </div>
+
+      <div class="vui-menubar-right">
+        <!-- Battery Status -->
+        <div class="vui-status-icon" title="Battery: 100%">
+          <div class="vui-battery-indicator">
+            <span>100%</span>
+            <div class="vui-battery-pill">
+              <div class="vui-battery-fill"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wi-Fi Status -->
+        <div class="vui-status-icon" title="Wi-Fi: Connected">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"/>
+          </svg>
+        </div>
+
+        <!-- Spotlight Search Trigger -->
+        <div id="vui-spotlight-trigger" class="vui-status-icon" title="Spotlight Search (⌘Space)">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+        </div>
+
+        <!-- Control Center Trigger -->
+        <div id="vui-cc-trigger" class="vui-status-icon" title="Control Center">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+          </svg>
+        </div>
+
+        <!-- Dark/Light Theme Switcher -->
+        <div class="vui-status-icon" data-vui-theme-toggle title="Toggle Dark/Light Mode">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+          </svg>
+        </div>
+
+        <!-- Live Clock -->
+        <div class="vui-status-icon vui-live-clock" style="font-weight: 500; font-size: 13px;">
+          Sun Nov 8 11:59 PM
+        </div>
+      </div>
+    </header>
+
+    <!-- 2. Control Center Flyout Panel -->
+    <div id="vui-cc-panel" class="vui-control-center">
+      <div class="vui-cc-tiles">
+        <!-- Connectivity Card -->
+        <div class="vui-cc-card">
+          <div class="vui-cc-toggle-item active">
+            <div class="vui-cc-icon-pill">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0"/></svg>
+            </div>
+            <div class="vui-cc-meta">
+              <span class="vui-cc-title">Wi-Fi</span>
+              <span class="vui-cc-sub">Vpple Studio 5G</span>
+            </div>
+          </div>
+          <div class="vui-cc-toggle-item active">
+            <div class="vui-cc-icon-pill">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+            </div>
+            <div class="vui-cc-meta">
+              <span class="vui-cc-title">Bluetooth</span>
+              <span class="vui-cc-sub">Magic Keyboard</span>
+            </div>
+          </div>
+          <div class="vui-cc-toggle-item active">
+            <div class="vui-cc-icon-pill">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <div class="vui-cc-meta">
+              <span class="vui-cc-title">AirDrop</span>
+              <span class="vui-cc-sub">Contacts Only</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Focus & Screen Mirroring -->
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div class="vui-cc-card" style="padding: 10px;">
+            <div class="vui-cc-toggle-item">
+              <div class="vui-cc-icon-pill">
+                <svg width="15" height="15" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+              </div>
+              <div class="vui-cc-meta">
+                <span class="vui-cc-title">Focus</span>
+                <span class="vui-cc-sub">Do Not Disturb</span>
+              </div>
+            </div>
+          </div>
+          <div class="vui-cc-card" style="padding: 10px;">
+            <div class="vui-cc-toggle-item">
+              <div class="vui-cc-icon-pill">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+              </div>
+              <div class="vui-cc-meta">
+                <span class="vui-cc-title">Stage Manager</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Brightness Slider -->
+      <div class="vui-cc-slider-card">
+        <div class="vui-cc-slider-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <input type="range" class="vui-slider" value="85" min="0" max="100">
+        </div>
+      </div>
+
+      <!-- Sound Volume Slider -->
+      <div class="vui-cc-slider-card">
+        <div class="vui-cc-slider-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>
+          <input type="range" class="vui-slider" value="65" min="0" max="100">
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Spotlight Search Modal (Hidden by default, triggered by ⌘Space) -->
+    <div id="vui-spotlight-modal" class="vui-spotlight-backdrop">
+      <div class="vui-spotlight">
+        <div class="vui-spotlight-search-bar">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+          <input id="vui-spotlight-input" type="text" class="vui-spotlight-input" placeholder="Spotlight Search (Type an app or component...)">
+        </div>
+        <div id="vui-spotlight-list" class="vui-spotlight-results">
+          <div class="vui-spotlight-item active">
+            <div class="vui-spotlight-item-left">
+              <div class="vui-spotlight-app-icon" style="background: linear-gradient(135deg, #007aff, #00c6ff);">&#63743;</div>
+              <span class="vui-spotlight-app-name">Vpple UI Kit</span>
+            </div>
+            <span class="vui-spotlight-badge">Applications</span>
+          </div>
+          <div class="vui-spotlight-item">
+            <div class="vui-spotlight-item-left">
+              <div class="vui-spotlight-app-icon" style="background: linear-gradient(135deg, #af52de, #ff2d55);">Tt</div>
+              <span class="vui-spotlight-app-name">SP Pro Display (Font Specimen)</span>
+            </div>
+            <span class="vui-spotlight-badge">Typefaces</span>
+          </div>
+          <div class="vui-spotlight-item">
+            <div class="vui-spotlight-item-left">
+              <div class="vui-spotlight-app-icon" style="background: linear-gradient(135deg, #34c759, #30d158);">&#9658;</div>
+              <span class="vui-spotlight-app-name">Segmented Controls</span>
+            </div>
+            <span class="vui-spotlight-badge">Components</span>
+          </div>
+          <div class="vui-spotlight-item">
+            <div class="vui-spotlight-item-left">
+              <div class="vui-spotlight-app-icon" style="background: linear-gradient(135deg, #ff9500, #ffcc00);">&#9672;</div>
+              <span class="vui-spotlight-app-name">Liquid Glass Materials</span>
+            </div>
+            <span class="vui-spotlight-badge">Tokens</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Draggable macOS Window (Desktop Centerpiece) -->
+    <div class="desktop-workspace">
+      <div class="vui-window simulated-window vui-tahoe-glass">
+        <!-- Titlebar with Traffic Lights -->
+        <div class="vui-window-titlebar">
+          <div class="vui-traffic-lights">
+            <button class="vui-traffic-btn vui-traffic-close" title="Close">
+              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="4"><path d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+            <button class="vui-traffic-btn vui-traffic-min" title="Minimize">
+              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="4"><path d="M5 12h14"/></svg>
+            </button>
+            <button class="vui-traffic-btn vui-traffic-max" title="Full Screen">
+              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="4"><path d="M4 14l6 6m0 0h-5m5 0v-5M20 10l-6-6m0 0h5m-5 0v5"/></svg>
+            </button>
+          </div>
+
+          <div class="vui-window-title">macOS Tahoe &bull; System Settings</div>
+
+          <!-- Window Toolbar Search & Views -->
+          <div class="vui-window-toolbar">
+            <div class="vui-segmented" style="height: 24px;">
+              <button class="vui-segmented-item active" style="padding: 2px 8px; font-size: 11px;">Icons</button>
+              <button class="vui-segmented-item" style="padding: 2px 8px; font-size: 11px;">List</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Window Split View (Sidebar + Content) -->
+        <div class="vui-window-split">
+          <!-- macOS Sidebar -->
+          <nav class="vui-sidebar">
+            <div class="vui-sidebar-section-title">Design System</div>
+            <ul class="vui-sidebar-list">
+              <li>
+                <a href="#tab-buttons" class="vui-sidebar-item active" data-tab="tab-buttons">
+                  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="4"/></svg>
+                  <span>Buttons &amp; Actions</span>
+                </a>
+              </li>
+              <li>
+                <a href="#tab-controls" class="vui-sidebar-item" data-tab="tab-controls">
+                  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10"/></svg>
+                  <span>Switches &amp; Toggles</span>
+                </a>
+              </li>
+              <li>
+                <a href="#tab-sliders" class="vui-sidebar-item" data-tab="tab-sliders">
+                  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                  <span>Sliders &amp; Steppers</span>
+                </a>
+              </li>
+              <li>
+                <a href="#tab-forms" class="vui-sidebar-item" data-tab="tab-forms">
+                  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                  <span>Search &amp; Forms</span>
+                </a>
+              </li>
+              <li>
+                <a href="#tab-island" class="vui-sidebar-item" data-tab="tab-island">
+                  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="4"/><path d="M12 18h.01"/></svg>
+                  <span>iOS 26 Liquid Island</span>
+                </a>
+              </li>
+            </ul>
+
+            <div class="vui-sidebar-section-title" style="margin-top: 10px;">Typography</div>
+            <ul class="vui-sidebar-list">
+              <li>
+                <a href="#tab-type" class="vui-sidebar-item" data-tab="tab-type">
+                  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M12 6v12"/></svg>
+                  <span>SP Pro Display</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+          <!-- Window Main Content Panes -->
+          <div class="vui-window-content">
+            <!-- Tab 1: Buttons -->
+            <div id="tab-buttons" class="vui-tab-pane">
+              <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 6px;">Push &amp; Action Buttons</h2>
+              <p style="font-size: 13px; color: var(--vui-text-secondary); margin-bottom: 20px;">
+                Apple HIG primary tinted, secondary frosted glass, destructive red, and pill buttons with micro-press physics.
+              </p>
+
+              <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 24px;">
+                <button class="vui-btn vui-btn-primary">Primary Action</button>
+                <button class="vui-btn vui-btn-secondary">Secondary Glass</button>
+                <button class="vui-btn vui-btn-destructive">Destructive</button>
+                <button class="vui-btn vui-btn-tinted">Tinted Pill</button>
+                <button class="vui-btn vui-btn-ghost">Ghost</button>
+                <button class="vui-btn vui-btn-primary vui-btn-pill">Pill Button</button>
+              </div>
+
+              <div style="display: flex; gap: 12px; align-items: center;">
+                <button class="vui-btn vui-btn-primary vui-btn-sm">Small</button>
+                <button class="vui-btn vui-btn-primary">Regular (13px)</button>
+                <button class="vui-btn vui-btn-primary vui-btn-lg">Large (15px)</button>
+                <button class="vui-btn vui-btn-secondary" disabled>Disabled State</button>
+              </div>
+            </div>
+
+            <!-- Tab 2: Switches & Controls -->
+            <div id="tab-controls" class="vui-tab-pane" style="display: none;">
+              <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 6px;">Switches &amp; Segmented Controls</h2>
+              <p style="font-size: 13px; color: var(--vui-text-secondary); margin-bottom: 20px;">
+                Exact 51x31px Apple green toggle switches and fluid capsule sliding segmented controls.
+              </p>
+
+              <div style="display: flex; gap: 24px; align-items: center; margin-bottom: 28px;">
+                <label class="vui-switch">
+                  <input type="checkbox" checked>
+                  <span class="vui-switch-track"><span class="vui-switch-thumb"></span></span>
+                </label>
+                <span style="font-size: 13px; font-weight: 500;">Wi-Fi Networking</span>
+
+                <label class="vui-switch" style="margin-left: 20px;">
+                  <input type="checkbox">
+                  <span class="vui-switch-track"><span class="vui-switch-thumb"></span></span>
+                </label>
+                <span style="font-size: 13px; font-weight: 500;">Automatic Updates</span>
+              </div>
+
+              <div class="vui-segmented">
+                <button class="vui-segmented-item active">Hourly</button>
+                <button class="vui-segmented-item">Daily</button>
+                <button class="vui-segmented-item">Weekly</button>
+                <button class="vui-segmented-item">Monthly</button>
+              </div>
+            </div>
+
+            <!-- Tab 3: Sliders -->
+            <div id="tab-sliders" class="vui-tab-pane" style="display: none;">
+              <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 6px;">Sliders &amp; Steppers</h2>
+              <p style="font-size: 13px; color: var(--vui-text-secondary); margin-bottom: 20px;">
+                Fluid Apple audio/display sliders with circular thumbs and steppers with linked telemetry.
+              </p>
+
+              <div style="margin-bottom: 24px; max-width: 360px;">
+                <label style="display: block; font-size: 12px; font-weight: 600; margin-bottom: 8px;">Display Backlight</label>
+                <input type="range" class="vui-slider" value="70">
+              </div>
+
+              <div style="display: flex; align-items: center; gap: 14px;">
+                <div class="vui-stepper" data-target="stepper-val">
+                  <button class="vui-stepper-btn" data-step="minus">&minus;</button>
+                  <div class="vui-stepper-sep"></div>
+                  <button class="vui-stepper-btn" data-step="plus">&plus;</button>
+                </div>
+                <span style="font-size: 14px; font-weight: 600;">Quantity: <span id="stepper-val">3</span></span>
+              </div>
+            </div>
+
+            <!-- Tab 4: Forms -->
+            <div id="tab-forms" class="vui-tab-pane" style="display: none;">
+              <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 6px;">Search &amp; Text Inputs</h2>
+              <p style="font-size: 13px; color: var(--vui-text-secondary); margin-bottom: 20px;">
+                Rounded inputs with embedded magnifying glass and active focus rings.
+              </p>
+
+              <div style="display: flex; flex-direction: column; gap: 14px; max-width: 380px;">
+                <div class="vui-search">
+                  <svg class="vui-search-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                  <input type="text" class="vui-input" placeholder="Search components, tokens, or icons...">
+                </div>
+
+                <input type="text" class="vui-input" placeholder="Organization / Project Name" value="Vpple Labs">
+              </div>
+            </div>
+
+            <!-- Tab: iOS 26 Dynamic Island -->
+            <div id="tab-island" class="vui-tab-pane" style="display: none;">
+              <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 6px;">iOS 26 Liquid Dynamic Island</h2>
+              <p style="font-size: 13px; color: var(--vui-text-secondary); margin-bottom: 20px;">
+                Viscous liquid mercury physics with specular surface tension. Click the island below to expand into live background playback.
+              </p>
+
+              <div class="vui-island-container">
+                <div class="vui-dynamic-island vui-liquid-island">
+                  <!-- Compact state -->
+                  <div class="vui-island-compact-content">
+                    <div class="vui-island-left">
+                      <div class="vui-island-icon" style="background: #fa233b;">&#9835;</div>
+                      <span>Starboy</span>
+                    </div>
+                    <div class="vui-island-right">
+                      <div class="vui-island-wave"><span></span><span></span><span></span></div>
+                    </div>
+                  </div>
+                  <!-- Expanded state -->
+                  <div class="vui-island-expanded-content">
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                      <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="width: 38px; height: 38px; border-radius: 8px; background: linear-gradient(135deg, #fa233b, #ff7b00); display: flex; align-items: center; justify-content: center; font-size: 20px;">&#9835;</div>
+                        <div>
+                          <div style="font-size: 14px; font-weight: 700;">Starboy</div>
+                          <div style="font-size: 11px; opacity: 0.7;">The Weeknd &bull; iOS 26 Music</div>
+                        </div>
+                      </div>
+                      <div class="vui-island-wave"><span></span><span></span><span></span></div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; font-size: 10px; opacity: 0.6;">
+                      <span>1:24</span>
+                      <div style="flex: 1; height: 3px; background: rgba(255,255,255,0.25); border-radius: 2px;"><div style="width: 42%; height: 100%; background: #fff; border-radius: 2px;"></div></div>
+                      <span>-2:26</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p style="text-align: center; font-size: 12px; color: var(--vui-text-tertiary); margin-top: 14px;">&uarr; Click the liquid island pill to expand / collapse</p>
+            </div>
+
+            <!-- Tab 5: Typography -->
+            <div id="tab-type" class="vui-tab-pane" style="display: none;">
+              <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 6px;">SP Pro Display Integration</h2>
+              <p style="font-size: 13px; color: var(--vui-text-secondary); margin-bottom: 20px;">
+                1:1 metric-identical Apple system typography rendering across all weights.
+              </p>
+
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                <div class="vui-type-large-title">Large Title (34px)</div>
+                <div class="vui-type-title1">Title 1 Bold (28px)</div>
+                <div class="vui-type-title2">Title 2 Semibold (22px)</div>
+                <div class="vui-type-headline">Headline (17px Semibold)</div>
+                <div class="vui-type-body">Body copy (15px) rendered with 0px advance width line-wrap delta vs macOS SF Pro Display.</div>
+                <div class="vui-type-caption">Caption text (11px) with optical kerning.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. macOS Frosted Glass Dock with Parabolic Physics -->
+    <footer class="vui-dock-container">
+      <div class="vui-dock vui-tahoe-dock">
+        <!-- Finder -->
+        <div class="vui-dock-item" data-app="finder">
+          <div class="vui-dock-tooltip">Finder</div>
+          <div class="vui-dock-icon" style="background: linear-gradient(135deg, #007aff, #00c6ff);">&#9786;</div>
+          <div class="vui-dock-dot"></div>
+        </div>
+
+        <!-- Safari -->
+        <div class="vui-dock-item" data-app="safari">
+          <div class="vui-dock-tooltip">Safari</div>
+          <div class="vui-dock-icon" style="background: linear-gradient(135deg, #0062ff, #00d4ff);">&#9678;</div>
+        </div>
+
+        <!-- Messages -->
+        <div class="vui-dock-item" data-app="messages">
+          <div class="vui-dock-tooltip">Messages</div>
+          <div class="vui-dock-icon" style="background: linear-gradient(135deg, #34c759, #30d158);">&#9993;</div>
+        </div>
+
+        <!-- Mail -->
+        <div class="vui-dock-item" data-app="mail">
+          <div class="vui-dock-tooltip">Mail</div>
+          <div class="vui-dock-icon" style="background: linear-gradient(135deg, #007aff, #5856d6);">&#9993;</div>
+        </div>
+
+        <!-- Photos -->
+        <div class="vui-dock-item" data-app="photos">
+          <div class="vui-dock-tooltip">Photos</div>
+          <div class="vui-dock-icon" style="background: linear-gradient(135deg, #ff2d55, #ff9500);">&#9734;</div>
+        </div>
+
+        <!-- Music -->
+        <div class="vui-dock-item" data-app="music">
+          <div class="vui-dock-tooltip">Music</div>
+          <div class="vui-dock-icon" style="background: linear-gradient(135deg, #fa2d48, #fa233b);">&#9835;</div>
+        </div>
+
+        <div class="vui-dock-sep"></div>
+
+        <!-- Vpple UI Settings -->
+        <div class="vui-dock-item" data-app="settings">
+          <div class="vui-dock-tooltip">System Settings</div>
+          <div class="vui-dock-icon" style="background: linear-gradient(135deg, #8e8e93, #636366);">&#9881;</div>
+          <div class="vui-dock-dot"></div>
+        </div>
+
+        <!-- Trash -->
+        <div class="vui-dock-item" data-app="trash">
+          <div class="vui-dock-tooltip">Trash</div>
+          <div class="vui-dock-icon" style="background: rgba(255, 255, 255, 0.15);">&#128465;</div>
+        </div>
+      </div>
+    </footer>
+
+  </section>
+
+  <!-- ======================================================================
+       COMPONENT CATALOG & CODE INSPECTOR
+       ====================================================================== -->
+  <main class="container">
+    <div class="section-header">
+      <div class="section-tag">Interactive Component Suite</div>
+      <h2 class="section-title">Apple HIG Component Clones</h2>
+      <p class="section-desc">
+        Every component is engineered in clean CSS &amp; vanilla JS with zero external framework dependencies. Drop into your React, Vue, Svelte, or static HTML applications.
+      </p>
+    </div>
+
+    <div class="comp-grid">
+
+      <!-- 1. Buttons -->
+      <article class="comp-card">
+        <div class="comp-card-header">
+          <h3 class="comp-card-title">Push Buttons</h3>
+          <span class="vui-badge vui-badge-blue">HIG 1:1</span>
+        </div>
+        <div class="comp-card-preview" id="snippet-buttons">
+          <button class="vui-btn vui-btn-primary">Primary</button>
+          <button class="vui-btn vui-btn-secondary">Secondary</button>
+          <button class="vui-btn vui-btn-destructive">Destructive</button>
+        </div>
+        <div class="comp-card-footer">
+          <span style="color: var(--vui-text-tertiary);">.vui-btn, .vui-btn-primary</span>
+          <button class="btn-copy" data-copy-target="snippet-buttons-code">Copy HTML</button>
+        </div>
+        <pre id="snippet-buttons-code" style="display: none;">&lt;button class="vui-btn vui-btn-primary"&gt;Primary&lt;/button&gt;
+&lt;button class="vui-btn vui-btn-secondary"&gt;Secondary&lt;/button&gt;
+&lt;button class="vui-btn vui-btn-destructive"&gt;Destructive&lt;/button&gt;</pre>
+      </article>
+
+      <!-- 2. Switches -->
+      <article class="comp-card">
+        <div class="comp-card-header">
+          <h3 class="comp-card-title">Apple Switch Toggle</h3>
+          <span class="vui-badge vui-badge-green">51x31px</span>
+        </div>
+        <div class="comp-card-preview" id="snippet-switch">
+          <label class="vui-switch">
+            <input type="checkbox" checked>
+            <span class="vui-switch-track"><span class="vui-switch-thumb"></span></span>
+          </label>
+          <label class="vui-switch">
+            <input type="checkbox">
+            <span class="vui-switch-track"><span class="vui-switch-thumb"></span></span>
+          </label>
+        </div>
+        <div class="comp-card-footer">
+          <span style="color: var(--vui-text-tertiary);">.vui-switch, spring animation</span>
+          <button class="btn-copy" data-copy-target="snippet-switch-code">Copy HTML</button>
+        </div>
+        <pre id="snippet-switch-code" style="display: none;">&lt;label class="vui-switch"&gt;
+  &lt;input type="checkbox" checked&gt;
+  &lt;span class="vui-switch-track"&gt;&lt;span class="vui-switch-thumb"&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;/label&gt;</pre>
+      </article>
+
+      <!-- 3. Segmented Controls -->
+      <article class="comp-card">
+        <div class="comp-card-header">
+          <h3 class="comp-card-title">Segmented Capsule Control</h3>
+          <span class="vui-badge vui-badge-purple">Dynamic Capsule</span>
+        </div>
+        <div class="comp-card-preview" id="snippet-segmented">
+          <div class="vui-segmented">
+            <button class="vui-segmented-item active">Grid</button>
+            <button class="vui-segmented-item">List</button>
+            <button class="vui-segmented-item">Gallery</button>
+          </div>
+        </div>
+        <div class="comp-card-footer">
+          <span style="color: var(--vui-text-tertiary);">.vui-segmented, .vui-segmented-item</span>
+          <button class="btn-copy" data-copy-target="snippet-segmented-code">Copy HTML</button>
+        </div>
+        <pre id="snippet-segmented-code" style="display: none;">&lt;div class="vui-segmented"&gt;
+  &lt;button class="vui-segmented-item active"&gt;Grid&lt;/button&gt;
+  &lt;button class="vui-segmented-item"&gt;List&lt;/button&gt;
+  &lt;button class="vui-segmented-item"&gt;Gallery&lt;/button&gt;
+&lt;/div&gt;</pre>
+      </article>
+
+      <!-- 4. Sliders -->
+      <article class="comp-card">
+        <div class="comp-card-header">
+          <h3 class="comp-card-title">Continuous Fluid Slider</h3>
+          <span class="vui-badge vui-badge-orange">Liquid Glass</span>
+        </div>
+        <div class="comp-card-preview" id="snippet-slider" style="padding: 24px 32px;">
+          <input type="range" class="vui-slider" value="60" min="0" max="100">
+        </div>
+        <div class="comp-card-footer">
+          <span style="color: var(--vui-text-tertiary);">.vui-slider (Native &lt;input type="range"&gt;)</span>
+          <button class="btn-copy" data-copy-target="snippet-slider-code">Copy HTML</button>
+        </div>
+        <pre id="snippet-slider-code" style="display: none;">&lt;input type="range" class="vui-slider" value="60" min="0" max="100"&gt;</pre>
+      </article>
+
+      <!-- 5. Search Fields -->
+      <article class="comp-card">
+        <div class="comp-card-header">
+          <h3 class="comp-card-title">Search &amp; Text Inputs</h3>
+          <span class="vui-badge vui-badge-blue">Glass Filter</span>
+        </div>
+        <div class="comp-card-preview" id="snippet-search" style="padding: 16px 20px;">
+          <div class="vui-search" style="width: 100%;">
+            <svg class="vui-search-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <input type="text" class="vui-input" placeholder="Search system...">
+          </div>
+        </div>
+        <div class="comp-card-footer">
+          <span style="color: var(--vui-text-tertiary);">.vui-search, .vui-input</span>
+          <button class="btn-copy" data-copy-target="snippet-search-code">Copy HTML</button>
+        </div>
+        <pre id="snippet-search-code" style="display: none;">&lt;div class="vui-search"&gt;
+  &lt;svg class="vui-search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"&gt;&lt;path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/&gt;&lt;/svg&gt;
+  &lt;input type="text" class="vui-input" placeholder="Search system..."&gt;
+&lt;/div&gt;</pre>
+      </article>
+
+      <!-- 6. Traffic Lights -->
+      <article class="comp-card">
+        <div class="comp-card-header">
+          <h3 class="comp-card-title">macOS Traffic Lights</h3>
+          <span class="vui-badge vui-badge-green">Micro-Glyphs</span>
+        </div>
+        <div class="comp-card-preview" id="snippet-traffic">
+          <div class="vui-traffic-lights" style="padding: 10px; background: rgba(0, 0, 0, 0.2); border-radius: 999px;">
+            <button class="vui-traffic-btn vui-traffic-close">
+              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="4"><path d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+            <button class="vui-traffic-btn vui-traffic-min">
+              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="4"><path d="M5 12h14"/></svg>
+            </button>
+            <button class="vui-traffic-btn vui-traffic-max">
+              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="4"><path d="M4 14l6 6m0 0h-5m5 0v-5M20 10l-6-6m0 0h5m-5 0v5"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="comp-card-footer">
+          <span style="color: var(--vui-text-tertiary);">Hover to inspect glyphs</span>
+          <button class="btn-copy" data-copy-target="snippet-traffic-code">Copy HTML</button>
+        </div>
+        <pre id="snippet-traffic-code" style="display: none;">&lt;div class="vui-traffic-lights"&gt;
+  &lt;button class="vui-traffic-btn vui-traffic-close"&gt;&lt;svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="4"&gt;&lt;path d="M6 18L18 6M6 6l12 12"/&gt;&lt;/svg&gt;&lt;/button&gt;
+  &lt;button class="vui-traffic-btn vui-traffic-min"&gt;&lt;svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="4"&gt;&lt;path d="M5 12h14"/&gt;&lt;/svg&gt;&lt;/button&gt;
+  &lt;button class="vui-traffic-btn vui-traffic-max"&gt;&lt;svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="4"&gt;&lt;path d="M4 14l6 6m0 0h-5m5 0v-5M20 10l-6-6m0 0h5m-5 0v5"/&gt;&lt;/svg&gt;&lt;/button&gt;
+&lt;/div&gt;</pre>
+      </article>
+
+      <!-- 7. Real Volumetric Liquid Glass -->
+      <article class="comp-card">
+        <div class="comp-card-header">
+          <h3 class="comp-card-title">Real Volumetric Liquid Glass</h3>
+          <span class="vui-badge vui-badge-purple">Tahoe &amp; iOS 26 Optics</span>
+        </div>
+        <div class="comp-card-preview" id="snippet-liquid-glass" style="padding: 28px; background: radial-gradient(circle at 70% 30%, #ff2d55, #007aff 80%);">
+          <div class="vui-liquid-glass" style="padding: 16px 24px; text-align: center; color: #ffffff; cursor: pointer;">
+            <div style="font-weight: 700; font-size: 15px; margin-bottom: 4px;">Dynamic Fresnel Caustics</div>
+            <div style="font-size: 12px; opacity: 0.85;">Move mouse to refract specular prism light</div>
+          </div>
+        </div>
+        <div class="comp-card-footer">
+          <span style="color: var(--vui-text-tertiary);">.vui-liquid-glass, chromatic dispersion</span>
+          <button class="btn-copy" data-copy-target="snippet-liquid-glass-code">Copy HTML</button>
+        </div>
+        <pre id="snippet-liquid-glass-code" style="display: none;">&lt;div class="vui-liquid-glass"&gt;
+  &lt;div style="padding: 16px 24px;"&gt;
+    &lt;h4&gt;Real Liquid Glass Surface&lt;/h4&gt;
+    &lt;p&gt;Dynamic Fresnel caustics &amp; chromatic meniscus&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+      </article>
+
+      <!-- 8. iOS 26 Liquid Dynamic Island -->
+      <article class="comp-card">
+        <div class="comp-card-header">
+          <h3 class="comp-card-title">iOS 26 Liquid Dynamic Island</h3>
+          <span class="vui-badge vui-badge-blue">Fluid Mercury</span>
+        </div>
+        <div class="comp-card-preview" id="snippet-island-card">
+          <div class="vui-dynamic-island vui-liquid-island">
+            <div class="vui-island-compact-content">
+              <div class="vui-island-left">
+                <div class="vui-island-icon" style="background: #007aff; font-size: 11px;">✈</div>
+                <span>Flight UA 421</span>
+              </div>
+              <div class="vui-island-right">
+                <span style="color: #30d158; font-size: 12px; font-weight: 600;">On Time</span>
+              </div>
+            </div>
+            <div class="vui-island-expanded-content">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <div style="width: 28px; height: 28px; border-radius: 6px; background: #007aff; display: flex; align-items: center; justify-content: center;">✈</div>
+                  <div>
+                    <div style="font-size: 13px; font-weight: 700;">UA 421 &bull; SFO &rarr; JFK</div>
+                    <div style="font-size: 11px; opacity: 0.7;">Gate B14 &bull; Boarding 11:45 AM</div>
+                  </div>
+                </div>
+                <span style="color: #30d158; font-weight: 600; font-size: 12px;">On Time</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="comp-card-footer">
+          <span style="color: var(--vui-text-tertiary);">Click island to expand / collapse</span>
+          <button class="btn-copy" data-copy-target="snippet-island-card-code">Copy HTML</button>
+        </div>
+        <pre id="snippet-island-card-code" style="display: none;">&lt;div class="vui-dynamic-island vui-liquid-island"&gt;
+  &lt;div class="vui-island-compact-content"&gt;
+    &lt;div class="vui-island-left"&gt;
+      &lt;div class="vui-island-icon" style="background: #007aff;"&gt;✈&lt;/div&gt;
+      &lt;span&gt;Flight UA 421&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="vui-island-right"&gt;
+      &lt;span style="color: #30d158;"&gt;On Time&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+      </article>
+
+    </div>
+
+    <!-- Quick Integration Guide -->
+    <section style="background: var(--vui-surface-base); border: 1px solid var(--vui-border); border-radius: var(--vui-radius-xl); padding: 36px; margin-bottom: 60px;">
+      <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 8px;">Quick Integration</h3>
+      <p style="font-size: 14px; color: var(--vui-text-secondary); margin-bottom: 24px;">
+        Include the Vpple UI Kit CSS &amp; JS in your project to immediately use the full suite of Apple-cloned components.
+      </p>
+
+      <div style="margin-bottom: 20px;">
+        <label style="font-size: 12px; font-weight: 600; color: var(--vui-text-secondary); text-transform: uppercase;">1. HTML Direct CDN / Relative Link</label>
+        <div class="code-block">&lt;!-- SP Pro Display Typeface --&gt;
+&lt;link rel="stylesheet" href="https://jabirking-ux.github.io/Vpple/css/sp-pro-display.css"&gt;
+
+&lt;!-- Vpple UI Kit Styles --&gt;
+&lt;link rel="stylesheet" href="https://jabirking-ux.github.io/Vpple/css/vpple-ui.css"&gt;
+
+&lt;!-- Interactive Controller --&gt;
+&lt;script src="https://jabirking-ux.github.io/Vpple/js/vpple-ui.js" defer&gt;&lt;/script&gt;</div>
+      </div>
+
+      <div>
+        <label style="font-size: 12px; font-weight: 600; color: var(--vui-text-secondary); text-transform: uppercase;">2. NPM Package Installation</label>
+        <div class="code-block">npm install @vpple/ui-kit @vpple/sp-pro-display</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <strong>Vpple UI Kit</strong> &bull; Released under the MIT License. Clean-room reverse-engineering initiative.
+      </div>
+      <div class="footer-links">
+        <a href="../">Vpple Hub</a>
+        <a href="../sp-pro-display/">SP Pro Display</a>
+        <a href="https://github.com/jabirking-ux/Vpple" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Vpple UI Kit Controller -->
+  <script src="../js/vpple-ui.js"></script>
+</body>
+</html>

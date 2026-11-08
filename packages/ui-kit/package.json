@@ -1,0 +1,33 @@
+{
+  "name": "@vpple/ui-kit",
+  "version": "1.0.0",
+  "description": "1:1 clean-room clone of Apple macOS Tahoe and iOS 26 real volumetric liquid glass design systems",
+  "main": "css/vpple-ui.css",
+  "style": "css/vpple-ui.css",
+  "scripts": {},
+  "files": [
+    "css",
+    "js",
+    "README.md"
+  ],
+  "keywords": [
+    "vpple",
+    "apple",
+    "macos",
+    "ios",
+    "design-system",
+    "ui-kit",
+    "liquid-glass",
+    "glassmorphism",
+    "traffic-lights",
+    "dock"
+  ],
+  "author": "Vpple Open Source Initiative",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jabirking-ux/Vpple.git",
+    "directory": "packages/ui-kit"
+  },
+  "homepage": "https://jabirking-ux.github.io/Vpple/ui-kit/"
+}

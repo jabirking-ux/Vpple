@@ -1,0 +1,1693 @@
+/**
+ * Vpple UI Kit - v1.0.0
+ * 1:1 Clean-Room Clone of Apple macOS Tahoe & iOS 26 Design System.
+ * Integrated with SP Pro Display typography & authentic Apple cursors.
+ * Licensed under MIT.
+ * https://github.com/jabirking-ux/Vpple
+ */
+
+/* ==========================================================================
+   1. Design Tokens, Vibrancy & Materials
+   ========================================================================== */
+
+:root {
+  /* Typography Scale (SF Pro / SP Pro Display) */
+  --vui-font: "SP Pro Display", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+  --vui-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Apple System Palette */
+  --vui-blue: #007aff;
+  --vui-blue-hover: #006fe6;
+  --vui-blue-active: #0060cc;
+  --vui-purple: #af52de;
+  --vui-pink: #ff2d55;
+  --vui-red: #ff3b30;
+  --vui-orange: #ff9500;
+  --vui-yellow: #ffcc00;
+  --vui-green: #34c759;
+  --vui-teal: #5ac8fa;
+  --vui-indigo: #5856d6;
+  --vui-gray: #8e8e93;
+
+  /* Default Active Accent */
+  --vui-accent: var(--vui-blue);
+  --vui-accent-hover: var(--vui-blue-hover);
+  --vui-accent-active: var(--vui-blue-active);
+  --vui-accent-tint: rgba(0, 122, 255, 0.15);
+  --vui-accent-border: rgba(0, 122, 255, 0.35);
+
+  /* Dark Theme Tokens (Default) */
+  --vui-bg: #090b10;
+  --vui-bg-desktop: #0b0e14;
+  --vui-surface-base: #141822;
+  --vui-surface-elevated: #1a1f2c;
+  --vui-surface-grouped: #202636;
+  --vui-surface-overlay: rgba(26, 31, 44, 0.78);
+
+  --vui-text-primary: #f5f5f7;
+  --vui-text-secondary: #98989f;
+  --vui-text-tertiary: #636366;
+  --vui-text-quaternary: #48484a;
+
+  --vui-border: rgba(255, 255, 255, 0.10);
+  --vui-border-subtle: rgba(255, 255, 255, 0.06);
+  --vui-border-strong: rgba(255, 255, 255, 0.22);
+  --vui-border-focus: rgba(0, 122, 255, 0.65);
+
+  /* Materials & Caustics (Liquid Glass) */
+  --vui-material-ultrathin: rgba(255, 255, 255, 0.05);
+  --vui-material-thin: rgba(255, 255, 255, 0.08);
+  --vui-material-regular: rgba(255, 255, 255, 0.12);
+  --vui-material-thick: rgba(255, 255, 255, 0.18);
+  
+  --vui-blur-sm: blur(16px) saturate(180%);
+  --vui-blur-md: blur(28px) saturate(190%);
+  --vui-blur-lg: blur(40px) saturate(210%);
+  
+  --vui-specular-top: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  --vui-specular-bottom: inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+
+  /* Elevation Shadows */
+  --vui-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --vui-shadow-md: 0 4px 14px rgba(0, 0, 0, 0.4);
+  --vui-shadow-lg: 0 14px 40px rgba(0, 0, 0, 0.55);
+  --vui-shadow-window: 0 24px 64px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.14);
+  --vui-shadow-popover: 0 16px 36px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.12);
+
+  /* Spring Curves */
+  --vui-ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --vui-ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --vui-duration-fast: 0.14s;
+  --vui-duration-base: 0.22s;
+  --vui-duration-slow: 0.35s;
+
+  /* Squircles Radii */
+  --vui-radius-xs: 4px;
+  --vui-radius-sm: 6px;
+  --vui-radius-md: 10px;
+  --vui-radius-lg: 16px;
+  --vui-radius-xl: 22px;
+  --vui-radius-pill: 9999px;
+}
+
+/* Light Theme Mode */
+[data-theme="light"] {
+  --vui-bg: #f5f5f7;
+  --vui-bg-desktop: #e5e5ea;
+  --vui-surface-base: #ffffff;
+  --vui-surface-elevated: #fbfbfd;
+  --vui-surface-grouped: #f2f2f7;
+  --vui-surface-overlay: rgba(255, 255, 255, 0.82);
+
+  --vui-text-primary: #1d1d1f;
+  --vui-text-secondary: #6e6e73;
+  --vui-text-tertiary: #86868b;
+  --vui-text-quaternary: #aeaeb2;
+
+  --vui-border: rgba(0, 0, 0, 0.10);
+  --vui-border-subtle: rgba(0, 0, 0, 0.05);
+  --vui-border-strong: rgba(0, 0, 0, 0.22);
+  --vui-border-focus: rgba(0, 122, 255, 0.75);
+
+  --vui-material-ultrathin: rgba(255, 255, 255, 0.45);
+  --vui-material-thin: rgba(255, 255, 255, 0.65);
+  --vui-material-regular: rgba(255, 255, 255, 0.80);
+  --vui-material-thick: rgba(255, 255, 255, 0.92);
+
+  --vui-specular-top: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  --vui-specular-bottom: inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+
+  --vui-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --vui-shadow-md: 0 6px 18px rgba(0, 0, 0, 0.12);
+  --vui-shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.18);
+  --vui-shadow-window: 0 24px 60px rgba(0, 0, 0, 0.22), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  --vui-shadow-popover: 0 14px 32px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================================================
+   2. Base Reset & macOS Cursors
+   ========================================================================== */
+
+.vui-root {
+  font-family: var(--vui-font);
+  color: var(--vui-text-primary);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+
+.vui-root *, .vui-root *::before, .vui-root *::after {
+  box-sizing: inherit;
+}
+
+/* macOS Cursor System */
+.vui-cursor-default, body.vui-macos {
+  cursor: url('../assets/cursors/arrow.svg') 5 5, url('../assets/cursors/arrow.png') 5 5, auto;
+}
+
+.vui-cursor-pointer, .vui-btn, .vui-segmented-item, .vui-switch, .vui-dock-item, .vui-menu-item, [role="button"] {
+  cursor: url('../assets/cursors/pointinghand.svg') 8 2, url('../assets/cursors/pointinghand.png') 8 2, pointer;
+}
+
+.vui-cursor-text, .vui-input, .vui-search input, textarea {
+  cursor: url('../assets/cursors/ibeamvertical.svg') 4 10, url('../assets/cursors/ibeamvertical.png') 4 10, text;
+}
+
+.vui-cursor-grab {
+  cursor: url('../assets/cursors/openhand.svg') 10 10, url('../assets/cursors/openhand.png') 10 10, grab;
+}
+
+.vui-cursor-grabbing:active {
+  cursor: url('../assets/cursors/closedhand.svg') 10 10, url('../assets/cursors/closedhand.png') 10 10, grabbing;
+}
+
+/* ==========================================================================
+   3. Typography Presets (Apple Scale)
+   ========================================================================== */
+
+.vui-type-large-title {
+  font-size: 34px;
+  line-height: 41px;
+  font-weight: 700;
+  letter-spacing: -0.024em;
+}
+
+.vui-type-title1 {
+  font-size: 28px;
+  line-height: 34px;
+  font-weight: 700;
+  letter-spacing: -0.020em;
+}
+
+.vui-type-title2 {
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 700;
+  letter-spacing: -0.016em;
+}
+
+.vui-type-title3 {
+  font-size: 20px;
+  line-height: 25px;
+  font-weight: 600;
+  letter-spacing: -0.014em;
+}
+
+.vui-type-headline {
+  font-size: 17px;
+  line-height: 22px;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+}
+
+.vui-type-body {
+  font-size: 15px;
+  line-height: 21px;
+  font-weight: 400;
+  letter-spacing: -0.008em;
+}
+
+.vui-type-callout {
+  font-size: 14px;
+  line-height: 19px;
+  font-weight: 500;
+  letter-spacing: -0.006em;
+}
+
+.vui-type-subheadline {
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 400;
+  letter-spacing: -0.004em;
+  color: var(--vui-text-secondary);
+}
+
+.vui-type-footnote {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  letter-spacing: 0em;
+  color: var(--vui-text-secondary);
+}
+
+.vui-type-caption {
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: var(--vui-text-tertiary);
+}
+
+/* ==========================================================================
+   4. macOS Menubar
+   ========================================================================== */
+
+.vui-menubar {
+  height: 28px;
+  background: var(--vui-surface-overlay);
+  backdrop-filter: var(--vui-blur-md);
+  -webkit-backdrop-filter: var(--vui-blur-md);
+  border-bottom: 1px solid var(--vui-border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  font-size: 13px;
+  font-weight: 500;
+  position: relative;
+  z-index: 10000;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.vui-menubar-left,
+.vui-menubar-right {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.vui-menubar-left {
+  gap: 2px;
+}
+
+.vui-menubar-right {
+  gap: 6px;
+}
+
+.vui-menu-item {
+  padding: 3px 8px;
+  border-radius: var(--vui-radius-xs);
+  color: var(--vui-text-primary);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 22px;
+  font-size: 13px;
+  transition: background 0.1s ease;
+  position: relative;
+}
+
+.vui-menu-item:hover,
+.vui-menu-item.active {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+[data-theme="light"] .vui-menu-item:hover,
+[data-theme="light"] .vui-menu-item.active {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.vui-menu-item.apple-logo {
+  font-size: 16px;
+  padding: 3px 8px;
+  line-height: 1;
+}
+
+.vui-menu-item.app-name {
+  font-weight: 700;
+}
+
+/* Dropdown Menu */
+.vui-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  min-width: 220px;
+  background: var(--vui-surface-overlay);
+  backdrop-filter: var(--vui-blur-lg);
+  -webkit-backdrop-filter: var(--vui-blur-lg);
+  border: 1px solid var(--vui-border);
+  border-radius: var(--vui-radius-md);
+  box-shadow: var(--vui-shadow-popover), var(--vui-specular-top);
+  padding: 5px;
+  display: none;
+  flex-direction: column;
+  z-index: 11000;
+  animation: vuiFadeIn 0.12s var(--vui-ease-spring);
+}
+
+.vui-menu-item:hover .vui-dropdown,
+.vui-menu-item.active .vui-dropdown {
+  display: flex;
+}
+
+.vui-dropdown-item {
+  padding: 5px 12px;
+  border-radius: var(--vui-radius-sm);
+  font-size: 13px;
+  color: var(--vui-text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.08s ease;
+}
+
+.vui-dropdown-item:hover {
+  background: var(--vui-accent);
+  color: #ffffff;
+}
+
+.vui-dropdown-shortcut {
+  font-size: 11px;
+  font-family: var(--vui-font-mono);
+  color: var(--vui-text-tertiary);
+  margin-left: 16px;
+}
+
+.vui-dropdown-item:hover .vui-dropdown-shortcut {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.vui-dropdown-sep {
+  height: 1px;
+  background: var(--vui-border-subtle);
+  margin: 4px 6px;
+}
+
+/* Menubar Status Icons */
+.vui-status-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 6px;
+  border-radius: var(--vui-radius-xs);
+  height: 22px;
+  font-size: 12px;
+  color: var(--vui-text-primary);
+  cursor: pointer;
+  transition: background 0.1s ease;
+}
+
+.vui-status-icon:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="light"] .vui-status-icon:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.vui-battery-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.vui-battery-pill {
+  width: 20px;
+  height: 10px;
+  border: 1px solid var(--vui-text-primary);
+  border-radius: 3px;
+  padding: 1px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.vui-battery-pill::after {
+  content: "";
+  position: absolute;
+  right: -3px;
+  top: 2.5px;
+  width: 2px;
+  height: 4px;
+  background: var(--vui-text-primary);
+  border-radius: 0 1px 1px 0;
+}
+
+.vui-battery-fill {
+  height: 100%;
+  width: 100%;
+  background: var(--vui-green);
+  border-radius: 1.5px;
+}
+
+/* ==========================================================================
+   5. macOS Window Chrome & Traffic Lights
+   ========================================================================== */
+
+.vui-window {
+  background: var(--vui-surface-overlay);
+  backdrop-filter: var(--vui-blur-lg);
+  -webkit-backdrop-filter: var(--vui-blur-lg);
+  border-radius: var(--vui-radius-lg);
+  border: 1px solid var(--vui-border);
+  box-shadow: var(--vui-shadow-window), var(--vui-specular-top);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.25s var(--vui-ease-spring), opacity 0.25s ease, box-shadow 0.25s ease;
+}
+
+.vui-window.is-fullscreen {
+  position: fixed !important;
+  top: 28px !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: calc(100vh - 28px) !important;
+  border-radius: 0 !important;
+  border: none !important;
+  z-index: 9999 !important;
+}
+
+.vui-window.is-minimized {
+  transform: translateY(200px) scale(0.4) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Titlebar & Toolbar */
+.vui-window-titlebar {
+  height: 48px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--vui-border-subtle);
+  background: rgba(255, 255, 255, 0.02);
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+}
+
+.vui-window-titlebar:active {
+  cursor: grabbing;
+}
+
+/* Traffic Light Control Buttons */
+.vui-traffic-lights {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vui-traffic-btn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.35);
+  transition: filter 0.12s ease, transform 0.12s ease;
+}
+
+.vui-traffic-btn svg {
+  width: 6px;
+  height: 6px;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.vui-traffic-lights:hover .vui-traffic-btn svg {
+  opacity: 0.75;
+}
+
+.vui-traffic-close {
+  background: #ff5f57;
+  border: 0.5px solid #e0443e;
+  color: #4d0000;
+}
+
+.vui-traffic-min {
+  background: #febc2e;
+  border: 0.5px solid #d89e24;
+  color: #5c3b00;
+}
+
+.vui-traffic-max {
+  background: #28c840;
+  border: 0.5px solid #1aab29;
+  color: #004d11;
+}
+
+.vui-traffic-btn:active {
+  filter: brightness(0.85);
+  transform: scale(0.92);
+}
+
+.vui-window-title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--vui-text-primary);
+  text-align: center;
+  flex: 1;
+}
+
+.vui-window-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Window Split View Layout */
+.vui-window-split {
+  display: flex;
+  flex: 1;
+  min-height: 480px;
+  overflow: hidden;
+}
+
+/* macOS Sidebar */
+.vui-sidebar {
+  width: 220px;
+  background: rgba(0, 0, 0, 0.12);
+  border-right: 1px solid var(--vui-border-subtle);
+  padding: 14px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+[data-theme="light"] .vui-sidebar {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.vui-sidebar-section-title {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--vui-text-tertiary);
+  padding: 0 10px 4px;
+}
+
+.vui-sidebar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.vui-sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  border-radius: var(--vui-radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--vui-text-primary);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.vui-sidebar-item svg {
+  width: 16px;
+  height: 16px;
+  color: var(--vui-accent);
+}
+
+.vui-sidebar-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="light"] .vui-sidebar-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.vui-sidebar-item.active {
+  background: var(--vui-accent);
+  color: #ffffff;
+}
+
+.vui-sidebar-item.active svg {
+  color: #ffffff;
+}
+
+.vui-window-content {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  background: transparent;
+}
+
+/* ==========================================================================
+   6. macOS Dock & Parabolic Physics
+   ========================================================================== */
+
+.vui-dock-container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 9000;
+  padding: 10px 0 14px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.vui-dock {
+  background: rgba(30, 36, 52, 0.42);
+  backdrop-filter: var(--vui-blur-lg);
+  -webkit-backdrop-filter: var(--vui-blur-lg);
+  border: 1px solid var(--vui-border);
+  box-shadow: var(--vui-specular-top), 0 20px 50px rgba(0, 0, 0, 0.45);
+  border-radius: 24px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  transition: padding 0.2s ease;
+}
+
+[data-theme="light"] .vui-dock {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.vui-dock-item {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transform-origin: bottom center;
+  transition: transform 0.12s var(--vui-ease-spring), margin 0.12s var(--vui-ease-spring);
+}
+
+.vui-dock-icon {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+  font-size: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.vui-dock-icon::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 100%);
+  border-radius: 12px 12px 0 0;
+  pointer-events: none;
+}
+
+.vui-dock-dot {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--vui-text-primary);
+  opacity: 0.85;
+}
+
+.vui-dock-tooltip {
+  position: absolute;
+  top: -36px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.9);
+  background: rgba(20, 24, 34, 0.85);
+  backdrop-filter: var(--vui-blur-md);
+  -webkit-backdrop-filter: var(--vui-blur-md);
+  border: 1px solid var(--vui-border);
+  color: var(--vui-text-primary);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 9px;
+  border-radius: var(--vui-radius-sm);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease, transform 0.15s var(--vui-ease-spring);
+  box-shadow: var(--vui-shadow-md);
+}
+
+.vui-dock-item:hover .vui-dock-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+.vui-dock-sep {
+  width: 1px;
+  height: 40px;
+  background: var(--vui-border);
+  margin: 0 2px;
+  align-self: center;
+}
+
+/* ==========================================================================
+   7. Buttons & Pill Actions
+   ========================================================================== */
+
+.vui-btn {
+  font-family: var(--vui-font);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  padding: 6px 14px;
+  border-radius: var(--vui-radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  line-height: 1.25;
+  text-decoration: none;
+  user-select: none;
+  position: relative;
+  box-shadow: var(--vui-shadow-sm);
+  transition: all 0.14s var(--vui-ease-spring);
+}
+
+.vui-btn:active {
+  transform: scale(0.97);
+}
+
+/* Primary Button */
+.vui-btn-primary {
+  background: linear-gradient(180deg, var(--vui-blue) 0%, var(--vui-blue-hover) 100%);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 2px 8px rgba(0, 122, 255, 0.35);
+}
+
+.vui-btn-primary:hover {
+  background: linear-gradient(180deg, #1a88ff 0%, var(--vui-blue) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 4px 14px rgba(0, 122, 255, 0.45);
+}
+
+.vui-btn-primary:active {
+  background: var(--vui-blue-active);
+}
+
+/* Secondary Button (Frosted Glass) */
+.vui-btn-secondary {
+  background: var(--vui-material-thin);
+  color: var(--vui-text-primary);
+  border-color: var(--vui-border);
+  box-shadow: var(--vui-specular-top);
+}
+
+.vui-btn-secondary:hover {
+  background: var(--vui-material-regular);
+  border-color: var(--vui-border-strong);
+}
+
+/* Destructive Button (Apple Red) */
+.vui-btn-destructive {
+  background: linear-gradient(180deg, #ff453a 0%, #d70015 100%);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 2px 8px rgba(255, 59, 48, 0.35);
+}
+
+.vui-btn-destructive:hover {
+  filter: brightness(1.08);
+}
+
+/* Tinted Button */
+.vui-btn-tinted {
+  background: var(--vui-accent-tint);
+  color: var(--vui-accent);
+  border-color: var(--vui-accent-border);
+  box-shadow: none;
+}
+
+.vui-btn-tinted:hover {
+  background: rgba(0, 122, 255, 0.22);
+}
+
+/* Ghost Button */
+.vui-btn-ghost {
+  background: transparent;
+  color: var(--vui-accent);
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.vui-btn-ghost:hover {
+  background: var(--vui-material-thin);
+}
+
+/* Pill & Circular Button */
+.vui-btn-pill {
+  border-radius: var(--vui-radius-pill);
+  padding: 8px 18px;
+}
+
+.vui-btn-icon {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: var(--vui-radius-sm);
+}
+
+.vui-btn-icon.circle {
+  border-radius: 50%;
+}
+
+/* Sizes */
+.vui-btn-sm {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 5px;
+}
+
+.vui-btn-lg {
+  font-size: 15px;
+  padding: 10px 22px;
+  border-radius: var(--vui-radius-md);
+}
+
+/* ==========================================================================
+   8. Segmented Controls (Sliding Capsule)
+   ========================================================================== */
+
+.vui-segmented {
+  display: inline-flex;
+  align-items: center;
+  background: var(--vui-material-thin);
+  border: 1px solid var(--vui-border);
+  border-radius: var(--vui-radius-sm);
+  padding: 2px;
+  position: relative;
+  user-select: none;
+}
+
+.vui-segmented-item {
+  position: relative;
+  z-index: 2;
+  font-family: var(--vui-font);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--vui-text-secondary);
+  padding: 4px 14px;
+  border-radius: 5px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: color 0.15s ease;
+  line-height: 1.25;
+}
+
+.vui-segmented-item:hover {
+  color: var(--vui-text-primary);
+}
+
+.vui-segmented-item.active {
+  color: var(--vui-text-primary);
+  font-weight: 600;
+}
+
+.vui-segmented-indicator {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.28), inset 0 0.5px 0 rgba(255, 255, 255, 0.25);
+  transition: all 0.22s var(--vui-ease-spring);
+  pointer-events: none;
+}
+
+[data-theme="light"] .vui-segmented-indicator {
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 0.5px 1px rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================================================
+   9. iOS / macOS Switches (Toggles)
+   ========================================================================== */
+
+.vui-switch {
+  position: relative;
+  display: inline-block;
+  width: 51px;
+  height: 31px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.vui-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.vui-switch-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(120, 120, 128, 0.32);
+  border-radius: 31px;
+  transition: background-color 0.25s var(--vui-ease-spring);
+}
+
+.vui-switch-thumb {
+  position: absolute;
+  content: "";
+  height: 27px;
+  width: 27px;
+  left: 2px;
+  bottom: 2px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(0, 0, 0, 0.14);
+  transition: transform 0.25s var(--vui-ease-spring), width 0.15s ease;
+}
+
+.vui-switch:active .vui-switch-thumb {
+  width: 32px;
+}
+
+.vui-switch input:checked + .vui-switch-track {
+  background-color: var(--vui-green);
+}
+
+.vui-switch input:checked + .vui-switch-track .vui-switch-thumb {
+  transform: translateX(20px);
+}
+
+.vui-switch:active input:checked + .vui-switch-track .vui-switch-thumb {
+  transform: translateX(15px);
+}
+
+/* ==========================================================================
+   10. Form Controls, Inputs & Sliders
+   ========================================================================== */
+
+.vui-input {
+  font-family: var(--vui-font);
+  font-size: 13px;
+  color: var(--vui-text-primary);
+  background: var(--vui-material-thin);
+  border: 1px solid var(--vui-border);
+  border-radius: var(--vui-radius-sm);
+  padding: 7px 12px;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.vui-input:focus {
+  border-color: var(--vui-border-focus);
+  box-shadow: 0 0 0 3px var(--vui-accent-tint);
+}
+
+.vui-input::placeholder {
+  color: var(--vui-text-tertiary);
+}
+
+.vui-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.vui-search-icon {
+  position: absolute;
+  left: 10px;
+  width: 14px;
+  height: 14px;
+  color: var(--vui-text-tertiary);
+  pointer-events: none;
+}
+
+.vui-search input {
+  padding-left: 32px;
+}
+
+/* Sliders */
+.vui-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.16);
+  outline: none;
+}
+
+[data-theme="light"] .vui-slider {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.vui-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  border: 0.5px solid rgba(0, 0, 0, 0.12);
+  transition: transform 0.12s ease;
+}
+
+.vui-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+.vui-slider::-webkit-slider-thumb:active {
+  transform: scale(1.18);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.45);
+}
+
+/* Stepper */
+.vui-stepper {
+  display: inline-flex;
+  align-items: center;
+  background: var(--vui-material-thin);
+  border: 1px solid var(--vui-border);
+  border-radius: var(--vui-radius-sm);
+  overflow: hidden;
+}
+
+.vui-stepper-btn {
+  background: transparent;
+  border: none;
+  color: var(--vui-text-primary);
+  width: 30px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.12s ease;
+}
+
+.vui-stepper-btn:hover {
+  background: var(--vui-material-regular);
+}
+
+.vui-stepper-sep {
+  width: 1px;
+  height: 18px;
+  background: var(--vui-border);
+}
+
+/* Checkboxes & Radios */
+.vui-checkbox, .vui-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.vui-checkbox input, .vui-radio input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.vui-checkbox-box {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1px solid var(--vui-border-strong);
+  background: var(--vui-material-thin);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.vui-checkbox input:checked + .vui-checkbox-box {
+  background: var(--vui-accent);
+  border-color: var(--vui-accent);
+}
+
+.vui-checkbox-box svg {
+  width: 10px;
+  height: 10px;
+  color: #fff;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: all 0.15s ease;
+}
+
+.vui-checkbox input:checked + .vui-checkbox-box svg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.vui-radio-circle {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid var(--vui-border-strong);
+  background: var(--vui-material-thin);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.vui-radio input:checked + .vui-radio-circle {
+  border-color: var(--vui-accent);
+}
+
+.vui-radio-circle::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--vui-accent);
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.15s ease;
+}
+
+.vui-radio input:checked + .vui-radio-circle::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ==========================================================================
+   11. Control Center Flyout
+   ========================================================================== */
+
+.vui-control-center {
+  position: absolute;
+  top: 36px;
+  right: 12px;
+  width: 320px;
+  background: var(--vui-surface-overlay);
+  backdrop-filter: var(--vui-blur-lg);
+  -webkit-backdrop-filter: var(--vui-blur-lg);
+  border: 1px solid var(--vui-border);
+  box-shadow: var(--vui-shadow-window), var(--vui-specular-top);
+  border-radius: var(--vui-radius-xl);
+  padding: 16px;
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 12000;
+  user-select: none;
+  animation: vuiScaleIn 0.18s var(--vui-ease-spring);
+}
+
+.vui-control-center.active {
+  display: flex;
+}
+
+.vui-cc-tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.vui-cc-card {
+  background: var(--vui-material-thin);
+  border: 1px solid var(--vui-border-subtle);
+  border-radius: var(--vui-radius-lg);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.vui-cc-toggle-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.vui-cc-icon-pill {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--vui-text-primary);
+  font-size: 14px;
+  transition: all 0.15s ease;
+}
+
+.vui-cc-toggle-item.active .vui-cc-icon-pill {
+  background: var(--vui-accent);
+  color: #ffffff;
+}
+
+.vui-cc-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.vui-cc-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--vui-text-primary);
+}
+
+.vui-cc-sub {
+  font-size: 11px;
+  color: var(--vui-text-secondary);
+}
+
+.vui-cc-slider-card {
+  background: var(--vui-material-thin);
+  border: 1px solid var(--vui-border-subtle);
+  border-radius: var(--vui-radius-lg);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.vui-cc-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.vui-cc-slider-row svg {
+  width: 18px;
+  height: 18px;
+  color: var(--vui-text-secondary);
+}
+
+/* ==========================================================================
+   12. Spotlight Search Modal
+   ========================================================================== */
+
+.vui-spotlight-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 140px;
+  z-index: 15000;
+}
+
+.vui-spotlight-backdrop.active {
+  display: flex;
+}
+
+.vui-spotlight {
+  width: 600px;
+  background: var(--vui-surface-overlay);
+  backdrop-filter: var(--vui-blur-lg);
+  -webkit-backdrop-filter: var(--vui-blur-lg);
+  border: 1px solid var(--vui-border);
+  border-radius: var(--vui-radius-xl);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), var(--vui-specular-top);
+  overflow: hidden;
+  animation: vuiScaleIn 0.2s var(--vui-ease-spring);
+}
+
+.vui-spotlight-search-bar {
+  display: flex;
+  align-items: center;
+  padding: 14px 18px;
+  gap: 14px;
+  border-bottom: 1px solid var(--vui-border-subtle);
+}
+
+.vui-spotlight-search-bar svg {
+  width: 22px;
+  height: 22px;
+  color: var(--vui-text-tertiary);
+}
+
+.vui-spotlight-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--vui-font);
+  font-size: 20px;
+  color: var(--vui-text-primary);
+}
+
+.vui-spotlight-input::placeholder {
+  color: var(--vui-text-tertiary);
+}
+
+.vui-spotlight-results {
+  max-height: 360px;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+.vui-spotlight-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-radius: var(--vui-radius-md);
+  cursor: pointer;
+  transition: background 0.1s ease;
+}
+
+.vui-spotlight-item:hover, .vui-spotlight-item.active {
+  background: var(--vui-accent);
+  color: #ffffff;
+}
+
+.vui-spotlight-item:hover .vui-spotlight-badge, .vui-spotlight-item.active .vui-spotlight-badge {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.vui-spotlight-item-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.vui-spotlight-app-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 15px;
+}
+
+.vui-spotlight-app-name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.vui-spotlight-badge {
+  font-size: 11px;
+  color: var(--vui-text-tertiary);
+}
+
+/* ==========================================================================
+   13. Animations
+   ========================================================================== */
+
+@keyframes vuiFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes vuiScaleIn {
+  from { opacity: 0; transform: scale(0.96) translateY(-4px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes vuiBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16px); }
+}
+
+.vui-animate-bounce {
+  animation: vuiBounce 0.4s cubic-bezier(0.28, 0.84, 0.42, 1) 2;
+}
+
+/* ==========================================================================
+   14. iOS 26 Dynamic Island & Spatial Liquid Glass
+   ========================================================================== */
+
+.vui-island-container {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0;
+}
+
+.vui-dynamic-island {
+  background: #000000;
+  color: #ffffff;
+  border-radius: 999px;
+  height: 36px;
+  min-width: 140px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.vui-island-left, .vui-island-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.vui-island-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vui-island-wave {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 12px;
+}
+
+.vui-island-wave span {
+  width: 2.5px;
+  height: 100%;
+  background: #30d158;
+  border-radius: 2px;
+  animation: vuiWave 0.8s ease-in-out infinite alternate;
+}
+
+.vui-island-wave span:nth-child(2) { animation-delay: 0.2s; height: 60%; }
+.vui-island-wave span:nth-child(3) { animation-delay: 0.4s; height: 80%; }
+
+@keyframes vuiWave {
+  0% { transform: scaleY(0.4); }
+  100% { transform: scaleY(1.2); }
+}
+
+.vui-dynamic-island.expanded {
+  border-radius: 30px;
+  min-width: 340px;
+  height: 88px;
+  padding: 16px 20px;
+}
+
+.vui-dynamic-island.expanded .vui-island-expanded-content {
+  display: flex;
+}
+
+.vui-island-expanded-content {
+  display: none;
+  width: 100%;
+  flex-direction: column;
+  gap: 10px;
+  animation: vuiFadeIn 0.2s ease;
+}
+
+.vui-island-compact-content {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.vui-dynamic-island.expanded .vui-island-compact-content {
+  display: none;
+}
+
+/* ==========================================================================
+   15. macOS Tahoe & iOS 26 Real Volumetric Liquid Glass Engine
+   ========================================================================== */
+
+:root {
+  /* Dynamic Light Vector (Calculated in real-time by pointer tracking) */
+  --liquid-mx: 50%;
+  --liquid-my: 50%;
+  --liquid-angle: 135deg;
+  --liquid-refraction: 1.52;
+  --liquid-glare: rgba(255, 255, 255, 0.45);
+  --liquid-prism-cyan: rgba(0, 220, 255, 0.45);
+  --liquid-prism-magenta: rgba(255, 45, 180, 0.40);
+  --liquid-meniscus: inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.90),
+                     inset 0 -1px 2px 0 rgba(0, 0, 0, 0.40),
+                     inset 1.5px 0 1.5px 0 var(--liquid-prism-cyan),
+                     inset -1.5px 0 1.5px 0 var(--liquid-prism-magenta);
+}
+
+/* Real Liquid Glass Surface */
+.vui-liquid-glass {
+  position: relative;
+  background: 
+    radial-gradient(circle 420px at var(--liquid-mx) var(--liquid-my), rgba(255, 255, 255, 0.16), transparent 75%),
+    linear-gradient(var(--liquid-angle), rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.02) 100%),
+    rgba(14, 18, 28, 0.54);
+  backdrop-filter: blur(48px) saturate(230%) contrast(108%) brightness(112%);
+  -webkit-backdrop-filter: blur(48px) saturate(230%) contrast(108%) brightness(112%);
+  border-radius: var(--vui-radius-xl);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 
+    var(--liquid-meniscus),
+    0 28px 72px -12px rgba(0, 0, 0, 0.70),
+    0 0 45px -10px rgba(0, 122, 255, 0.28);
+  overflow: hidden;
+  transition: transform 0.25s var(--vui-ease-spring), box-shadow 0.25s ease;
+}
+
+.vui-liquid-glass::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle 260px at var(--liquid-mx) var(--liquid-my), rgba(255, 255, 255, 0.24), transparent 65%);
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: overlay;
+}
+
+.vui-liquid-glass::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--liquid-prism-cyan) 25%, 
+    rgba(255, 255, 255, 0.95) 50%, 
+    var(--liquid-prism-magenta) 75%, 
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* macOS Tahoe Window in Volumetric Liquid Glass */
+.vui-window.vui-tahoe-glass {
+  background: 
+    radial-gradient(circle 650px at var(--liquid-mx) var(--liquid-my), rgba(255, 255, 255, 0.13), transparent 70%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.01) 100%),
+    rgba(12, 16, 26, 0.65);
+  backdrop-filter: blur(52px) saturate(240%) contrast(110%) brightness(112%);
+  -webkit-backdrop-filter: blur(52px) saturate(240%) contrast(110%) brightness(112%);
+  box-shadow: 
+    var(--liquid-meniscus),
+    0 36px 88px -16px rgba(0, 0, 0, 0.80),
+    0 0 55px -10px rgba(0, 122, 255, 0.30);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+}
+
+/* iOS 26 Liquid Dynamic Island (Organic Viscous Liquid Droplet) */
+.vui-dynamic-island.vui-liquid-island {
+  background: #000000;
+  box-shadow: 
+    0 18px 40px rgba(0, 0, 0, 0.85),
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.55),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.85),
+    0 0 25px rgba(0, 122, 255, 0.40);
+  border: 0.5px solid rgba(255, 255, 255, 0.20);
+  transition: all 0.42s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.vui-dynamic-island.vui-liquid-island:hover {
+  box-shadow: 
+    0 22px 52px rgba(0, 0, 0, 0.90),
+    inset 0 2px 1.5px rgba(255, 255, 255, 0.75),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.85),
+    0 0 32px rgba(0, 122, 255, 0.55);
+  transform: scale(1.02);
+}
+
+/* Liquid Glass Push Buttons */
+.vui-btn-liquid {
+  position: relative;
+  overflow: hidden;
+  background: 
+    radial-gradient(circle 80px at var(--liquid-mx) var(--liquid-my), rgba(255, 255, 255, 0.40), transparent 70%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.08) 100%),
+    var(--vui-accent);
+  backdrop-filter: blur(24px) saturate(210%);
+  -webkit-backdrop-filter: blur(24px) saturate(210%);
+  border: 1px solid rgba(255, 255, 255, 0.40);
+  box-shadow: 
+    inset 0 1.5px 0.5px rgba(255, 255, 255, 0.90),
+    inset 0 -1.5px 1px rgba(0, 0, 0, 0.35),
+    0 6px 18px rgba(0, 122, 255, 0.45);
+  border-radius: var(--vui-radius-pill);
+  font-weight: 600;
+  transition: transform 0.15s var(--vui-ease-spring), box-shadow 0.15s ease;
+}
+
+.vui-btn-liquid:active {
+  transform: scale(0.95);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 2px 4px rgba(0, 0, 0, 0.4),
+    0 2px 6px rgba(0, 122, 255, 0.3);
+}
+
+/* macOS Tahoe Glass Dock Shelf */
+.vui-dock.vui-tahoe-dock {
+  background: 
+    radial-gradient(circle 450px at var(--liquid-mx) 100%, rgba(255, 255, 255, 0.25), transparent 70%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.03) 100%),
+    rgba(16, 22, 34, 0.42);
+  backdrop-filter: blur(56px) saturate(250%) contrast(108%) brightness(118%);
+  -webkit-backdrop-filter: blur(56px) saturate(250%) contrast(108%) brightness(118%);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.35),
+    0 26px 64px rgba(0, 0, 0, 0.60),
+    0 0 45px rgba(0, 122, 255, 0.25);
+}
+
+
