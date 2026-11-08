@@ -449,6 +449,56 @@
     });
   }
 
+  // 14. Real Fluid Ripple on Click for Liquid Glass
+  function initLiquidRipples() {
+    document.addEventListener('click', (e) => {
+      const target = e.target.closest('.vui-liquid-glass, .vui-btn-liquid, .vui-liquid-lens, .vui-window');
+      if (!target) return;
+
+      const rect = target.getBoundingClientRect();
+      const ripple = document.createElement('div');
+      ripple.className = 'vui-liquid-ripple';
+      ripple.style.left = `${e.clientX - rect.left}px`;
+      ripple.style.top = `${e.clientY - rect.top}px`;
+
+      target.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 800);
+    });
+  }
+
+  // 15. Draggable Real Liquid Optical Lens
+  function initLiquidLens() {
+    const lens = document.querySelector('.vui-liquid-lens');
+    if (!lens) return;
+
+    let isDragging = false;
+    let startX, startY, origX, origY;
+
+    lens.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      const rect = lens.getBoundingClientRect();
+      origX = rect.left;
+      origY = rect.top;
+      lens.style.position = 'fixed';
+      lens.style.margin = '0';
+      lens.style.zIndex = '99999';
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      lens.style.left = `${origX + dx}px`;
+      lens.style.top = `${origY + dy}px`;
+    });
+
+    window.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+  }
+
   // Auto-init on DOM ready
   document.addEventListener('DOMContentLoaded', () => {
     initClock();
@@ -464,6 +514,8 @@
     initTabs();
     initDynamicIsland();
     initLiquidPhysics();
+    initLiquidRipples();
+    initLiquidLens();
   });
 
 })();

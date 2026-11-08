@@ -264,10 +264,12 @@
 
   <!-- Top Announcement Banner -->
   <aside class="hub-banner">
-    <span>🍎 <strong>Vpple UI Kit</strong> &bull; 1:1 Clean-Room Clone of Apple macOS Tahoe &amp; iOS 26 Design System.</span>
+    <span>🍑 <strong>Vpple UI Kit</strong> &bull; 1:1 Clean-Room Clone of Apple macOS Tahoe &amp; iOS 26 Design System.</span>
     <a href="../">&larr; Back to Vpple Hub</a>
     <span style="opacity: 0.4;">|</span>
     <a href="../sp-pro-display/">SP Pro Display Font &rarr;</a>
+    <span style="opacity: 0.4;">|</span>
+    <a href="https://jabirking-ux.github.io/apple-notes/" target="_blank" rel="noopener noreferrer" style="color: #ffd60a;">Apple Notes Clone &rarr;</a>
     <span style="opacity: 0.4;">|</span>
     <a href="https://github.com/jabirking-ux/Vpple" target="_blank" rel="noopener noreferrer">GitHub Repo &rarr;</a>
   </aside>
@@ -280,9 +282,9 @@
     <!-- 1. Authentic macOS Menubar -->
     <header class="vui-menubar">
       <div class="vui-menubar-left">
-        <!-- Apple Logo with Dropdown -->
-        <div class="vui-menu-item apple-logo" tabindex="0">
-          <span></span>
+        <!-- Vpple Peach Logo with Dropdown -->
+        <div class="vui-menu-item apple-logo" tabindex="0" title="Vpple Menu">
+          <span style="font-size: 15px;">🍑</span>
           <div class="vui-dropdown">
             <div class="vui-dropdown-item"><strong>About This Mac (macOS Tahoe 16.0)</strong></div>
             <div class="vui-dropdown-sep"></div>
@@ -1008,6 +1010,44 @@
       </article>
 
     </div>
+
+    <!-- Real Physical Optical Refraction Demonstration -->
+    <section style="background: var(--vui-surface-base); border: 1px solid var(--vui-border); border-radius: var(--vui-radius-xl); padding: 36px; margin-bottom: 60px; position: relative; overflow: hidden;">
+      <div class="section-tag">Physical Optical Refraction</div>
+      <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 8px;">Real Liquid Glass vs. Fake Glassmorphism</h3>
+      <p style="font-size: 14px; color: var(--vui-text-secondary); max-width: 720px; margin-bottom: 24px;">
+        Fake glassmorphism uses static flat opacity. Real Liquid Glass refracts light according to physical optics (Snell's Law), producing chromatic aberration along the perimeter and volumetric fluid caustics. Drag the liquid lens below over the graphic spectrum and text to observe real distortion.
+      </p>
+
+      <!-- Interactive Refraction Stage -->
+      <div style="position: relative; height: 260px; background: linear-gradient(135deg, #0d121d 0%, #171d2d 100%); border-radius: var(--vui-radius-lg); border: 1px solid var(--vui-border); overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 20px;">
+        <!-- Background graphic text & color spectrum that will be refracted -->
+        <div style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-around; padding: 20px; user-select: none; pointer-events: none; opacity: 0.85;">
+          <div style="font-size: 32px; font-weight: 800; letter-spacing: -0.03em; background: linear-gradient(90deg, #ff2d55, #af52de, #007aff, #34c759, #ffcc00); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            macOS Tahoe &bull; iOS 26 Volumetric Liquid Glass Optics
+          </div>
+          <div style="font-family: var(--vui-font-mono); font-size: 13px; color: #8e92a0; line-height: 1.6;">
+            Snell: n1*sin(&theta;1) = n2*sin(&theta;2) | Cauchy Dispersion: n(&lambda;) = B + C/&lambda;&sup2; | Fresnel Reflectance R(&theta;) | Meniscus Curvature: &kappa; = 1/R
+          </div>
+          <div style="display: flex; gap: 10px;">
+            <div style="height: 8px; flex: 1; border-radius: 4px; background: #ff3b30;"></div>
+            <div style="height: 8px; flex: 1; border-radius: 4px; background: #ff9500;"></div>
+            <div style="height: 8px; flex: 1; border-radius: 4px; background: #ffcc00;"></div>
+            <div style="height: 8px; flex: 1; border-radius: 4px; background: #34c759;"></div>
+            <div style="height: 8px; flex: 1; border-radius: 4px; background: #007aff;"></div>
+            <div style="height: 8px; flex: 1; border-radius: 4px; background: #af52de;"></div>
+          </div>
+        </div>
+
+        <!-- Draggable Real Liquid Lens -->
+        <div class="vui-liquid-lens" title="Drag me over text & colors to observe physical refraction">
+          <div style="position: relative; z-index: 5; pointer-events: none;">
+            <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #ffffff; text-shadow: 0 1px 4px rgba(0,0,0,0.8);">Liquid Lens</div>
+            <div style="font-size: 11px; opacity: 0.85; color: #ffffff;">n = 1.52 (Drag Me)</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Quick Integration Guide -->
     <section style="background: var(--vui-surface-base); border: 1px solid var(--vui-border); border-radius: var(--vui-radius-xl); padding: 36px; margin-bottom: 60px;">

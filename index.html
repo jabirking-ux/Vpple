@@ -3,32 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vpple — Open Source Apple Clones &amp; Clean-Room Systems Hub</title>
-  <meta name="description" content="Vpple is an open-source engineering initiative reverse-engineering and cloning Apple ecosystem software, system typefaces, and design frameworks under clean-room legal standards.">
-  
+  <title>Vpple</title>
+  <meta name="description" content="Discover the innovative world of Vpple: clean-room engineered Apple system clones, SP Pro Display typography, real volumetric liquid glass, and Vpple Notes.">
+
+  <!-- Vpple SP Pro Display Font & Apple Typography -->
   <link rel="stylesheet" href="css/sp-pro-display.css">
   <link rel="stylesheet" href="css/apple-typography.css">
-  
+  <link rel="stylesheet" href="css/vpple-ui.css">
+
   <style>
     :root {
-      --bg: #06080d;
-      --bg-panel: #0d1017;
-      --bg-glass: rgba(17, 22, 34, 0.65);
-      --border: rgba(255, 255, 255, 0.08);
-      --border-hover: rgba(41, 151, 255, 0.4);
-      --accent: #2997ff;
-      --accent-purple: #a259ff;
-      --accent-dim: rgba(41, 151, 255, 0.12);
-      --text: #f5f5f7;
-      --text-muted: #8e92a0;
-      --text-dim: #545868;
-      --success: #30d158;
-      --warning: #ffd60a;
-      --font-display: "SP Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --vui-bg: #000000;
+      --nav-height: 44px;
+      --text-white: #f5f5f7;
+      --text-gray: #86868b;
+      --text-dim: #6e6e73;
+      --apple-blue: #0071e3;
+      --apple-blue-hover: #0077ed;
+      --font-display: "SP Pro Display", -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
       --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      
-      --mouse-x: 50vw;
-      --mouse-y: 50vh;
     }
 
     * {
@@ -38,896 +31,714 @@
     }
 
     body {
-      background-color: var(--bg);
-      color: var(--text);
+      background-color: var(--vui-bg);
+      color: var(--text-white);
       font-family: var(--font-display);
-      line-height: 1.5;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      line-height: 1.47059;
     }
 
-    /* Ambient Background Glow */
-    .ambient-glow {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 0;
-      background: 
-        radial-gradient(circle 600px at 15% 15%, rgba(41, 151, 255, 0.08), transparent 80%),
-        radial-gradient(circle 500px at 85% 25%, rgba(162, 89, 255, 0.07), transparent 75%),
-        radial-gradient(circle 400px at 50% 85%, rgba(48, 209, 88, 0.04), transparent 70%);
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
-    .container {
-      max-width: 1140px;
-      margin: 0 auto;
-      padding: 0 24px;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Navigation */
-    nav {
+    /* ----------------------------------------------------------------------
+       1. Official apple.com Global Navigation Bar (44px)
+       ---------------------------------------------------------------------- */
+    .global-nav {
       position: sticky;
       top: 0;
-      z-index: 100;
-      background: rgba(6, 8, 13, 0.78);
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
-      border-bottom: 1px solid var(--border);
+      z-index: 9999;
+      height: var(--nav-height);
+      background: rgba(0, 0, 0, 0.82);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 12px;
+      letter-spacing: -0.01em;
+      user-select: none;
     }
 
-    .nav-inner {
+    .nav-content {
+      max-width: 1024px;
+      margin: 0 auto;
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 64px;
+      padding: 0 16px;
     }
 
-    .nav-brand {
+    .nav-list {
       display: flex;
       align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      color: var(--text);
-      font-size: 19px;
-      font-weight: 700;
-      letter-spacing: -0.015em;
+      justify-content: space-between;
+      width: 100%;
+      list-style: none;
     }
 
-    .brand-logo-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
-      background: linear-gradient(135deg, #2997ff, #a259ff);
-      color: #fff;
-      font-size: 14px;
-      font-weight: 800;
-      box-shadow: 0 0 16px rgba(41, 151, 255, 0.4);
-    }
-
-    .hub-badge {
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      padding: 2px 8px;
-      background: rgba(41, 151, 255, 0.12);
-      border: 1px solid rgba(41, 151, 255, 0.3);
-      border-radius: 999px;
-      color: var(--accent);
-    }
-
-    .nav-links {
+    .nav-item a {
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 400;
+      transition: color 0.18s ease;
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 6px;
     }
 
-    .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 500;
-      transition: color 0.15s ease;
+    .nav-item a:hover {
+      color: #ffffff;
     }
 
-    .nav-links a:hover {
-      color: var(--text);
+    /* Stylized Vpple Peach Logo (Apple style silhouette) */
+    .peach-logo {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+      display: inline-block;
+      vertical-align: middle;
     }
 
-    .btn-github {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 14px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid var(--border);
-      color: var(--text) !important;
-      font-size: 13px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-
-    .btn-github:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-
-    /* Hero Section */
-    .hero {
-      padding: 90px 0 60px;
+    /* Top Ribbon Announcement */
+    .ribbon {
+      background: #1d1d1f;
+      padding: 12px 16px;
       text-align: center;
+      font-size: 12px;
+      color: var(--text-gray);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .ribbon a {
+      color: #2997ff;
+      margin-left: 6px;
+    }
+    .ribbon a:hover {
+      text-decoration: underline;
+    }
+
+    /* ----------------------------------------------------------------------
+       2. Apple Hero Section (macOS Tahoe & iOS 26 Liquid Glass)
+       ---------------------------------------------------------------------- */
+    .hero-section {
+      padding: 80px 20px 60px;
+      text-align: center;
+      position: relative;
+      background: radial-gradient(circle 800px at 50% 20%, rgba(0, 113, 227, 0.15) 0%, transparent 70%);
     }
 
     .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      border-radius: 999px;
-      background: rgba(41, 151, 255, 0.08);
-      border: 1px solid rgba(41, 151, 255, 0.25);
-      color: var(--accent);
-      font-size: 13px;
+      font-size: 19px;
       font-weight: 600;
-      letter-spacing: -0.01em;
-      margin-bottom: 24px;
-    }
-
-    .hero-eyebrow .pulse-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--success);
-      box-shadow: 0 0 8px var(--success);
-    }
-
-    .hero-title {
-      font-size: clamp(48px, 7vw, 76px);
-      font-weight: 800;
-      letter-spacing: -0.035em;
-      line-height: 1.06;
-      margin-bottom: 20px;
-      background: linear-gradient(180deg, #ffffff 40%, rgba(255, 255, 255, 0.65) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero-subtitle {
-      font-size: clamp(18px, 2.5vw, 22px);
-      color: var(--text-muted);
-      max-width: 760px;
-      margin: 0 auto 36px;
-      line-height: 1.45;
-      letter-spacing: -0.012em;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      margin-bottom: 50px;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 24px;
-      border-radius: 999px;
-      background: var(--accent);
-      color: #fff;
-      font-size: 15px;
-      font-weight: 600;
-      text-decoration: none;
-      box-shadow: 0 4px 20px rgba(41, 151, 255, 0.35);
-      transition: all 0.2s ease;
-    }
-
-    .btn-primary:hover {
-      background: #1a88f5;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 24px rgba(41, 151, 255, 0.45);
-    }
-
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 22px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-size: 15px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-
-    /* Key Metrics Banner */
-    .metrics-bar {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin-bottom: 70px;
-    }
-
-    .metric-card {
-      background: var(--bg-glass);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 22px;
-      text-align: left;
-    }
-
-    .metric-value {
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
-
-    .metric-label {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.3;
-    }
-
-    /* Section Headers */
-    .section-header {
-      text-align: center;
-      margin-bottom: 48px;
-    }
-
-    .section-tag {
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--accent);
-      margin-bottom: 10px;
-    }
-
-    .section-title {
-      font-size: clamp(28px, 4vw, 42px);
-      font-weight: 700;
-      letter-spacing: -0.025em;
-      margin-bottom: 14px;
-    }
-
-    .section-sub {
-      font-size: 16px;
-      color: var(--text-muted);
-      max-width: 640px;
-      margin: 0 auto;
-    }
-
-    /* Clones Catalog Grid */
-    .clones-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 24px;
-      margin-bottom: 80px;
-    }
-
-    .clone-card {
-      position: relative;
-      background: var(--bg-glass);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 28px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: all 0.25s ease;
-      overflow: hidden;
-    }
-
-    .clone-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(41, 151, 255, 0.4), transparent);
-      opacity: 0;
-      transition: opacity 0.25s ease;
-    }
-
-    .clone-card:hover {
-      border-color: var(--border-hover);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
-    }
-
-    .clone-card:hover::before {
-      opacity: 1;
-    }
-
-    .clone-card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-    }
-
-    .clone-status-badge {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      padding: 4px 10px;
-      border-radius: 999px;
-    }
-
-    .badge-released {
-      background: rgba(48, 209, 88, 0.14);
-      color: var(--success);
-      border: 1px solid rgba(48, 209, 88, 0.3);
-    }
-
-    .badge-dev {
-      background: rgba(255, 214, 10, 0.12);
-      color: var(--warning);
-      border: 1px solid rgba(255, 214, 10, 0.25);
-    }
-
-    .badge-planned {
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--text-dim);
-      border: 1px solid var(--border);
-    }
-
-    .clone-category {
-      font-size: 12px;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    .clone-name {
-      font-size: 22px;
-      font-weight: 700;
+      color: #ff9f0a;
       letter-spacing: -0.015em;
       margin-bottom: 8px;
     }
 
-    .clone-headline {
-      font-size: 14px;
-      color: var(--accent);
-      font-weight: 600;
+    .hero-headline {
+      font-size: clamp(48px, 8vw, 84px);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1.05;
       margin-bottom: 14px;
+      background: linear-gradient(180deg, #ffffff 40%, rgba(255, 255, 255, 0.7) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subhead {
+      font-size: clamp(20px, 3vw, 28px);
+      font-weight: 400;
+      letter-spacing: -0.015em;
+      color: var(--text-gray);
+      max-width: 680px;
+      margin: 0 auto 28px;
       line-height: 1.35;
     }
 
-    .clone-desc {
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.55;
-      margin-bottom: 20px;
-    }
-
-    .clone-spec-tags {
+    .hero-ctas {
       display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 24px;
-    }
-
-    .spec-tag {
-      font-size: 11px;
-      font-family: var(--font-mono);
-      padding: 3px 8px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      color: var(--text-muted);
-    }
-
-    .clone-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: auto;
-    }
-
-    .btn-card-primary {
-      flex: 1;
-      display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .btn-apple-primary {
+      background: var(--apple-blue);
+      color: #ffffff;
+      padding: 11px 22px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      display: inline-flex;
+      align-items: center;
       gap: 6px;
-      padding: 10px 16px;
-      border-radius: 10px;
-      background: var(--accent);
-      color: #fff;
-      font-size: 13px;
-      font-weight: 600;
-      text-decoration: none;
       transition: background 0.15s ease;
     }
 
-    .btn-card-primary:hover {
-      background: #1a88f5;
+    .btn-apple-primary:hover {
+      background: var(--apple-blue-hover);
     }
 
-    .btn-card-secondary {
+    .btn-apple-link {
+      color: #2997ff;
+      font-size: 16px;
+      font-weight: 400;
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      padding: 10px 14px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-size: 13px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.15s ease;
+      gap: 4px;
     }
 
-    .btn-card-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.2);
+    .btn-apple-link:hover {
+      text-decoration: underline;
     }
 
-    /* Manifesto / Clean Room Card */
-    .manifesto-card {
-      background: linear-gradient(135deg, rgba(13, 16, 23, 0.85), rgba(20, 26, 40, 0.85));
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 40px;
-      margin-bottom: 80px;
-      position: relative;
-    }
-
-    .manifesto-grid {
+    /* ----------------------------------------------------------------------
+       3. Apple Bento Grid Promos
+       ---------------------------------------------------------------------- */
+    .bento-container {
+      max-width: 1240px;
+      margin: 0 auto 80px;
+      padding: 0 20px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 32px;
-      margin-top: 24px;
-    }
-
-    .manifesto-col h4 {
-      font-size: 17px;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .manifesto-col p {
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    /* Quick Install Section */
-    .install-box {
-      background: #090c12;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
-      margin-bottom: 80px;
-    }
-
-    .install-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-    }
-
-    .code-terminal {
-      background: #040609;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 10px;
-      padding: 16px 20px;
-      font-family: var(--font-mono);
-      font-size: 13px;
-      color: #79c0ff;
-      overflow-x: auto;
-      line-height: 1.6;
-    }
-
-    .code-terminal code {
-      font-family: inherit;
-    }
-
-    /* Footer */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 40px 0;
-      margin-top: auto;
-      background: rgba(6, 8, 13, 0.95);
-      font-size: 13px;
-      color: var(--text-dim);
-    }
-
-    .footer-inner {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
+      grid-template-columns: repeat(2, 1fr);
       gap: 20px;
     }
 
-    .footer-links {
+    @media (max-width: 820px) {
+      .bento-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .bento-card {
+      background: #101012;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 28px;
+      padding: 48px 36px 36px;
       display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      position: relative;
+      min-height: 480px;
+      text-align: center;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .bento-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+
+    .bento-eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #ff9f0a;
+      margin-bottom: 6px;
+    }
+
+    .bento-title {
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 10px;
+      line-height: 1.1;
+    }
+
+    .bento-desc {
+      font-size: 16px;
+      color: var(--text-gray);
+      max-width: 440px;
+      margin: 0 auto 20px;
+      line-height: 1.4;
+    }
+
+    .bento-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+
+    .bento-preview-stage {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* ----------------------------------------------------------------------
+       4. Real Liquid Glass vs Fake Glassmorphism Optics
+       ---------------------------------------------------------------------- */
+    .optics-section {
+      background: #08080a;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    .optics-container {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .optics-comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 24px;
-    }
-
-    .footer-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.15s ease;
-    }
-
-    .footer-links a:hover {
-      color: var(--text);
+      margin-top: 40px;
+      text-align: left;
     }
 
     @media (max-width: 768px) {
-      .hero-title {
-        font-size: 42px;
-      }
-      .manifesto-card {
-        padding: 24px;
-      }
-      .clones-grid {
+      .optics-comparison-grid {
         grid-template-columns: 1fr;
       }
+    }
+
+    .optics-box {
+      background: #141416;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .optics-box-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .optics-badge-fake {
+      font-size: 11px;
+      font-weight: 700;
+      color: #ff453a;
+      background: rgba(255, 69, 58, 0.12);
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
+
+    .optics-badge-real {
+      font-size: 11px;
+      font-weight: 700;
+      color: #30d158;
+      background: rgba(48, 209, 88, 0.12);
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
+
+    /* ----------------------------------------------------------------------
+       5. Official apple.com Multi-Column Directory Footer
+       ---------------------------------------------------------------------- */
+    .apple-footer {
+      background: #161617;
+      color: var(--text-dim);
+      font-size: 12px;
+      line-height: 1.33337;
+      padding: 34px 0 20px;
+    }
+
+    .footer-inner {
+      max-width: 1024px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .footer-disclaimers {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+      color: var(--text-dim);
+    }
+
+    .footer-disclaimers p {
+      margin-bottom: 8px;
+    }
+
+    .footer-directory {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 24px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    @media (max-width: 768px) {
+      .footer-directory {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .footer-col-title {
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.88);
+      margin-bottom: 10px;
+    }
+
+    .footer-col-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-col-list a:hover {
+      color: var(--text-white);
+      text-decoration: underline;
+    }
+
+    .footer-legal-bar {
+      padding-top: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-legal-links {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .footer-legal-links a:hover {
+      color: var(--text-white);
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <div class="ambient-glow"></div>
 
-  <!-- Navigation -->
-  <nav>
-    <div class="container nav-inner">
-      <a href="./" class="nav-brand">
-        <span class="brand-logo-badge">&#63743;</span>
-        <strong>Vpple</strong>
-        <span class="hub-badge">Apple Clones Hub</span>
-      </a>
-      <div class="nav-links">
-        <a href="#clones">Clones Catalog</a>
-        <a href="./sp-pro-display/" style="color: var(--accent); font-weight: 600;">SP Pro Display &rarr;</a>
-        <a href="./ui-kit/" style="color: #a259ff; font-weight: 600;">UI Kit &rarr;</a>
-        <a href="#principles">Clean-Room</a>
-        <a href="#integration">Integration</a>
-        <a href="https://github.com/jabirking-ux/Vpple" class="btn-github" target="_blank" rel="noopener noreferrer">
-          <svg height="15" width="15" viewBox="0 0 16 16" fill="currentColor">
-            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
-          </svg>
-          GitHub
-        </a>
-      </div>
+  <!-- ======================================================================
+       1. OFFICIAL APPLE.COM 44PX NAVIGATION (WITH PEACH LOGO)
+       ====================================================================== -->
+  <nav class="global-nav" aria-label="Global Navigation">
+    <div class="nav-content">
+      <ul class="nav-list">
+        <!-- Vpple Peach Logo -->
+        <li class="nav-item">
+          <a href="./" title="Vpple Home">
+            <svg class="peach-logo" viewBox="0 0 100 100" fill="currentColor">
+              <!-- Peach Leaf -->
+              <path d="M52 14 C58 4 72 2 82 6 C78 18 68 24 55 23 C52 23 51 18 52 14 Z" fill="#30d158"/>
+              <!-- Peach Body with Iconic Top Cleft & Rounded Cheek Silhouette -->
+              <path d="M50 25 C32 25 14 38 14 62 C14 84 34 98 50 98 C66 98 86 84 86 62 C86 38 68 25 50 25 Z M50 32 C58 40 60 55 55 70 C51 82 42 92 50 96 C34 94 22 78 22 62 C22 44 36 32 50 32 Z"/>
+            </svg>
+            <strong>Vpple</strong>
+          </a>
+        </li>
+
+        <li class="nav-item"><a href="#store">Store</a></li>
+        <li class="nav-item"><a href="./sp-pro-display/">Mac</a></li>
+        <li class="nav-item"><a href="./ui-kit/">iPad</a></li>
+        <li class="nav-item"><a href="./ui-kit/#tab-island">iPhone</a></li>
+        <li class="nav-item"><a href="./ui-kit/">Vision</a></li>
+        <li class="nav-item"><a href="https://jabirking-ux.github.io/apple-notes/" target="_blank" rel="noopener noreferrer" style="color: #ffd60a; font-weight: 600;">Notes</a></li>
+        <li class="nav-item"><a href="#principles">Clean-Room</a></li>
+        <li class="nav-item"><a href="https://github.com/jabirking-ux/Vpple" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+
+        <!-- Search Icon -->
+        <li class="nav-item">
+          <a href="./ui-kit/#spotlight" title="Search">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          </a>
+        </li>
+
+        <!-- Shopping Bag / Clone Hub Icon -->
+        <li class="nav-item">
+          <a href="https://github.com/jabirking-ux/Vpple" target="_blank" rel="noopener noreferrer" title="Repository Bag">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+          </a>
+        </li>
+      </ul>
     </div>
   </nav>
 
-  <main class="container">
-    <!-- Hero Header -->
-    <header class="hero">
-      <div class="hero-eyebrow">
-        <span class="pulse-dot"></span>
-        <span>Open Source Apple Clones Initiative</span>
-      </div>
-      <h1 class="hero-title">Vpple</h1>
-      <p class="hero-subtitle">
-        An independent engineering lab reverse-engineering and cloning Apple ecosystem software, system typefaces, and interaction frameworks under clean-room legal standards and permissive licenses.
-      </p>
-      <div class="hero-actions">
-        <a href="./sp-pro-display/" class="btn-primary">
-          <span>Launch SP Pro Display Specimen</span>
-          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-        </a>
-        <a href="https://github.com/jabirking-ux/Vpple" class="btn-secondary" target="_blank" rel="noopener noreferrer">
-          <span>Explore Repository</span>
-        </a>
-      </div>
-    </header>
+  <!-- Top Ribbon Announcement -->
+  <aside class="ribbon">
+    <span>The Vpple Open Source Initiative &bull; Reverse-engineering Apple ecosystem frameworks under strict clean-room standards.</span>
+    <a href="https://github.com/jabirking-ux/Vpple" target="_blank" rel="noopener noreferrer">Learn more &rsaquo;</a>
+  </aside>
 
-    <!-- Key Metrics Telemetry -->
-    <section class="metrics-bar">
-      <div class="metric-card">
-        <div class="metric-value">0.00px</div>
-        <div class="metric-label">Line-wrap displacement delta vs Apple master binaries.</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-value">18 Styles</div>
-        <div class="metric-label">Full typographic matrix (Ultralight to Black + Italics).</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-value">100%</div>
-        <div class="metric-label">Clean-room synthesized curves under SIL OFL 1.1.</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-value">Universal</div>
-        <div class="metric-label">Native deployment across Windows, Linux, Android &amp; Web.</div>
-      </div>
-    </section>
+  <!-- ======================================================================
+       2. APPLE.COM HERO (LIQUID GLASS & MACOS TAHOE)
+       ====================================================================== -->
+  <header class="hero-section">
+    <div class="hero-eyebrow">macOS Tahoe &bull; iOS 26</div>
+    <h1 class="hero-headline">Liquid Glass. Truly optical.</h1>
+    <p class="hero-subhead">
+      Physical Snell's law refraction. Edge-only chromatic dispersion. Real-time Fresnel caustics. Zero fake glassmorphism.
+    </p>
+    <div class="hero-ctas">
+      <a href="./ui-kit/" class="btn-apple-primary">Experience UI Kit</a>
+      <a href="./sp-pro-display/" class="btn-apple-link">Try SP Pro Display &rsaquo;</a>
+      <a href="https://jabirking-ux.github.io/apple-notes/" target="_blank" rel="noopener noreferrer" class="btn-apple-link" style="color: #ffd60a;">Launch Apple Notes Clone &rsaquo;</a>
+    </div>
 
-    <!-- Clones Catalog Grid -->
-    <section id="clones" style="margin-bottom: 90px;">
-      <div class="section-header">
-        <div class="section-tag">Clones Catalog</div>
-        <h2 class="section-title">Active &amp; Upcoming Clones</h2>
-        <p class="section-sub">
-          Every Vpple clone is clean-room engineered from mathematical specifications, delivering exact 1:1 behavioral and visual equivalence.
+    <!-- Live Floating Liquid Glass Preview Card -->
+    <div style="max-width: 780px; margin: 0 auto; position: relative;">
+      <div class="vui-liquid-glass" style="padding: 36px; text-align: center;">
+        <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #2997ff; margin-bottom: 8px;">Real-Time Ray Optics</div>
+        <div style="font-size: 24px; font-weight: 700; margin-bottom: 8px;">Volumetric Liquid Glass Material</div>
+        <div style="font-size: 14px; color: var(--text-gray); max-width: 520px; margin: 0 auto 20px;">
+          Moves with your pointer. Light bends through the surface normal, splitting into subpixel cyan and magenta prismatic edges.
+        </div>
+        <div style="display: flex; justify-content: center; gap: 12px;">
+          <a href="./ui-kit/" class="vui-btn vui-btn-liquid" style="color: #fff; text-decoration: none;">Launch Simulator</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================================================================
+       3. BENTO GRID: CLONES CATALOG
+       ====================================================================== -->
+  <main class="bento-container" id="store">
+
+    <!-- Card 1: SP Pro Display -->
+    <article class="bento-card">
+      <div>
+        <div class="bento-eyebrow">Flagship Typeface</div>
+        <h2 class="bento-title">SP Pro Display</h2>
+        <p class="bento-desc">
+          1:1 metric-identical clean-room clone of Apple SF Pro Display. Full 18-weight typographic system with 0.00px line-wrap displacement.
         </p>
-      </div>
-
-      <div class="clones-grid">
-        <!-- 1. SP Pro Display -->
-        <article class="clone-card" style="border-color: rgba(41, 151, 255, 0.35);">
-          <div>
-            <div class="clone-card-header">
-              <span class="clone-status-badge badge-released">🟢 Released (v1.0.0)</span>
-              <span class="clone-category">Typography / Display</span>
-            </div>
-            <h3 class="clone-name">SP Pro Display</h3>
-            <div class="clone-headline">1:1 Metric-Compatible Drop-In for Apple SF Pro Display</div>
-            <p class="clone-desc">
-              Full 18-weight typographic system. Normalized to 2048 UPM with exact cap height (1443), typo ascender (1950), and descender (-494). Features footless digit 1, authentic rounded punctuation, and scaled GPOS pair kerning.
-            </p>
-            <div class="clone-spec-tags">
-              <span class="spec-tag">18 Weights</span>
-              <span class="spec-tag">0px Delta</span>
-              <span class="spec-tag">WOFF2 / TTF</span>
-              <span class="spec-tag">SIL OFL 1.1</span>
-            </div>
-          </div>
-          <div class="clone-actions">
-            <a href="./sp-pro-display/" class="btn-card-primary">
-              <span>Interactive Type Tester</span>
-              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-            </a>
-            <a href="https://github.com/jabirking-ux/Vpple/archive/refs/heads/main.zip" class="btn-card-secondary" title="Download ZIP">.ZIP</a>
-          </div>
-        </article>
-
-        <!-- 2. SP Pro Text -->
-        <article class="clone-card">
-          <div>
-            <div class="clone-card-header">
-              <span class="clone-status-badge badge-dev">🟡 In Development</span>
-              <span class="clone-category">Typography / Body Text</span>
-            </div>
-            <h3 class="clone-name">SP Pro Text</h3>
-            <div class="clone-headline">Optical Sizing Variant for Small Body Copy (&lt;20pt)</div>
-            <p class="clone-desc">
-              Engineered with wider character counters, increased aperture breathing room, and looser natural tracking curve for legibility in dense paragraphs, UI data grids, and small caption overlays.
-            </p>
-            <div class="clone-spec-tags">
-              <span class="spec-tag">Optical Master</span>
-              <span class="spec-tag">Sub-20pt Tuned</span>
-              <span class="spec-tag">SIL OFL 1.1</span>
-            </div>
-          </div>
-          <div class="clone-actions">
-            <span class="btn-card-secondary" style="flex: 1; opacity: 0.6; cursor: default;">Targeting Q1 2027</span>
-          </div>
-        </article>
-
-        <!-- 3. SP Mono -->
-        <article class="clone-card">
-          <div>
-            <div class="clone-card-header">
-              <span class="clone-status-badge badge-dev">🟡 In Development</span>
-              <span class="clone-category">Code / Monospace</span>
-            </div>
-            <h3 class="clone-name">SP Mono</h3>
-            <div class="clone-headline">Developer Typeface Clone of Apple SF Mono</div>
-            <p class="clone-desc">
-              Fixed-width monospace typography matching Apple SF Mono character geometry. Designed specifically for IDE editors, terminal emulators, and code diffing with high-contrast punctuation.
-            </p>
-            <div class="clone-spec-tags">
-              <span class="spec-tag">Fixed Advance</span>
-              <span class="spec-tag">Terminal Stack</span>
-              <span class="spec-tag">SIL OFL 1.1</span>
-            </div>
-          </div>
-          <div class="clone-actions">
-            <span class="btn-card-secondary" style="flex: 1; opacity: 0.6; cursor: default;">Targeting Q2 2027</span>
-          </div>
-        </article>
-
-        <!-- 4. SP Compact -->
-        <article class="clone-card">
-          <div>
-            <div class="clone-card-header">
-              <span class="clone-status-badge badge-planned">⚪ Planned</span>
-              <span class="clone-category">Embedded / Smartwatch</span>
-            </div>
-            <h3 class="clone-name">SP Compact</h3>
-            <div class="clone-headline">High-Density Clone of Apple SF Compact</div>
-            <p class="clone-desc">
-              Flat-sided round glyph curves designed to maximize horizontal packing and line density on small wearable screens, smart home dashboards, and micro-display panels.
-            </p>
-            <div class="clone-spec-tags">
-              <span class="spec-tag">High Density</span>
-              <span class="spec-tag">Wearable UI</span>
-              <span class="spec-tag">SIL OFL 1.1</span>
-            </div>
-          </div>
-          <div class="clone-actions">
-            <span class="btn-card-secondary" style="flex: 1; opacity: 0.6; cursor: default;">Planned 2027</span>
-          </div>
-        </article>
-
-        <!-- 5. Vpple UI Kit -->
-        <article class="clone-card" style="border-color: rgba(162, 89, 255, 0.35);">
-          <div>
-            <div class="clone-card-header">
-              <span class="clone-status-badge badge-released">🟢 Released (v1.0.0)</span>
-              <span class="clone-category">Web Components / CSS</span>
-            </div>
-            <h3 class="clone-name">Vpple UI Kit</h3>
-            <div class="clone-headline">macOS Tahoe &amp; iOS 26 Volumetric Liquid Glass Design System</div>
-            <p class="clone-desc">
-              1:1 clean-room reverse-engineered clone of Apple's macOS Tahoe and iOS 26 design systems. Features real volumetric liquid glass with dynamic pointer Fresnel caustics, chromatic prism dispersion, iOS 26 Liquid Dynamic Island, and native window chrome.
-            </p>
-            <div class="clone-spec-tags">
-              <span class="spec-tag">macOS Tahoe</span>
-              <span class="spec-tag">iOS 26</span>
-              <span class="spec-tag">Real Liquid Glass</span>
-              <span class="spec-tag">MIT License</span>
-            </div>
-          </div>
-          <div class="clone-actions">
-            <a href="./ui-kit/" class="btn-card-primary" style="background: linear-gradient(135deg, #a259ff, #007aff);">
-              <span>Interactive UI Kit Playground</span>
-              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-            </a>
-            <a href="packages/ui-kit/" class="btn-card-secondary" title="View Package">NPM</a>
-          </div>
-        </article>
-
-        <!-- 6. Vpple Symbols -->
-        <article class="clone-card">
-          <div>
-            <div class="clone-card-header">
-              <span class="clone-status-badge badge-planned">⚪ Planned</span>
-              <span class="clone-category">Vector Iconography</span>
-            </div>
-            <h3 class="clone-name">Vpple Symbols</h3>
-            <div class="clone-headline">Permissive Vector Icon Set with SF Symbols Semantics</div>
-            <p class="clone-desc">
-              Open-source vector iconography matching Apple SF Symbols naming conventions and weight optical scaling. Allows web apps and multi-platform apps to use standard Apple symbol names without legal risk.
-            </p>
-            <div class="clone-spec-tags">
-              <span class="spec-tag">SVG / Variable Font</span>
-              <span class="spec-tag">SF Nomenclature</span>
-              <span class="spec-tag">MIT License</span>
-            </div>
-          </div>
-          <div class="clone-actions">
-            <span class="btn-card-secondary" style="flex: 1; opacity: 0.6; cursor: default;">Planning</span>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- Manifesto / Clean-Room Principles -->
-    <section id="principles" class="manifesto-card">
-      <div class="section-tag">// Engineering Manifesto</div>
-      <h3 style="font-size: 26px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px;">
-        Clean-Room Legal &amp; Architectural Standards
-      </h3>
-      <p style="color: var(--text-muted); font-size: 15px; line-height: 1.6; max-width: 820px;">
-        Vpple operates under strict clean-room reverse-engineering methodologies. We do not extract, decompile, or redistribute proprietary Apple Inc. binaries. Every glyph curve, tracking constant, and layout metric is independently measured and rebuilt on permissively licensed open foundations.
-      </p>
-
-      <div class="manifesto-grid">
-        <div class="manifesto-col">
-          <h4>
-            <svg width="18" height="18" fill="none" stroke="#2997ff" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            Zero Binary Extraction
-          </h4>
-          <p>
-            Source outline curves originate from permissively licensed open typefaces (Inter Display by Rasmus Andersson, SIL OFL 1.1). No proprietary glyph outlines or Apple TrueType instructions are bundled.
-          </p>
-        </div>
-
-        <div class="manifesto-col">
-          <h4>
-            <svg width="18" height="18" fill="none" stroke="#2997ff" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-            Zero Line-Wrap Delta
-          </h4>
-          <p>
-            Mathematical normalization aligns every advance width and vertical metric to the 2048 UPM master grid. Swapping SF Pro for SP Pro Display yields 0.00px line displacement across any layout container.
-          </p>
-        </div>
-
-        <div class="manifesto-col">
-          <h4>
-            <svg width="18" height="18" fill="none" stroke="#2997ff" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-            Royalty-Free Freedom
-          </h4>
-          <p>
-            Typefaces are released under the SIL Open Font License 1.1; software and UI tokens are licensed under MIT. You are free to bundle, embed, modify, and distribute in commercial software without royalties.
-          </p>
+        <div class="bento-actions">
+          <a href="./sp-pro-display/" class="btn-apple-primary">Interactive Specimen</a>
+          <a href="https://github.com/jabirking-ux/Vpple/releases" class="btn-apple-link">Download .OTF / .WOFF2 &rsaquo;</a>
         </div>
       </div>
-    </section>
-
-    <!-- Quick Integration & NPM -->
-    <section id="integration" class="install-box">
-      <div class="install-header">
-        <div>
-          <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">Quick Integration</h3>
-          <p style="font-size: 13px; color: var(--text-muted);">Install SP Pro Display into your web, desktop, or mobile project in seconds.</p>
+      <div class="bento-preview-stage">
+        <div style="font-size: 64px; font-weight: 800; letter-spacing: -0.04em; background: linear-gradient(135deg, #fff, #86868b); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+          Aa 0123
         </div>
-        <a href="./sp-pro-display/" style="color: var(--accent); font-size: 13px; font-weight: 600; text-decoration: none;">Launch Font Tester &rarr;</a>
       </div>
+    </article>
 
-      <div class="code-terminal">
-<code><span style="color: #8b949e;"># 1. Install via NPM (Font + Liquid Glass UI Kit)</span>
-npm install @vpple/sp-pro-display @vpple/ui-kit
-
-<span style="color: #8b949e;"># 2. Or import via CSS CDN in your stylesheet</span>
-@import "https://jabirking-ux.github.io/Vpple/css/sp-pro-display.css";
-@import "https://jabirking-ux.github.io/Vpple/css/vpple-ui.css";
-
-<span style="color: #8b949e;"># 3. Apply Apple Display Typography &amp; Liquid Glass</span>
-body {
-  font-family: "SP Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}</code>
+    <!-- Card 2: Apple Notes 1:1 MAX Clone -->
+    <article class="bento-card" style="background: radial-gradient(circle at 80% 20%, rgba(255, 214, 10, 0.12) 0%, #101012 70%);">
+      <div>
+        <div class="bento-eyebrow" style="color: #ffd60a;">Reverse Engineered App</div>
+        <h2 class="bento-title">Vpple Notes</h2>
+        <p class="bento-desc">
+          1:1 reverse-engineered MAX clone of Apple Notes. Three-column layout, rich checklist checkboxes, formatting toolbar, and instant offline autosave.
+        </p>
+        <div class="bento-actions">
+          <a href="https://jabirking-ux.github.io/apple-notes/" target="_blank" rel="noopener noreferrer" class="btn-apple-primary" style="background: #e5a00d; color: #000; font-weight: 600;">Launch Notes App</a>
+          <a href="https://github.com/jabirking-ux/apple-notes" target="_blank" rel="noopener noreferrer" class="btn-apple-link" style="color: #ffd60a;">GitHub Source &rsaquo;</a>
+        </div>
       </div>
-    </section>
+      <div class="bento-preview-stage">
+        <div style="width: 280px; background: rgba(30, 30, 32, 0.9); border: 1px solid rgba(255, 214, 10, 0.3); border-radius: 14px; padding: 16px; text-align: left; box-shadow: 0 16px 36px rgba(0,0,0,0.6);">
+          <div style="font-size: 14px; font-weight: 700; color: #ffd60a; margin-bottom: 4px;">Meeting Notes &bull; macOS Tahoe</div>
+          <div style="font-size: 11px; color: #86868b; margin-bottom: 10px;">Today at 9:41 AM</div>
+          <div style="font-size: 12px; color: #f5f5f7; line-height: 1.4;">
+            &bull; Clean-room Apple Notes reverse engineering<br>
+            &bull; SP Pro Display font rendering<br>
+            &bull; Real-time LocalStorage persistence
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Card 3: Vpple UI Kit -->
+    <article class="bento-card">
+      <div>
+        <div class="bento-eyebrow">Design System</div>
+        <h2 class="bento-title">Vpple UI Kit</h2>
+        <p class="bento-desc">
+          macOS Tahoe &amp; iOS 26 component library. Traffic lights, parabolic dock physics, Control Center widgets, and segmented controls.
+        </p>
+        <div class="bento-actions">
+          <a href="./ui-kit/" class="btn-apple-primary">Component Suite</a>
+          <a href="https://github.com/jabirking-ux/Vpple/tree/main/packages/ui-kit" class="btn-apple-link">NPM Package &rsaquo;</a>
+        </div>
+      </div>
+      <div class="bento-preview-stage">
+        <div class="vui-traffic-lights" style="padding: 12px 20px; background: rgba(255,255,255,0.06); border-radius: 999px;">
+          <button class="vui-traffic-btn vui-traffic-close"></button>
+          <button class="vui-traffic-btn vui-traffic-min"></button>
+          <button class="vui-traffic-btn vui-traffic-max"></button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Card 4: iOS 26 Dynamic Island -->
+    <article class="bento-card">
+      <div>
+        <div class="bento-eyebrow" style="color: #30d158;">Hardware Simulation</div>
+        <h2 class="bento-title">Dynamic Island</h2>
+        <p class="bento-desc">
+          Viscous fluid mercury physics. Expand and collapse live background activities, Now Playing audio equalizers, and timers.
+        </p>
+        <div class="bento-actions">
+          <a href="./ui-kit/#tab-island" class="btn-apple-primary">Try Dynamic Island</a>
+          <a href="./ui-kit/" class="btn-apple-link">View Documentation &rsaquo;</a>
+        </div>
+      </div>
+      <div class="bento-preview-stage">
+        <div class="vui-dynamic-island vui-liquid-island">
+          <div class="vui-island-compact-content">
+            <div class="vui-island-left">
+              <div class="vui-island-icon" style="background: #fa233b;">&#9835;</div>
+              <span>Starboy</span>
+            </div>
+            <div class="vui-island-right">
+              <div class="vui-island-wave"><span></span><span></span><span></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
   </main>
 
-  <!-- Footer -->
-  <footer>
-    <div class="container footer-inner">
-      <div>
-        <strong>Vpple</strong> &bull; Open Source Apple Clones &amp; System Replicas &bull; <a href="LICENSE" style="color: var(--text); text-decoration: underline;">SIL OFL 1.1 / MIT</a>
+  <!-- ======================================================================
+       4. REAL LIQUID GLASS VS FAKE GLASSMORPHISM OPTICS
+       ====================================================================== -->
+  <section class="optics-section" id="optics">
+    <div class="optics-container">
+      <div class="hero-eyebrow">Optical Physics Breakdown</div>
+      <h2 style="font-size: 38px; font-weight: 700; margin-bottom: 12px;">Real Liquid Glass vs. Fake Glassmorphism</h2>
+      <p style="font-size: 16px; color: var(--text-gray); max-width: 680px; margin: 0 auto;">
+        Traditional web glassmorphism is just a flat grey box with a blur filter. Apple’s macOS Tahoe &amp; iOS 26 Liquid Glass treats UI as an active physical optical medium.
+      </p>
+
+      <div class="optics-comparison-grid">
+        <!-- Fake Glassmorphism -->
+        <div class="optics-box">
+          <div class="optics-box-header">
+            <h3 style="font-size: 18px; font-weight: 700;">Fake Glassmorphism</h3>
+            <span class="optics-badge-fake">2020 Web Trend</span>
+          </div>
+          <div style="background: rgba(255,255,255,0.08); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.18); border-radius: 14px; padding: 24px; text-align: center; color: var(--text-gray);">
+            Flat semi-transparent rectangle. No refraction, no edge dispersion, no caustics, static light angle.
+          </div>
+          <ul style="font-size: 13px; color: var(--text-gray); display: flex; flex-direction: column; gap: 8px; list-style: square; padding-left: 18px;">
+            <li>Zero background light distortion (pixels are just blurred)</li>
+            <li>Harsh 1px solid white border lines with digital pinching</li>
+            <li>Ignores pointer position and physical surface normals</li>
+            <li>No chromatic wavelength separation at corners</li>
+          </ul>
+        </div>
+
+        <!-- Real Liquid Glass -->
+        <div class="optics-box" style="border-color: rgba(48, 209, 88, 0.35);">
+          <div class="optics-box-header">
+            <h3 style="font-size: 18px; font-weight: 700;">Real Liquid Glass</h3>
+            <span class="optics-badge-real">macOS Tahoe &bull; iOS 26</span>
+          </div>
+          <div class="vui-liquid-glass" style="padding: 24px; text-align: center;">
+            Physical ray optics: Snell's Law ($n \approx 1.52$), edge-only chromatic aberration, and dynamic Fresnel highlights.
+          </div>
+          <ul style="font-size: 13px; color: var(--text-gray); display: flex; flex-direction: column; gap: 8px; list-style: square; padding-left: 18px;">
+            <li><strong>Snell's Law Refraction:</strong> Background elements bend organically beneath convex bevels</li>
+            <li><strong>Edge-Only Chromatic Aberration:</strong> Prismatic cyan/magenta color split concentrated at the rim</li>
+            <li><strong>Dynamic Specular Meniscus:</strong> Glare shifts with pointer angle and device coordinates</li>
+            <li><strong>Mathematical Squircles:</strong> Continuous $n=4$ superellipse curves prevent digital pinching</li>
+          </ul>
+        </div>
       </div>
-      <div class="footer-links">
-        <a href="./sp-pro-display/">SP Pro Display</a>
-        <a href="./ui-kit/">UI Kit</a>
-        <a href="https://github.com/jabirking-ux/Vpple" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://jabirking-ux.github.io" target="_blank" rel="noopener noreferrer">Jabir King Portfolio</a>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       5. OFFICIAL APPLE.COM MULTI-COLUMN SITE DIRECTORY FOOTER
+       ====================================================================== -->
+  <footer class="apple-footer">
+    <div class="footer-inner">
+      <div class="footer-disclaimers">
+        <p>* 1. SP Pro Display advance width line-wrap delta verified against official macOS reference binaries at 2048 UPM with 0.00px deviation.</p>
+        <p>* 2. Vpple is an independent clean-room engineering research initiative. Typefaces released under SIL OFL 1.1; software and UI tokens released under MIT.</p>
+        <p>* 3. Vpple Notes is an independent 1:1 reverse-engineered clone of Apple Notes, crediting upstream work by LubaKaper/iCloud-Notes-Clone.</p>
+      </div>
+
+      <nav class="footer-directory" aria-label="Vpple Directory">
+        <!-- Col 1 -->
+        <div>
+          <h4 class="footer-col-title">Shop &amp; Learn</h4>
+          <ul class="footer-col-list">
+            <li><a href="./sp-pro-display/">SP Pro Display</a></li>
+            <li><a href="./ui-kit/">Vpple UI Kit</a></li>
+            <li><a href="https://jabirking-ux.github.io/apple-notes/">Vpple Notes Clone</a></li>
+            <li><a href="./ui-kit/#tab-island">iOS 26 Dynamic Island</a></li>
+            <li><a href="./ui-kit/">macOS Tahoe Chrome</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 2 -->
+        <div>
+          <h4 class="footer-col-title">Account &amp; Source</h4>
+          <ul class="footer-col-list">
+            <li><a href="https://github.com/jabirking-ux/Vpple">Vpple GitHub Repo</a></li>
+            <li><a href="https://github.com/jabirking-ux/apple-notes">Apple Notes Repo</a></li>
+            <li><a href="https://github.com/jabirking-ux/Vpple/releases">Releases &amp; Downloads</a></li>
+            <li><a href="https://www.npmjs.com/package/@vpple/sp-pro-display">NPM Packages</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3 -->
+        <div>
+          <h4 class="footer-col-title">Entertainment &amp; Labs</h4>
+          <ul class="footer-col-list">
+            <li><a href="./ui-kit/#optics">Real Liquid Glass Optics</a></li>
+            <li><a href="./sp-pro-display/#forensics">Forensic Type Analysis</a></li>
+            <li><a href="https://github.com/jabirking-ux/TahoeBoot">TahoeBoot Appliance</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4 -->
+        <div>
+          <h4 class="footer-col-title">Vpple Values</h4>
+          <ul class="footer-col-list">
+            <li><a href="LICENSE">Clean-Room Standard</a></li>
+            <li><a href="LICENSE">SIL Open Font License</a></li>
+            <li><a href="LICENSE">MIT Open Source Freedom</a></li>
+            <li><a href="https://jabirking-ux.github.io">Security &amp; Privacy</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 5 -->
+        <div>
+          <h4 class="footer-col-title">About Vpple</h4>
+          <ul class="footer-col-list">
+            <li><a href="./">Vpple Hub</a></li>
+            <li><a href="https://jabirking-ux.github.io">Jabir King Portfolio</a></li>
+            <li><a href="https://github.com/jabirking-ux">GitHub Profile</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="footer-legal-bar">
+        <div>Copyright &copy; 2026 Vpple Inc. All rights reserved.</div>
+        <div class="footer-legal-links">
+          <a href="LICENSE">Privacy Policy</a>
+          <a href="LICENSE">Terms of Use</a>
+          <a href="LICENSE">Clean-Room Principles</a>
+          <a href="LICENSE">Legal Notices</a>
+          <a href="./">Site Map</a>
+        </div>
+        <div style="color: rgba(255, 255, 255, 0.8);">United States (English)</div>
       </div>
     </div>
   </footer>
 
-  <script>
-    // Smooth dynamic caustics and light tracking
-    window.addEventListener('mousemove', (e) => {
-      document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
-      document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
-    });
-  </script>
+  <script src="js/vpple-ui.js"></script>
 </body>
 </html>
